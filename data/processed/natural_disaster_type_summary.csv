@@ -1,0 +1,16 @@
+﻿Disaster Group,Disaster Type,Unique Events,Total Deaths,Total Deaths Events with Reported Values,No. Injured,No. Injured Events with Reported Values,No. Affected,No. Affected Events with Reported Values,No. Homeless,No. Homeless Events with Reported Values,Total Affected,Total Affected Events with Reported Values,"Total Damage, Adjusted ('000 US$)","Total Damage, Adjusted ('000 US$) Events with Reported Values","Total Damage, Adjusted (million US$)","Total Damage, Adjusted (million US$) Events with Reported Values",Magnitude,Magnitude Events with Reported Values
+Natural,Animal incident,1,12,1,,0,5,1,,0,5,1,,0,,0,,0
+Natural,Drought,647,11734353,67,32,1,3028710766,477,20000,1,3028730798,477,456883972,205,456883.972,205,2919218,47
+Natural,Earthquake,1573,2440922,1190,2982082,1087,226164675,880,25711622,482,254858379,1325,1803517195,626,1803517.195,626,10004.62,1488
+Natural,Epidemic,1447,9629942,1243,3530472,188,47333615,1083,,0,50864087,1257,61,1,0.061,1,27038779,24
+Natural,Extreme temperature,433,397964,364,2149675,98,139011492,105,255587,4,141416754,181,143465781,60,143465.781,60,5607.2,237
+Natural,Flood,5814,7030614,4343,1396518,1109,4015220545,4524,94818389,973,4111435452,5103,1906588840,1927,1906588.84,1927,160760276.64999998,1785
+Natural,Fog,1,4000,1,,0,,0,,0,,0,,0,,0,,0
+Natural,Glacial lake outburst flood,7,478,6,59,2,94085,3,,0,94144,4,749504,2,749.504,2,,0
+Natural,Impact,1,,0,1491,1,300000,1,,0,301491,1,45605,1,45.605,1,,0
+Natural,Infestation,78,,0,,0,3202200,5,,0,3202200,5,454451,4,454.451,4,,0
+Natural,Mass movement (dry),47,4563,45,383,12,18398,10,4356,5,23137,20,2142437,3,2142.437,3,,0
+Natural,Mass movement (wet),867,71714,830,12950,291,14018224,277,4265517,141,18296691,507,23776071,91,23776.071,91,,0
+Natural,Storm,4026,1435952,3219,2118820,1571,1364812241,2144,59050968,790,1425982029,2891,3494871819,2096,3494871.819,2096,312412.2,1366
+Natural,Volcanic activity,277,86945,96,26641,44,10353305,215,384079,30,10764025,232,15732127,46,15732.127,46,,0
+Natural,Wildfire,508,5256,250,19793,155,18741271,240,275841,149,19036905,362,272305311,189,272305.311,189,2676148.4,182
