@@ -1,0 +1,426 @@
+{
+  "name": "When_Nature_Strikes",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "sourceQueryCulture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"MapCountries\", \"FactImpacts\", \"DimEvent\", \"ImpactMetric\", \"ImpactSummary\", \"MapMetric\"]"
+      }
+    ],
+    "tables": [
+      {
+        "name": "FactImpacts",
+        "columns": [
+          {
+            "name": "Event ID",
+            "dataType": "string",
+            "sourceColumn": "Event ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ISO",
+            "dataType": "string",
+            "sourceColumn": "ISO",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Total Deaths",
+            "dataType": "int64",
+            "sourceColumn": "Total Deaths",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Total Affected",
+            "dataType": "int64",
+            "sourceColumn": "Total Affected",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Total Damage, Adjusted (million US$)",
+            "dataType": "double",
+            "sourceColumn": "Total Damage, Adjusted (million US$)",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Map ISO",
+            "dataType": "string",
+            "sourceColumn": "Map ISO",
+            "summarizeBy": "none",
+            "dataCategory": "Country"
+          },
+          {
+            "name": "Map coverage",
+            "dataType": "string",
+            "sourceColumn": "Map coverage",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactImpacts",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(Text.ToBinary(\"Event ID,ISO,Country,Region,Total Deaths,Total Affected,\"\"Total Damage, Adjusted (million US$)\"\"#(lf)SYN-001,IND,India,Asia,2,1200,12#(lf)SYN-001,BGD,Bangladesh,Asia,,800,5#(lf)SYN-002,BGD,Bangladesh,Asia,1,550,7#(lf)SYN-003,PHL,Philippines,Asia,0,300,#(lf)SYN-004,USA,United States,Americas,11,120,700#(lf)SYN-005,JPN,Japan,Asia,22,680,650#(lf)SYN-006,IDN,Indonesia,Asia,250,80,280#(lf)SYN-007,IND,India,Asia,,900,14#(lf)SYN-008,AUS,Australia,Oceania,0,140,80#(lf)SYN-009,IND,India,Asia,3,,1#(lf)SYN-010,USA,United States,Americas,7,120,5#(lf)SYN-011,ZZZ,Illustrative unmatched territory,Unmatched,0,55,#(lf)SYN-012,KOR,South Korea,Asia,1,80,8#(lf)\"),",
+                "        [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Selected = Table.SelectColumns(Headers, {\"Event ID\", \"ISO\", \"Country\", \"Region\", \"Total Deaths\",",
+                "        \"Total Affected\", \"Total Damage, Adjusted (million US$)\"}),",
+                "    Blanks = Table.ReplaceValue(Selected, \"\", null, Replacer.ReplaceValue,",
+                "        {\"Total Deaths\", \"Total Affected\", \"Total Damage, Adjusted (million US$)\"}),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"Event ID\", type text}, {\"ISO\", type text},",
+                "        {\"Country\", type text}, {\"Region\", type text}, {\"Total Deaths\", Int64.Type},",
+                "        {\"Total Affected\", Int64.Type}, {\"Total Damage, Adjusted (million US$)\", type number}}, \"en-US\"),",
+                "    MapIso = Table.AddColumn(Typed, \"Map ISO\", each if [ISO] <> null and List.Contains(MapCountries, [ISO])",
+                "        then [ISO] else null, type text),",
+                "    Coverage = Table.AddColumn(MapIso, \"Map coverage\", each if [Map ISO] = null then \"Unmatched\" else \"Mapped\", type text)",
+                "in",
+                "    Coverage"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Distinct events",
+            "expression": "DISTINCTCOUNT(FactImpacts[Event ID])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Country impact records",
+            "expression": "COUNTROWS(FactImpacts)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Deaths",
+            "expression": "SUM(FactImpacts[Total Deaths])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Deaths reporting records",
+            "expression": "COUNT(FactImpacts[Total Deaths])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Deaths record coverage",
+            "expression": "DIVIDE([Deaths reporting records], [Country impact records])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Deaths reporting events",
+            "expression": "COUNTROWS(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Deaths])))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Deaths event coverage",
+            "expression": "DIVIDE([Deaths reporting events], [Distinct events])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Deaths per reporting event",
+            "expression": "DIVIDE([Deaths], [Deaths reporting events])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Deaths median per reporting event",
+            "expression": "MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Deaths])), [Deaths])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Affected",
+            "expression": "SUM(FactImpacts[Total Affected])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Affected reporting records",
+            "expression": "COUNT(FactImpacts[Total Affected])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Affected record coverage",
+            "expression": "DIVIDE([Affected reporting records], [Country impact records])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Affected reporting events",
+            "expression": "COUNTROWS(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Affected])))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Affected event coverage",
+            "expression": "DIVIDE([Affected reporting events], [Distinct events])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Affected per reporting event",
+            "expression": "DIVIDE([Affected], [Affected reporting events])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Affected median per reporting event",
+            "expression": "MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Affected])), [Affected])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Adjusted damage USD million",
+            "expression": "SUM(FactImpacts[Total Damage, Adjusted (million US$)])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Adjusted damage USD million reporting records",
+            "expression": "COUNT(FactImpacts[Total Damage, Adjusted (million US$)])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Adjusted damage USD million record coverage",
+            "expression": "DIVIDE([Adjusted damage USD million reporting records], [Country impact records])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Adjusted damage USD million reporting events",
+            "expression": "COUNTROWS(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Adjusted damage USD million])))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Adjusted damage USD million event coverage",
+            "expression": "DIVIDE([Adjusted damage USD million reporting events], [Distinct events])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Adjusted damage USD million per reporting event",
+            "expression": "DIVIDE([Adjusted damage USD million], [Adjusted damage USD million reporting events])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Adjusted damage USD million median per reporting event",
+            "expression": "MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Adjusted damage USD million])), [Adjusted damage USD million])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected impact",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactMetric[Metric], \"Reported deaths\"), \"Reported affected\", [Affected], \"Adjusted damage (USD m)\", [Adjusted damage USD million], [Deaths])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected impact coverage",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactMetric[Metric], \"Reported deaths\"), \"Reported affected\", [Affected event coverage], \"Adjusted damage (USD m)\", [Adjusted damage USD million event coverage], [Deaths event coverage])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Selected impact reporting events",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactMetric[Metric], \"Reported deaths\"), \"Reported affected\", [Affected reporting events], \"Adjusted damage (USD m)\", [Adjusted damage USD million reporting events], [Deaths reporting events])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected impact reporting records",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactMetric[Metric], \"Reported deaths\"), \"Reported affected\", [Affected reporting records], \"Adjusted damage (USD m)\", [Adjusted damage USD million reporting records], [Deaths reporting records])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected impact record coverage",
+            "expression": "DIVIDE([Selected impact reporting records], [Country impact records])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Selected impact mean",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactMetric[Metric], \"Reported deaths\"), \"Reported affected\", [Affected per reporting event], \"Adjusted damage (USD m)\", [Adjusted damage USD million per reporting event], [Deaths per reporting event])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected impact median",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactMetric[Metric], \"Reported deaths\"), \"Reported affected\", [Affected median per reporting event], \"Adjusted damage (USD m)\", [Adjusted damage USD million median per reporting event], [Deaths median per reporting event])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected impact summary",
+            "expression": "SWITCH(SELECTEDVALUE(ImpactSummary[Statistic], \"Total\"), \"Mean\", [Selected impact mean], \"Median\", [Selected impact median], [Selected impact])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Selected map value",
+            "expression": "SWITCH(SELECTEDVALUE(MapMetric[Metric], \"Distinct events\"), \"Reported deaths\", [Deaths], \"Reported affected\", [Affected], \"Adjusted damage (USD m)\", [Adjusted damage USD million], [Distinct events])",
+            "formatString": "#,0.##"
+          },
+          {
+            "name": "Mapped records",
+            "expression": "CALCULATE([Country impact records], KEEPFILTERS(FactImpacts[Map coverage] = \"Mapped\"))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Mapped record coverage",
+            "expression": "DIVIDE([Mapped records], [Country impact records])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Unmatched records",
+            "expression": "CALCULATE([Country impact records], KEEPFILTERS(FactImpacts[Map coverage] = \"Unmatched\"))",
+            "formatString": "#,0"
+          }
+        ]
+      },
+      {
+        "name": "DimEvent",
+        "columns": [
+          {
+            "name": "Event ID",
+            "dataType": "string",
+            "sourceColumn": "Event ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Disaster Type",
+            "dataType": "string",
+            "sourceColumn": "Disaster Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Start Year",
+            "dataType": "int64",
+            "sourceColumn": "Start Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Decade",
+            "dataType": "int64",
+            "sourceColumn": "Decade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reporting era",
+            "dataType": "string",
+            "sourceColumn": "Reporting era",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimEvent",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(Text.ToBinary(\"Event ID,Disaster Type,Start Year,Decade#(lf)SYN-001,Flood,1997,1990#(lf)SYN-002,Flood,2000,2000#(lf)SYN-003,Flood,2000,2000#(lf)SYN-004,Storm,2007,2000#(lf)SYN-005,Storm,2012,2010#(lf)SYN-006,Earthquake,2019,2010#(lf)SYN-007,Drought,2021,2020#(lf)SYN-008,Wildfire,2022,2020#(lf)SYN-009,Flood,2023,2020#(lf)SYN-010,Extreme temperature,2024,2020#(lf)SYN-011,Flood,2024,2020#(lf)SYN-012,Flood,2026,2020#(lf)\"),",
+                "        [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Selected = Table.SelectColumns(Headers, {\"Event ID\", \"Disaster Type\", \"Start Year\", \"Decade\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Event ID\", type text}, {\"Disaster Type\", type text},",
+                "        {\"Start Year\", Int64.Type}, {\"Decade\", Int64.Type}}, \"en-US\"),",
+                "    Era = Table.AddColumn(Typed, \"Reporting era\", each if [Start Year] < 2000 then \"1900–1999\"",
+                "        else if [Start Year] <= 2025 then \"2000–2025\" else \"2026 partial\", type text)",
+                "in",
+                "    Era"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ImpactMetric",
+        "columns": [
+          {
+            "name": "Metric",
+            "dataType": "string",
+            "sourceColumn": "Metric",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ImpactMetric",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "#table(type table [Metric=text], {{\"Reported deaths\"}, {\"Reported affected\"}, {\"Adjusted damage (USD m)\"}})"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ImpactSummary",
+        "columns": [
+          {
+            "name": "Statistic",
+            "dataType": "string",
+            "sourceColumn": "Statistic",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ImpactSummary",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "#table(type table [Statistic=text], {{\"Total\"}, {\"Mean\"}, {\"Median\"}})"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "MapMetric",
+        "columns": [
+          {
+            "name": "Metric",
+            "dataType": "string",
+            "sourceColumn": "Metric",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "MapMetric",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "#table(type table [Metric=text], {{\"Distinct events\"}, {\"Reported deaths\"}, {\"Reported affected\"}, {\"Adjusted damage (USD m)\"}})"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "name": "MapCountries",
+        "kind": "m",
+        "expression": "{\"AFG\", \"AGO\", \"ALB\", \"ARE\", \"ARG\", \"ARM\", \"ATA\", \"ATF\", \"AUS\", \"AUT\", \"AZE\", \"BDI\", \"BEL\", \"BEN\", \"BFA\", \"BGD\", \"BGR\", \"BHS\", \"BIH\", \"BLR\", \"BLZ\", \"BOL\", \"BRA\", \"BRN\", \"BTN\", \"BWA\", \"CAF\", \"CAN\", \"CHE\", \"CHL\", \"CHN\", \"CIV\", \"CMR\", \"COD\", \"COG\", \"COL\", \"CRI\", \"CUB\", \"CYP\", \"CZE\", \"DEU\", \"DJI\", \"DNK\", \"DOM\", \"DZA\", \"ECU\", \"EGY\", \"ERI\", \"ESH\", \"ESP\", \"EST\", \"ETH\", \"FIN\", \"FJI\", \"FLK\", \"FRA\", \"GAB\", \"GBR\", \"GEO\", \"GHA\", \"GIN\", \"GMB\", \"GNB\", \"GNQ\", \"GRC\", \"GRL\", \"GTM\", \"GUY\", \"HND\", \"HRV\", \"HTI\", \"HUN\", \"IDN\", \"IND\", \"IRL\", \"IRN\", \"IRQ\", \"ISL\", \"ISR\", \"ITA\", \"JAM\", \"JOR\", \"JPN\", \"KAZ\", \"KEN\", \"KGZ\", \"KHM\", \"KOR\", \"KWT\", \"LAO\", \"LBN\", \"LBR\", \"LBY\", \"LKA\", \"LSO\", \"LTU\", \"LUX\", \"LVA\", \"MAR\", \"MDA\", \"MDG\", \"MEX\", \"MKD\", \"MLI\", \"MMR\", \"MNE\", \"MNG\", \"MOZ\", \"MRT\", \"MWI\", \"MYS\", \"NAM\", \"NCL\", \"NER\", \"NGA\", \"NIC\", \"NLD\", \"NOR\", \"NPL\", \"NZL\", \"OMN\", \"PAK\", \"PAN\", \"PER\", \"PHL\", \"PNG\", \"POL\", \"PRI\", \"PRK\", \"PRT\", \"PRY\", \"PSE\", \"QAT\", \"ROU\", \"RUS\", \"RWA\", \"SAU\", \"SDN\", \"SEN\", \"SLB\", \"SLE\", \"SLV\", \"SOM\", \"SRB\", \"SSD\", \"SUR\", \"SVK\", \"SVN\", \"SWE\", \"SWZ\", \"SYR\", \"TCD\", \"TGO\", \"THA\", \"TJK\", \"TKM\", \"TLS\", \"TTO\", \"TUN\", \"TUR\", \"TWN\", \"TZA\", \"UGA\", \"UKR\", \"URY\", \"USA\", \"UZB\", \"VEN\", \"VNM\", \"VUT\", \"YEM\", \"ZAF\", \"ZMB\", \"ZWE\"}"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "2bf3ba1e-ecbb-46ca-8198-052cb946a5a0",
+        "fromTable": "FactImpacts",
+        "fromColumn": "Event ID",
+        "fromCardinality": "many",
+        "toTable": "DimEvent",
+        "toColumn": "Event ID",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      }
+    ]
+  }
+}

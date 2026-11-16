@@ -1,0 +1,14 @@
+{
+  "name": "WhenNatureStrikes.json",
+  "dataColors": [
+    "#087F80",
+    "#AD4829",
+    "#594A91",
+    "#497CA5",
+    "#9B761F",
+    "#929BAA"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#182942",
+  "tableAccent": "#087F80"
+}

@@ -45,3 +45,27 @@ Adjusted damage USD million event coverage = DIVIDE([Adjusted damage USD million
 Adjusted damage USD million per reporting event = DIVIDE([Adjusted damage USD million], [Adjusted damage USD million reporting events])
 
 Adjusted damage USD million median per reporting event = MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Adjusted damage USD million])), [Adjusted damage USD million])
+
+Selected impact = SWITCH(SELECTEDVALUE(ImpactMetric[Metric], "Reported deaths"), "Reported affected", [Affected], "Adjusted damage (USD m)", [Adjusted damage USD million], [Deaths])
+
+Selected impact coverage = SWITCH(SELECTEDVALUE(ImpactMetric[Metric], "Reported deaths"), "Reported affected", [Affected event coverage], "Adjusted damage (USD m)", [Adjusted damage USD million event coverage], [Deaths event coverage])
+
+Selected impact reporting events = SWITCH(SELECTEDVALUE(ImpactMetric[Metric], "Reported deaths"), "Reported affected", [Affected reporting events], "Adjusted damage (USD m)", [Adjusted damage USD million reporting events], [Deaths reporting events])
+
+Selected impact reporting records = SWITCH(SELECTEDVALUE(ImpactMetric[Metric], "Reported deaths"), "Reported affected", [Affected reporting records], "Adjusted damage (USD m)", [Adjusted damage USD million reporting records], [Deaths reporting records])
+
+Selected impact record coverage = DIVIDE([Selected impact reporting records], [Country impact records])
+
+Selected impact mean = SWITCH(SELECTEDVALUE(ImpactMetric[Metric], "Reported deaths"), "Reported affected", [Affected per reporting event], "Adjusted damage (USD m)", [Adjusted damage USD million per reporting event], [Deaths per reporting event])
+
+Selected impact median = SWITCH(SELECTEDVALUE(ImpactMetric[Metric], "Reported deaths"), "Reported affected", [Affected median per reporting event], "Adjusted damage (USD m)", [Adjusted damage USD million median per reporting event], [Deaths median per reporting event])
+
+Selected impact summary = SWITCH(SELECTEDVALUE(ImpactSummary[Statistic], "Total"), "Mean", [Selected impact mean], "Median", [Selected impact median], [Selected impact])
+
+Selected map value = SWITCH(SELECTEDVALUE(MapMetric[Metric], "Distinct events"), "Reported deaths", [Deaths], "Reported affected", [Affected], "Adjusted damage (USD m)", [Adjusted damage USD million], [Distinct events])
+
+Mapped records = CALCULATE([Country impact records], KEEPFILTERS(FactImpacts[Map coverage] = "Mapped"))
+
+Mapped record coverage = DIVIDE([Mapped records], [Country impact records])
+
+Unmatched records = CALCULATE([Country impact records], KEEPFILTERS(FactImpacts[Map coverage] = "Unmatched"))

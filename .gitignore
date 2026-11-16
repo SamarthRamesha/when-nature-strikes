@@ -69,3 +69,12 @@ secrets/
 /submission/.build/
 /node_modules
 /submission/*.inspect.ndjson
+
+# Local authorized analysis and Power BI caches
+/results/xai/predictions_local.csv
+/results/xai/ice_local.csv
+/results/dimensionality_reduction/embeddings_local.csv
+/WINDOWS_HANDOVER/logs/
+/submission/powerbi/local/
+/submission/powerbi/**/*.pbix
+**/.pbi/

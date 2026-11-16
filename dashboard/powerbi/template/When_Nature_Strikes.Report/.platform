@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "When_Nature_Strikes"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2948bd43-e9f8-43d9-9e3a-b9ed9a4b112d"
+  }
+}
