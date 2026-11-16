@@ -10,5 +10,5 @@
 | Chromium is missing | Run `INSTALL_WINDOWS.ps1 -Browser`. The network must permit Playwright's browser download. |
 | PBIP opens in another app | Open it from Desktop **File > Open**. Update Desktop if it rejects the PBIR format. |
 | Power BI refresh can't find data | Rebuild and generate an authorized PBIP, or update `DataFolder` when moving the project. |
-| No Azure Maps layer appears | Check Desktop security and organizational permissions for Azure Maps. Confirm internet access and compare against the country table. |
+| Bubble or filled map is unavailable | Check Desktop security settings for **Use Map and Filled Map visuals** and access to Bing Maps. Use the Power BI ranking charts or the local Streamlit Geography view. |
 | Country counts add to more than the world count | A single event can affect several countries. Read distinct counts at the current grain and reported losses alongside their denominators. |

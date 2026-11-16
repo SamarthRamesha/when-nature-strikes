@@ -19,18 +19,17 @@ as partial and compare reported losses alongside coverage.
 | Check | Observed result |
 | --- | --- |
 | Streamlit | Chromium exercised all ten views in authorized and synthetic modes. Checks include year, region, country and hazard filters, seven story steps, model and XAI selectors, 3D PCA, t-SNE, UMAP, anomaly selection and the map. [Browser screenshots](../submission/evidence/streamlit/) |
-| Power BI project files | Microsoft Power BI report-authoring CLI 0.5.0 returned zero errors and zero warnings. Microsoft's Power Query parser accepted 13 generated expressions across the two modes. Source tests cover PBIP reproduction, visual bindings, measure definitions, slicer groups and synthetic denominators. [Authoring receipt](../submission/evidence/powerbi_author_cli.json) |
+| Power BI project files | Microsoft Power BI report-authoring CLI 0.5.0 returned zero errors and two deprecation warnings for the team’s Bing map and filled map in each input mode. Microsoft's Power Query parser accepted all 13 expressions. Source tests verify 54 retained visual IDs, shared bindings, Top N filters, interactions and synchronized slicers. [Authoring receipt](../submission/evidence/powerbi_author_cli.json) |
 | Office files | LibreOffice rendered 14 report pages and 18 slides. The submission check verifies both PDFs, both editable packages, speaker notes and shared headline figures. [Academic submission](../submission/README.md) |
 | Windows checkout | Hosted Windows x64 verified PowerShell 5.1 installation, PBIP path discovery, 18 regressions, Office checks, ten synthetic Chromium views and the Streamlit launcher. Desktop and the authorized Windows pipeline are separate acceptance steps. [Verified Windows run for the independent ZIP](https://github.com/SamarthRamesha/when-nature-strikes/actions/runs/43900273955) · [Current Windows workflow](https://github.com/SamarthRamesha/when-nature-strikes/actions/workflows/windows-handover.yml) |
 | Independent ZIP | The existing archive at `7590255` passed 303 file hash checks, 18 regressions, Office checks and the ten-view synthetic Chromium suite after extraction. [Package manifest](../submission/DELIVERABLES_MANIFEST.md) |
 
 ## Repository handover
 
-The branch keeps the validated Power BI project, the queries, measures, report
-visual generator and all genuine analytical and academic artifacts. The
-redundant scaffold was consolidated into the project's shared report metadata.
-Three duplicate EDA tables now use the canonical filenames shared with the
-final notebook. Browser coverage resides in the ten-view suite. [Project audit](PROJECT_AUDIT.md)
+The integration branch restored the original EDA output filenames and data
+handover alongside the later analyses and academic artifacts. Both source PBIX
+fact tables matched the baseline for all fields used here. Historical CSVs and
+the original source files are preserved locally. [Recovery and integration](RECOVERY_AND_POWER_BI.md)
 
 The credential-free CI checks include the public-tree path policy. It rejects
 known detailed EM-DAT output paths, workbooks, PBIX files and caches. Keep the
@@ -38,7 +37,7 @@ source and detailed derivatives local. [Public data and historical exposure](DAT
 
 ## Pending human acceptance
 
-Power BI Desktop refresh, slicers, cross-filtering, Azure Maps rendering, PBIX
+Power BI Desktop refresh, slicers, cross-filtering, Bing map rendering, PBIX
 save and reopen are pending. A source validation pass establishes the PBIP
 structure and syntax. Desktop acceptance requires observing the report in the
 application. [Desktop checklist](../WINDOWS_HANDOVER/POWERBI_ACCEPTANCE_CHECKLIST.md)

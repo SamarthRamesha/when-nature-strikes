@@ -1,0 +1,181 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "751f00b6b9897f9c79c2",
+  "position": {
+    "x": 12,
+    "y": 813,
+    "width": 1256,
+    "height": 288,
+    "z": 100005,
+    "tabOrder": 100005
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reporting denominators and coverage by hazard'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimEvent"
+                    }
+                  },
+                  "Property": "Disaster Type"
+                }
+              },
+              "queryRef": "DimEvent.Disaster Type",
+              "nativeQueryRef": "Disaster Type",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Distinct events"
+                }
+              },
+              "queryRef": "FactImpacts.Distinct events",
+              "nativeQueryRef": "Distinct events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Country impact records"
+                }
+              },
+              "queryRef": "FactImpacts.Country impact records",
+              "nativeQueryRef": "Country impact records",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Deaths reporting events"
+                }
+              },
+              "queryRef": "FactImpacts.Deaths reporting events",
+              "nativeQueryRef": "Deaths reporting events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Deaths event coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Deaths event coverage",
+              "nativeQueryRef": "Deaths event coverage",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected reporting events"
+                }
+              },
+              "queryRef": "FactImpacts.Affected reporting events",
+              "nativeQueryRef": "Affected reporting events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected event coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Affected event coverage",
+              "nativeQueryRef": "Affected event coverage",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Adjusted damage USD million reporting events"
+                }
+              },
+              "queryRef": "FactImpacts.Adjusted damage USD million reporting events",
+              "nativeQueryRef": "Adjusted damage USD million reporting events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Adjusted damage USD million event coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Adjusted damage USD million event coverage",
+              "nativeQueryRef": "Adjusted damage USD million event coverage",
+              "active": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

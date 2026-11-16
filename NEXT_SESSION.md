@@ -1,21 +1,30 @@
 # Pending Power BI Desktop acceptance
 
-Use the packaged synthetic `.pbip` from the same checkout or the verified ZIP.
-Run the following command from the project root on a signed-in Windows machine
-with Power BI Desktop.
+Continue on `project/restore-and-integrate-powerbi`. The original Power BI
+files and exact baseline are in the local `work/powerbi-integration` workspace.
+The integrated report source and verification are recorded in the repository.
+[Integration and recovery](docs/RECOVERY_AND_POWER_BI.md)
+
+On this Mac, open **UTM → Windows**, dismiss the lock screen, and sign in
+through Windows. A Windows laptop with Power BI Desktop can perform the same
+acceptance from the extracted handover. Install the project dependencies, then
+run the authorized preparation and open the integrated project.
 
 ```powershell
-.\WINDOWS_HANDOVER\OPEN_POWERBI.ps1
+.\WINDOWS_HANDOVER\RUN_PIPELINE.ps1 -Workbook 'C:\Data\authorized-export.xlsx' -PrepareOnly
+.\WINDOWS_HANDOVER\OPEN_POWERBI.ps1 -Authorized
 ```
 
-Refresh, exercise all five pages, then save as
-`submission\powerbi\When_Nature_Strikes.pbix`. Reopen the saved file and
-record the Desktop version, data mode, SHA-256 and observed results. The
-[Desktop acceptance checklist](WINDOWS_HANDOVER/POWERBI_ACCEPTANCE_CHECKLIST.md)
-provides the expected values and interactions. For authorized Desktop testing,
-obtain the matching workbook independently and keep the imported PBIX local.
-[Authorized rebuild](WINDOWS_HANDOVER/README_WINDOWS.md)
+Use `OPEN_POWERBI.ps1` without `-Authorized` to exercise the included synthetic
+fixture first. In Desktop, refresh, follow the [acceptance checklist](WINDOWS_HANDOVER/POWERBI_ACCEPTANCE_CHECKLIST.md),
+and save the authorized copy as `submission\powerbi\When_Nature_Strikes.pbix`.
+Close and reopen it, change a filter, and record the Desktop version, mode,
+observations and SHA-256. Keep the real-data PBIX local.
 
-Record observed results in the [completion matrix](submission/COMPLETION_MATRIX.csv)
-and [validation report](docs/VALIDATION_REPORT.md). The current draft review is
-[PR #3](https://github.com/SamarthRamesha/when-nature-strikes/pull/3).
+```powershell
+Get-FileHash -Algorithm SHA256 .\submission\powerbi\When_Nature_Strikes.pbix
+```
+
+Record the observed results in the [completion matrix](submission/COMPLETION_MATRIX.csv)
+and [validation report](docs/VALIDATION_REPORT.md). Draft PR #3 retains the
+prior handover and links to the integration review.

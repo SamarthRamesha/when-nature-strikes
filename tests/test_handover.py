@@ -40,17 +40,17 @@ class PowerBiTest(unittest.TestCase):
         self.assertIn("NOT ISBLANK", expressions["Deaths median per reporting event"])
         self.assertIn("Text.ToBinary", " ".join(table[FACT]["partitions"][0]["source"]["expression"]))
         pages = DEMO / "When_Nature_Strikes.Report/definition/pages"
-        page_shapes = [list((pages / page / "visuals").glob("*/visual.json"))
-                       for page in read(pages / "pages.json")["pageOrder"]]
-        self.assertEqual(len(page_shapes), 5)
-        for page in page_shapes:
+        page_order = read(pages / "pages.json")["pageOrder"]
+        self.assertEqual(len(page_order), 5)
+        for key in page_order:
+            metadata = read(pages / key / "page.json")
             anchor = set()
-            for path in page:
+            for path in (pages / key / "visuals").glob("*/visual.json"):
                 item = read(path)
                 view = item["visual"]
                 pos = item["position"]
-                self.assertLessEqual(pos["x"] + pos["width"], 1440)
-                self.assertLessEqual(pos["y"] + pos["height"], 900)
+                self.assertLessEqual(pos["x"] + pos["width"], metadata["width"])
+                self.assertLessEqual(pos["y"] + pos["height"], metadata["height"])
                 if "syncGroup" in view:
                     anchor.add(view["syncGroup"]["groupName"])
                 for values in view.get("query", {}).get("queryState", {}).values():
@@ -59,11 +59,36 @@ class PowerBiTest(unittest.TestCase):
                         entity = value["Expression"]["SourceRef"]["Entity"]
                         names = {m["name"] for m in table[entity]["measures" if kind == "Measure" else "columns"]}
                         self.assertIn(value["Property"], names)
-                if view["visualType"] == "azureMap":
+                if view["visualType"] in {"map", "filledMap"}:
                     self.assertIn("Mapped", str(item["filterConfig"]))
-                    self.assertEqual(view["query"]["queryState"]["Size"]["projections"][0]["nativeQueryRef"],
-                                     "Selected map value")
-            self.assertTrue({"Startyear", "Hazard", "Region", "Country", "Decade"}.issubset(anchor))
+                    self.assertEqual(view["query"]["queryState"]["Category"]["projections"][0]["nativeQueryRef"],
+                                     "Map ISO")
+            self.assertTrue({"Startyear", "Hazard", "Subgroup", "Region", "Country", "Decade"}.issubset(anchor))
+
+    def test_integrated_report_preserves_donor_visuals_and_clears_selections(self):
+        pages = DEMO / "When_Nature_Strikes.Report/definition/pages"
+        donors = read(SOURCE / "team_visuals.json")
+        self.assertEqual([len(entry["visuals"]) for entry in donors], [15, 13, 15, 11])
+        self.assertEqual(read(pages / "pages.json")["pageOrder"][:4], [entry["page"]["name"] for entry in donors])
+        for donor in donors:
+            page = pages / donor["page"]["name"]
+            for original in donor["visuals"]:
+                target = read(page / "visuals" / original["name"] / "visual.json")
+                visual = target["visual"]
+                self.assertEqual(visual["visualType"], original["visual"]["visualType"])
+                self.assertNotIn("cleaned_natural_disaster_impacts", json.dumps(target))
+                if "syncGroup" in visual:
+                    for settings in visual.get("objects", {}).get("general", []):
+                        self.assertNotIn("filter", settings["properties"])
+                if any(setting["type"] == "TopN" for setting in original.get("filterConfig", {}).get("filters", [])):
+                    self.assertIn('"Top": 10', json.dumps(target["filterConfig"]))
+        geo = pages / donors[-1]["page"]["name"]
+        interactions = read(geo / "page.json")["visualInteractions"]
+        for binding in donors[-1]["page"]["visualInteractions"]:
+            self.assertIn(binding, interactions)
+        self.assertEqual(sum(binding["source"] in {"38fad0a20bd3e020b5c4", "4618535f5a4d546b0659"}
+                             for binding in interactions), 6)
+        self.assertEqual(read(geo / "page.json")["displayName"], "Geographic Analysis")
 
     def test_fixture_denominators_and_filtered_country_contribution(self):
         impacts = pd.read_csv(SOURCE / "synthetic_impacts.csv")

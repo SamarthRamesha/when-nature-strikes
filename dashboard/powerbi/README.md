@@ -8,12 +8,13 @@ for immediate control testing. To point a new project at your authorized local C
 python scripts/build_powerbi.py --output submission/powerbi/local/authorized --processed-data data/processed
 ```
 
-The five native pages cover overview, frequency vs severity, temporal analysis,
-geography and guided findings. The model uses the Power Query definitions and
-DAX measures in this directory. The builder generates pages, synchronized
-slicers, the custom theme and a fresh model, using the checked-in project for
-shared report metadata and the Fluent base theme. The scaffold came from
-Microsoft's authoring CLI. [Microsoft license notice](MICROSOFT_LICENSE.txt)
+The five native pages incorporate the two team reports and the Guided Findings
+page. The model uses the Power Query definitions and DAX measures in this
+directory. The builder rebinds the 54 source visuals from `team_visuals.json`
+to the shared model, adds synchronized controls and uses the checked-in report
+metadata and theme. [Model reconciliation](../../docs/RECOVERY_AND_POWER_BI.md)
+· [Microsoft license notice](MICROSOFT_LICENSE.txt)
 
-The PBIP passed Microsoft's file validator. Refresh, render and save/reopen
-acceptance remain Windows Desktop steps. [Desktop build and test steps](../../WINDOWS_HANDOVER/POWERBI_BUILD_AND_TEST.md)
+The PBIP passed Microsoft's file validator with zero errors and two legacy
+map warnings. Refresh, rendering and save/reopen remain Windows Desktop
+steps. [Desktop build and test steps](../../WINDOWS_HANDOVER/POWERBI_BUILD_AND_TEST.md)

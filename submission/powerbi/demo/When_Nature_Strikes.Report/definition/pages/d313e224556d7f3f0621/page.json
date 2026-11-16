@@ -1,8 +1,0 @@
-{
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "d313e224556d7f3f0621",
-  "displayName": "Frequency vs destructiveness",
-  "displayOption": "FitToPage",
-  "height": 900,
-  "width": 1440
-}

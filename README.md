@@ -20,7 +20,7 @@ The ranking depends on the impact measure, reporting coverage and time period.
 
 ## Reproduce
 
-Use `project/complete-final-submission` for the current handover. The Windows
+Use `project/restore-and-integrate-powerbi` for the current handover. The Windows
 setup uses Python 3.11 and the included synthetic fixtures for a credential-free
 demo. The full pipeline and research dashboard use the matching authorized
 workbook. [Authorized Windows workflow](WINDOWS_HANDOVER/README_WINDOWS.md)
@@ -32,9 +32,10 @@ all four tables and reruns validation and analysis. To exercise the demo
 without the workbook, install Playwright and run `python scripts/test_browser_local.py`
 after provisioning Chromium. [Dashboard and browser checks](docs/DASHBOARD_GUIDE.md)
 
-The native Power BI project passed Microsoft's report-authoring validator.
-Interactive refresh, rendering and PBIX save/reopen await Power BI Desktop
-acceptance. [Desktop checklist](WINDOWS_HANDOVER/POWERBI_ACCEPTANCE_CHECKLIST.md)
+The native project integrates both team reports with one EM-DAT model and a
+Guided Findings page. Microsoft validation found zero errors and two legacy
+map warnings. Desktop refresh, interactions and PBIX save/reopen are pending.
+[Recovery and integration](docs/RECOVERY_AND_POWER_BI.md) · [Desktop checklist](WINDOWS_HANDOVER/POWERBI_ACCEPTANCE_CHECKLIST.md)
 
 ## Data and attribution
 

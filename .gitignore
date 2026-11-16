@@ -79,5 +79,6 @@ secrets/
 /WINDOWS_HANDOVER/logs/
 /submission/powerbi/local/
 *.pbix
+*.pbit
 **/.pbi/
 /results/type_by_year.csv

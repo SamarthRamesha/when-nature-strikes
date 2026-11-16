@@ -1,8 +1,0 @@
-{
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "0d26afca0350f94f643e",
-  "displayName": "Geographic analysis",
-  "displayOption": "FitToPage",
-  "height": 900,
-  "width": 1440
-}

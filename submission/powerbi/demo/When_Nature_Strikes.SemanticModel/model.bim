@@ -292,6 +292,12 @@
             "summarizeBy": "none"
           },
           {
+            "name": "Disaster Subgroup",
+            "dataType": "string",
+            "sourceColumn": "Disaster Subgroup",
+            "summarizeBy": "none"
+          },
+          {
             "name": "Start Year",
             "dataType": "int64",
             "sourceColumn": "Start Year",
@@ -318,11 +324,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(Text.ToBinary(\"Event ID,Disaster Type,Start Year,Decade#(lf)SYN-001,Flood,1997,1990#(lf)SYN-002,Flood,2000,2000#(lf)SYN-003,Flood,2000,2000#(lf)SYN-004,Storm,2007,2000#(lf)SYN-005,Storm,2012,2010#(lf)SYN-006,Earthquake,2019,2010#(lf)SYN-007,Drought,2021,2020#(lf)SYN-008,Wildfire,2022,2020#(lf)SYN-009,Flood,2023,2020#(lf)SYN-010,Extreme temperature,2024,2020#(lf)SYN-011,Flood,2024,2020#(lf)SYN-012,Flood,2026,2020#(lf)\"),",
+                "    Source = Csv.Document(Text.ToBinary(\"Event ID,Disaster Type,Disaster Subgroup,Start Year,Decade#(lf)SYN-001,Flood,Hydrological,1997,1990#(lf)SYN-002,Flood,Hydrological,2000,2000#(lf)SYN-003,Flood,Hydrological,2000,2000#(lf)SYN-004,Storm,Meteorological,2007,2000#(lf)SYN-005,Storm,Meteorological,2012,2010#(lf)SYN-006,Earthquake,Geophysical,2019,2010#(lf)SYN-007,Drought,Climatological,2021,2020#(lf)SYN-008,Wildfire,Climatological,2022,2020#(lf)SYN-009,Flood,Hydrological,2023,2020#(lf)SYN-010,Extreme temperature,Meteorological,2024,2020#(lf)SYN-011,Flood,Hydrological,2024,2020#(lf)SYN-012,Flood,Hydrological,2026,2020#(lf)\"),",
                 "        [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
-                "    Selected = Table.SelectColumns(Headers, {\"Event ID\", \"Disaster Type\", \"Start Year\", \"Decade\"}),",
-                "    Typed = Table.TransformColumnTypes(Selected, {{\"Event ID\", type text}, {\"Disaster Type\", type text},",
+                "    Selected = Table.SelectColumns(Headers, {\"Event ID\", \"Disaster Type\", \"Disaster Subgroup\", \"Start Year\", \"Decade\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Event ID\", type text}, {\"Disaster Type\", type text}, {\"Disaster Subgroup\", type text},",
                 "        {\"Start Year\", Int64.Type}, {\"Decade\", Int64.Type}}, \"en-US\"),",
                 "    Era = Table.AddColumn(Typed, \"Reporting era\", each if [Start Year] < 2000 then \"1900–1999\"",
                 "        else if [Start Year] <= 2025 then \"2000–2025\" else \"2026 partial\", type text)",

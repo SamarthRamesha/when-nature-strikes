@@ -14,6 +14,7 @@ NAME = "WHEN_NATURE_STRIKES_COMPLETE_SUBMISSION"
 REQUIRED = (
     "README.md", "NEXT_SESSION.md", "WINDOWS_HANDOVER/START_HERE.md", "submission/COMPLETION_MATRIX.csv",
     "submission/DELIVERABLES_MANIFEST.md", "submission/evidence/powerbi_author_cli.json",
+    "submission/evidence/recovery_baseline.json",
     "submission/evidence/streamlit/01-overview.png", "submission/evidence/streamlit/05-story.png",
     "submission/evidence/streamlit/07-global-xai.png", "submission/evidence/streamlit/10-pca-3d.png",
     "submission/evidence/streamlit/13-data-quality.png", "results/xai/summary.json",
@@ -33,7 +34,7 @@ def permitted(name):
     return (not path.is_absolute() and ".." not in path.parts
             and not FORBIDDEN_SEGMENTS.intersection(path.parts)
             and path.name not in SENSITIVE
-            and path.suffix not in {".xls", ".xlsx", ".xlsb", ".xlsm", ".joblib", ".pbix", ".zip", ".pyc"}
+            and path.suffix not in {".xls", ".xlsx", ".xlsb", ".xlsm", ".joblib", ".pbix", ".pbit", ".zip", ".pyc"}
             and path.parts[:3] != ("submission", "powerbi", "local"))
 
 

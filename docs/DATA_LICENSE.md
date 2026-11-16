@@ -22,6 +22,12 @@ redistribution permission or Archive DOI for this export. The separate
 EM-DAT Archive has its own CC BY-NC-ND terms for unchanged snapshots.
 [EM-DAT terms](https://doc.emdat.be/docs/legal/terms-of-use/) · [EM-DAT documentation](https://doc.emdat.be/)
 
+The supplied original Power BI files, including both imported-data PBIX
+files, the template with a local source reference and the standalone PBIP
+entry, are kept separately in the local recovery workspace. The integrated
+public project includes the rebound report definitions and labeled invented
+fixtures. [Recovery and source evidence](RECOVERY_AND_POWER_BI.md)
+
 The publication rules above cover the named assets. The team has yet to
 record a general reuse license for the repository's original code and materials.
 
