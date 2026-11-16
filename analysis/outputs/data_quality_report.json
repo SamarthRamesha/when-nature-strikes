@@ -1,0 +1,819 @@
+{
+  "generated_at_utc": "2026-11-11T12:03:54Z",
+  "generated_by": "scripts/validate_project_data.py",
+  "datasets": {
+    "impacts": {
+      "path": "data/processed/cleaned_natural_disaster_impacts.csv",
+      "rows": 18060,
+      "columns": 53,
+      "sha256": "fe994363ccd9883a6c7d081129650235063cbe17fc5b6631f63592d6de0f6263",
+      "bytes": 21343229
+    },
+    "events": {
+      "path": "data/processed/natural_disaster_events.csv",
+      "rows": 15727,
+      "columns": 35,
+      "sha256": "550a6068a2d6c6c4862edcd95e39072b80c2a3b794e2251c74c35feb5ccc0643",
+      "bytes": 2762119
+    },
+    "type_summary": {
+      "path": "data/processed/natural_disaster_type_summary.csv",
+      "rows": 15,
+      "columns": 19,
+      "sha256": "27d152f067559438cae17b26c9709c01421814d0e9ab958da125d0512bcd3562",
+      "bytes": 2128
+    },
+    "country_year_type": {
+      "path": "data/processed/natural_country_year_type_summary.csv",
+      "rows": 11157,
+      "columns": 25,
+      "sha256": "3574284cba3175716cf6fdc216736b062994d0ecc1188800774e880a670bde0f",
+      "bytes": 1175402
+    }
+  },
+  "source_workbook": {
+    "path": "data/source/EM-DAT Custom Request Oct 31 2026.xlsx",
+    "present": true,
+    "sha256": "6767b6125b3ad35a5f6aa88d3f8522efab3bed7bb0c8fdb8cf0fa91143e9d422",
+    "bytes": 8781426,
+    "rows": 27962,
+    "natural_rows": 18060
+  },
+  "summary": {
+    "checks_total": 71,
+    "pass": 69,
+    "fail": 0,
+    "warn": 2,
+    "skip": 0
+  },
+  "confirmed_statistics": {
+    "impact_rows": 18060,
+    "event_rows": 15727,
+    "multi_country_events": 1067,
+    "disaster_types": 15,
+    "type_unique_event_counts": {
+      "Flood": 5814,
+      "Storm": 4026,
+      "Earthquake": 1573,
+      "Epidemic": 1447,
+      "Mass movement (wet)": 867,
+      "Drought": 647,
+      "Wildfire": 508,
+      "Extreme temperature": 433,
+      "Volcanic activity": 277,
+      "Infestation": 78,
+      "Mass movement (dry)": 47,
+      "Glacial lake outburst flood": 7,
+      "Impact": 1,
+      "Fog": 1,
+      "Animal incident": 1
+    },
+    "min_year": 1900,
+    "max_year": 2026,
+    "impact_missingness": {
+      "Total Deaths": {
+        "missing": 5029,
+        "missing_pct": 27.8,
+        "zeros": 0
+      },
+      "Total Affected": {
+        "missing": 4655,
+        "missing_pct": 25.8,
+        "zeros": 0
+      },
+      "Total Damage, Adjusted ('000 US$)": {
+        "missing": 12210,
+        "missing_pct": 67.6,
+        "zeros": 0
+      },
+      "Total Damage, Adjusted (million US$)": {
+        "missing": 12210,
+        "missing_pct": 67.6,
+        "zeros": 0
+      },
+      "Magnitude": {
+        "missing": 12422,
+        "missing_pct": 68.8,
+        "zeros": 13
+      }
+    },
+    "coordinate_complete": 2847,
+    "coordinate_complete_pct": 15.8,
+    "event_reported_coverage": {
+      "Total Deaths": {
+        "reported_events": 11655,
+        "coverage_pct": 74.1
+      },
+      "Total Affected": {
+        "reported_events": 12366,
+        "coverage_pct": 78.6
+      },
+      "Total Damage, Adjusted (million US$)": {
+        "reported_events": 5251,
+        "coverage_pct": 33.4
+      }
+    },
+    "totals": {
+      "total_deaths": 32842715.0,
+      "total_affected": 9065006097.0,
+      "total_adjusted_damage_million_usd": 8120533.174
+    },
+    "historic_records": {
+      "Yes": 7137,
+      "No": 10923
+    },
+    "busiest_year": {
+      "year": 2000,
+      "events": 489
+    }
+  },
+  "known_risks": [
+    "Missing impact values are preserved as blanks and are not zero: 67.6% of country-impact rows have no adjusted damage, so damage totals describe reported damage only.",
+    "Sums of `Unique Events` in natural_country_year_type_summary.csv (18,060) count the same event once per country and must never be summed as a project-wide frequency.",
+    "Damage in million US$ is a unit conversion of EM-DAT's adjusted damage, not a new estimate; it inherits EM-DAT's CPI base year and underreporting.",
+    "Magnitude uses hazard-specific scales and 13 rows report a literal zero; magnitude must not be compared across disaster types.",
+    "Coordinates exist for only 15.8% of country impacts, and impacts are country-level; they must not be treated as district-level locations.",
+    "Before 2000, records are flagged Historic = Yes and reflect lower reporting quality."
+  ],
+  "checks": [
+    {
+      "id": "F-impacts",
+      "area": "Files",
+      "description": "`data/processed/cleaned_natural_disaster_impacts.csv` exists",
+      "status": "PASS",
+      "expected": "present",
+      "actual": "present",
+      "detail": ""
+    },
+    {
+      "id": "F-impacts-read",
+      "area": "Files",
+      "description": "`cleaned_natural_disaster_impacts.csv` is readable, non-empty, UTF-8",
+      "status": "PASS",
+      "expected": ">0 data rows",
+      "actual": "18060 data rows",
+      "detail": ""
+    },
+    {
+      "id": "F-events",
+      "area": "Files",
+      "description": "`data/processed/natural_disaster_events.csv` exists",
+      "status": "PASS",
+      "expected": "present",
+      "actual": "present",
+      "detail": ""
+    },
+    {
+      "id": "F-events-read",
+      "area": "Files",
+      "description": "`natural_disaster_events.csv` is readable, non-empty, UTF-8",
+      "status": "PASS",
+      "expected": ">0 data rows",
+      "actual": "15727 data rows",
+      "detail": ""
+    },
+    {
+      "id": "F-type_summary",
+      "area": "Files",
+      "description": "`data/processed/natural_disaster_type_summary.csv` exists",
+      "status": "PASS",
+      "expected": "present",
+      "actual": "present",
+      "detail": ""
+    },
+    {
+      "id": "F-type_summary-read",
+      "area": "Files",
+      "description": "`natural_disaster_type_summary.csv` is readable, non-empty, UTF-8",
+      "status": "PASS",
+      "expected": ">0 data rows",
+      "actual": "15 data rows",
+      "detail": ""
+    },
+    {
+      "id": "F-country_year_type",
+      "area": "Files",
+      "description": "`data/processed/natural_country_year_type_summary.csv` exists",
+      "status": "PASS",
+      "expected": "present",
+      "actual": "present",
+      "detail": ""
+    },
+    {
+      "id": "F-country_year_type-read",
+      "area": "Files",
+      "description": "`natural_country_year_type_summary.csv` is readable, non-empty, UTF-8",
+      "status": "PASS",
+      "expected": ">0 data rows",
+      "actual": "11157 data rows",
+      "detail": ""
+    },
+    {
+      "id": "S-impacts",
+      "area": "Schemas",
+      "description": "`impacts` contains all required columns",
+      "status": "PASS",
+      "expected": 24,
+      "actual": "53 columns",
+      "detail": "all required columns present"
+    },
+    {
+      "id": "S-events",
+      "area": "Schemas",
+      "description": "`events` contains all required columns",
+      "status": "PASS",
+      "expected": 14,
+      "actual": "35 columns",
+      "detail": "all required columns present"
+    },
+    {
+      "id": "S-type_summary",
+      "area": "Schemas",
+      "description": "`type_summary` contains all required columns",
+      "status": "PASS",
+      "expected": 10,
+      "actual": "19 columns",
+      "detail": "all required columns present"
+    },
+    {
+      "id": "S-country_year_type",
+      "area": "Schemas",
+      "description": "`country_year_type` contains all required columns",
+      "status": "PASS",
+      "expected": 15,
+      "actual": "25 columns",
+      "detail": "all required columns present"
+    },
+    {
+      "id": "I-rows",
+      "area": "Impacts",
+      "description": "Country-impact row count matches documentation",
+      "status": "PASS",
+      "expected": 18060,
+      "actual": 18060,
+      "detail": ""
+    },
+    {
+      "id": "I-group",
+      "area": "Impacts",
+      "description": "Every impact row has Disaster Group = Natural",
+      "status": "PASS",
+      "expected": [
+        "Natural"
+      ],
+      "actual": {
+        "Natural": 18060
+      },
+      "detail": ""
+    },
+    {
+      "id": "I-disno-unique",
+      "area": "Impacts",
+      "description": "`DisNo.` is unique across country impacts",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": "18060 distinct DisNo. values"
+    },
+    {
+      "id": "I-ids",
+      "area": "Impacts",
+      "description": "No blank identifiers or start year in impacts",
+      "status": "PASS",
+      "expected": "all 0",
+      "actual": {
+        "DisNo.": 0,
+        "Event ID": 0,
+        "ISO": 0,
+        "Country": 0,
+        "Start Year": 0
+      },
+      "detail": ""
+    },
+    {
+      "id": "I-event-country-unique",
+      "area": "Impacts",
+      "description": "One impact row per (Event ID, ISO) pair",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": "duplicate pairs would inflate country-level counts"
+    },
+    {
+      "id": "I-types",
+      "area": "Impacts",
+      "description": "Distinct disaster types match documentation",
+      "status": "PASS",
+      "expected": 15,
+      "actual": 15,
+      "detail": ""
+    },
+    {
+      "id": "I-type-Flood",
+      "area": "Impacts",
+      "description": "`Flood` unique event count matches documentation",
+      "status": "PASS",
+      "expected": 5814,
+      "actual": 5814,
+      "detail": ""
+    },
+    {
+      "id": "I-type-Storm",
+      "area": "Impacts",
+      "description": "`Storm` unique event count matches documentation",
+      "status": "PASS",
+      "expected": 4026,
+      "actual": 4026,
+      "detail": ""
+    },
+    {
+      "id": "I-type-Earthquake",
+      "area": "Impacts",
+      "description": "`Earthquake` unique event count matches documentation",
+      "status": "PASS",
+      "expected": 1573,
+      "actual": 1573,
+      "detail": ""
+    },
+    {
+      "id": "I-type-Epidemic",
+      "area": "Impacts",
+      "description": "`Epidemic` unique event count matches documentation",
+      "status": "PASS",
+      "expected": 1447,
+      "actual": 1447,
+      "detail": ""
+    },
+    {
+      "id": "I-years",
+      "area": "Impacts",
+      "description": "Coverage period matches documentation",
+      "status": "PASS",
+      "expected": [
+        1900,
+        2026
+      ],
+      "actual": [
+        1900,
+        2026
+      ],
+      "detail": ""
+    },
+    {
+      "id": "I-historic",
+      "area": "Impacts",
+      "description": "`Historic` flag takes only documented values",
+      "status": "PASS",
+      "expected": [
+        "Yes",
+        "No"
+      ],
+      "actual": {
+        "Yes": 7137,
+        "No": 10923
+      },
+      "detail": ""
+    },
+    {
+      "id": "M-Total Deaths",
+      "area": "Missingness",
+      "description": "`Total Deaths` missing count and rate match documentation",
+      "status": "PASS",
+      "expected": "5029 (27.8%)",
+      "actual": "5029 (27.8%)",
+      "detail": ""
+    },
+    {
+      "id": "M-Total Affected",
+      "area": "Missingness",
+      "description": "`Total Affected` missing count and rate match documentation",
+      "status": "PASS",
+      "expected": "4655 (25.8%)",
+      "actual": "4655 (25.8%)",
+      "detail": ""
+    },
+    {
+      "id": "M-Total Damage, Adjusted ('000 US$)",
+      "area": "Missingness",
+      "description": "`Total Damage, Adjusted ('000 US$)` missing count and rate match documentation",
+      "status": "PASS",
+      "expected": "12210 (67.6%)",
+      "actual": "12210 (67.6%)",
+      "detail": ""
+    },
+    {
+      "id": "M-Magnitude",
+      "area": "Missingness",
+      "description": "`Magnitude` missing count and rate match documentation",
+      "status": "PASS",
+      "expected": "12422 (68.8%)",
+      "actual": "12422 (68.8%)",
+      "detail": ""
+    },
+    {
+      "id": "M-damage-mirror",
+      "area": "Missingness",
+      "description": "Both adjusted damage columns share the same missingness",
+      "status": "PASS",
+      "expected": 12210,
+      "actual": 12210,
+      "detail": "the million-USD column is a pure unit conversion of the '000 USD column"
+    },
+    {
+      "id": "M-no-zero-fill",
+      "area": "Missingness",
+      "description": "Deaths, affected, and damage contain no zero-filled blanks",
+      "status": "PASS",
+      "expected": 0,
+      "actual": {
+        "deaths": 0,
+        "affected": 0,
+        "damage": 0
+      },
+      "detail": "a zero in these columns would indicate missing values were replaced with zero"
+    },
+    {
+      "id": "M-magnitude-zeros",
+      "area": "Missingness",
+      "description": "Magnitude zeros are genuine reported values, not filled blanks",
+      "status": "WARN",
+      "expected": "reported values",
+      "actual": 13,
+      "detail": "13 impact rows report Magnitude = 0; treat as reported-but-zero, not as missing"
+    },
+    {
+      "id": "C-paired",
+      "area": "Coordinates",
+      "description": "Latitude and longitude are present as a pair only",
+      "status": "PASS",
+      "expected": "lat == lon == both",
+      "actual": {
+        "latitude": 2847,
+        "longitude": 2847,
+        "both": 2847
+      },
+      "detail": ""
+    },
+    {
+      "id": "C-flag",
+      "area": "Coordinates",
+      "description": "`Has Coordinates` agrees with populated coordinate fields",
+      "status": "PASS",
+      "expected": 2847,
+      "actual": 2847,
+      "detail": ""
+    },
+    {
+      "id": "C-complete",
+      "area": "Coordinates",
+      "description": "Coordinate completeness matches documentation",
+      "status": "PASS",
+      "expected": "2847 (15.8%)",
+      "actual": "2847 (15.8%)",
+      "detail": ""
+    },
+    {
+      "id": "U-damage-scale",
+      "area": "Units",
+      "description": "Million-USD damage equals '000-USD damage / 1000",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": "max absolute difference 0 million USD across all rows"
+    },
+    {
+      "id": "U-decade",
+      "area": "Units",
+      "description": "`Decade` equals floor(Start Year / 10) * 10",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": ""
+    },
+    {
+      "id": "U-dates",
+      "area": "Units",
+      "description": "Derived `Start Date` values are valid ISO dates when present",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": "14448 populated Start Date values, 3612 blank because the source date was incomplete"
+    },
+    {
+      "id": "E-rows",
+      "area": "Events",
+      "description": "Event-level row count matches documentation",
+      "status": "PASS",
+      "expected": 15727,
+      "actual": 15727,
+      "detail": ""
+    },
+    {
+      "id": "E-unique",
+      "area": "Events",
+      "description": "`Event ID` is unique in the event-level dataset",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": "15727 distinct Event IDs"
+    },
+    {
+      "id": "E-key-match",
+      "area": "Events",
+      "description": "Event IDs match exactly between events and impacts",
+      "status": "PASS",
+      "expected": 15727,
+      "actual": 15727,
+      "detail": "matched on the derived Event ID (year-sequence portion of DisNo.)"
+    },
+    {
+      "id": "E-country-count",
+      "area": "Events",
+      "description": "`Country Count` equals distinct ISO codes in impacts",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": ""
+    },
+    {
+      "id": "E-record-count",
+      "area": "Events",
+      "description": "`Country Impact Records` equals impact rows per event",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": ""
+    },
+    {
+      "id": "E-multi-country",
+      "area": "Events",
+      "description": "Multi-country event count matches documentation",
+      "status": "PASS",
+      "expected": 1067,
+      "actual": 1067,
+      "detail": ""
+    },
+    {
+      "id": "E-type",
+      "area": "Events",
+      "description": "Each event's Disaster Type matches its country impacts",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": "one type per event; mixed-type Event IDs would indicate a bad consolidation key"
+    },
+    {
+      "id": "E-blank-propagation",
+      "area": "Events",
+      "description": "Event totals are blank when all country impacts are blank, never zero",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": ""
+    },
+    {
+      "id": "E-sum-Total Deaths",
+      "area": "Events",
+      "description": "Event-level `Total Deaths` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 32842715.0,
+      "actual": 32842715.0,
+      "detail": "no double counting and no dropped country values"
+    },
+    {
+      "id": "E-sum-Total Affected",
+      "area": "Events",
+      "description": "Event-level `Total Affected` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 9065006097.0,
+      "actual": 9065006097.0,
+      "detail": "no double counting and no dropped country values"
+    },
+    {
+      "id": "E-sum-Total Damage, Adjusted ('000 US$)",
+      "area": "Events",
+      "description": "Event-level `Total Damage, Adjusted ('000 US$)` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 8120533174.0,
+      "actual": 8120533174.0,
+      "detail": "no double counting and no dropped country values"
+    },
+    {
+      "id": "E-coverage-Total Deaths",
+      "area": "Events",
+      "description": "Reported-event coverage for `Total Deaths` matches documentation",
+      "status": "PASS",
+      "expected": 11655,
+      "actual": 11655,
+      "detail": "74.1% of 15727 events"
+    },
+    {
+      "id": "E-coverage-Total Affected",
+      "area": "Events",
+      "description": "Reported-event coverage for `Total Affected` matches documentation",
+      "status": "PASS",
+      "expected": 12366,
+      "actual": 12366,
+      "detail": "78.6% of 15727 events"
+    },
+    {
+      "id": "E-coverage-Total Damage, Adjusted (million US$)",
+      "area": "Events",
+      "description": "Reported-event coverage for `Total Damage, Adjusted (million US$)` matches documentation",
+      "status": "PASS",
+      "expected": 5251,
+      "actual": 5251,
+      "detail": "33.4% of 15727 events"
+    },
+    {
+      "id": "T-rows",
+      "area": "TypeSummary",
+      "description": "One row per disaster type",
+      "status": "PASS",
+      "expected": 15,
+      "actual": 15,
+      "detail": ""
+    },
+    {
+      "id": "T-group",
+      "area": "TypeSummary",
+      "description": "All rows are Disaster Group = Natural",
+      "status": "PASS",
+      "expected": [
+        "Natural"
+      ],
+      "actual": [
+        "Natural"
+      ],
+      "detail": ""
+    },
+    {
+      "id": "T-unique-total",
+      "area": "TypeSummary",
+      "description": "Unique event counts sum to the total event count",
+      "status": "PASS",
+      "expected": 15727,
+      "actual": 15727,
+      "detail": "each consolidated event carries exactly one Disaster Type"
+    },
+    {
+      "id": "T-unique-per-type",
+      "area": "TypeSummary",
+      "description": "Per-type unique event counts match impacts",
+      "status": "PASS",
+      "expected": 0,
+      "actual": [],
+      "detail": ""
+    },
+    {
+      "id": "T-sum-Total Deaths",
+      "area": "TypeSummary",
+      "description": "Type-level `Total Deaths` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 32842715.0,
+      "actual": 32842715.0,
+      "detail": ""
+    },
+    {
+      "id": "T-sum-Total Affected",
+      "area": "TypeSummary",
+      "description": "Type-level `Total Affected` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 9065006097.0,
+      "actual": 9065006097.0,
+      "detail": ""
+    },
+    {
+      "id": "T-sum-Total Damage, Adjusted ('000 US$)",
+      "area": "TypeSummary",
+      "description": "Type-level `Total Damage, Adjusted ('000 US$)` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 8120533174.0,
+      "actual": 8120533174.0,
+      "detail": ""
+    },
+    {
+      "id": "T-reported",
+      "area": "TypeSummary",
+      "description": "Reported-event counts never exceed unique events",
+      "status": "PASS",
+      "expected": 0,
+      "actual": [],
+      "detail": ""
+    },
+    {
+      "id": "Y-rows",
+      "area": "CountryYearType",
+      "description": "Row count matches documentation",
+      "status": "PASS",
+      "expected": 11157,
+      "actual": 11157,
+      "detail": ""
+    },
+    {
+      "id": "Y-grain",
+      "area": "CountryYearType",
+      "description": "Grain is unique per ISO / Start Year / Disaster Type",
+      "status": "PASS",
+      "expected": 0,
+      "actual": 0,
+      "detail": ""
+    },
+    {
+      "id": "Y-record-sum",
+      "area": "CountryYearType",
+      "description": "`Country Impact Records` sums to the country-impact row count",
+      "status": "PASS",
+      "expected": 18060,
+      "actual": 18060,
+      "detail": ""
+    },
+    {
+      "id": "Y-unique-sum",
+      "area": "CountryYearType",
+      "description": "`Unique Events` sums to distinct (Event ID, ISO) pairs",
+      "status": "PASS",
+      "expected": 18060,
+      "actual": 18060,
+      "detail": ""
+    },
+    {
+      "id": "Y-sum-Total Deaths",
+      "area": "CountryYearType",
+      "description": "Country/year/type `Total Deaths` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 32842715.0,
+      "actual": 32842715.0,
+      "detail": ""
+    },
+    {
+      "id": "Y-sum-Total Affected",
+      "area": "CountryYearType",
+      "description": "Country/year/type `Total Affected` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 9065006097.0,
+      "actual": 9065006097.0,
+      "detail": ""
+    },
+    {
+      "id": "Y-sum-Total Damage, Adjusted ('000 US$)",
+      "area": "CountryYearType",
+      "description": "Country/year/type `Total Damage, Adjusted ('000 US$)` sums to the country-impact total",
+      "status": "PASS",
+      "expected": 8120533174.0,
+      "actual": 8120533174.0,
+      "detail": ""
+    },
+    {
+      "id": "Y-double-count",
+      "area": "CountryYearType",
+      "description": "Country/year/type `Unique Events` is not a project-wide event count",
+      "status": "WARN",
+      "expected": "≠ 15727",
+      "actual": 18060,
+      "detail": "the same event is counted again in every country (and year) it touches; never sum this column as a total frequency"
+    },
+    {
+      "id": "Y-record-consistency",
+      "area": "CountryYearType",
+      "description": "Unique Events never exceeds Country Impact Records within a group",
+      "status": "PASS",
+      "expected": true,
+      "actual": true,
+      "detail": ""
+    },
+    {
+      "id": "Y-years",
+      "area": "CountryYearType",
+      "description": "Coverage period matches the impact dataset",
+      "status": "PASS",
+      "expected": [
+        1900,
+        2026
+      ],
+      "actual": [
+        1900,
+        2026
+      ],
+      "detail": ""
+    },
+    {
+      "id": "SRC-rows",
+      "area": "SourceWorkbook",
+      "description": "Source export row count matches documentation",
+      "status": "PASS",
+      "expected": 27962,
+      "actual": 27962,
+      "detail": ""
+    },
+    {
+      "id": "SRC-natural",
+      "area": "SourceWorkbook",
+      "description": "Natural-filtered source rows match the country-impact dataset",
+      "status": "PASS",
+      "expected": 18060,
+      "actual": 18060,
+      "detail": "confirms the pipeline's Natural filter is neither lossy nor duplicated"
+    }
+  ]
+}

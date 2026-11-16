@@ -1,0 +1,1332 @@
+{
+  "generated_by": "scripts/verify_eda_findings.py",
+  "max_spearman_abs_delta_vs_committed": 5.994941043585555e-08,
+  "generated_at_utc": "2026-11-11T12:03:55Z",
+  "dataset": "data/processed/natural_disaster_events.csv",
+  "events": 15727,
+  "types": 15,
+  "findings": [
+    {
+      "id": "F1",
+      "statement": "Flood is the most frequent natural disaster type.",
+      "metric": "Unique events (distinct Event ID)",
+      "grain": "One consolidated event",
+      "dataset": "natural_disaster_events.csv",
+      "dataset_path": "data/processed/natural_disaster_events.csv",
+      "independently_verified": true,
+      "evidence": {
+        "top": {
+          "type": "Flood",
+          "events": 5814,
+          "share_pct": 36.97
+        },
+        "runner_up": {
+          "type": "Storm",
+          "events": 4026
+        },
+        "ranked": [
+          {
+            "type": "Flood",
+            "events": 5814
+          },
+          {
+            "type": "Storm",
+            "events": 4026
+          },
+          {
+            "type": "Earthquake",
+            "events": 1573
+          },
+          {
+            "type": "Epidemic",
+            "events": 1447
+          },
+          {
+            "type": "Mass movement (wet)",
+            "events": 867
+          },
+          {
+            "type": "Drought",
+            "events": 647
+          },
+          {
+            "type": "Wildfire",
+            "events": 508
+          },
+          {
+            "type": "Extreme temperature",
+            "events": 433
+          },
+          {
+            "type": "Volcanic activity",
+            "events": 277
+          },
+          {
+            "type": "Infestation",
+            "events": 78
+          },
+          {
+            "type": "Mass movement (dry)",
+            "events": 47
+          },
+          {
+            "type": "Glacial lake outburst flood",
+            "events": 7
+          },
+          {
+            "type": "Animal incident",
+            "events": 1
+          },
+          {
+            "type": "Fog",
+            "events": 1
+          },
+          {
+            "type": "Impact",
+            "events": 1
+          }
+        ]
+      },
+      "caveat": "Frequency counts depend on the consolidated Event ID; counting country-impact rows would give Flood 6,217 rather than 5,814 and inflate every type."
+    },
+    {
+      "id": "F2",
+      "statement": "Drought has the highest average deaths per event.",
+      "metric": "Mean reported Total Deaths per event with a reported value",
+      "grain": "One consolidated event",
+      "dataset": "natural_disaster_events.csv",
+      "dataset_path": "data/processed/natural_disaster_events.csv",
+      "independently_verified": true,
+      "evidence": {
+        "top": {
+          "type": "Drought",
+          "average_deaths": 175139.6,
+          "reported_events": 67,
+          "coverage_pct": 10.36,
+          "median_deaths": 200.0
+        },
+        "runner_up": {
+          "type": "Epidemic",
+          "average_deaths": 7747.34,
+          "reported_events": 1243
+        }
+      },
+      "caveat": "The average rests on only 67 of 647 drought events with reported deaths, and the median (200) is far below the mean, so a small number of catastrophic droughts drives the average. Report median, coverage, and event count alongside it."
+    },
+    {
+      "id": "F3",
+      "statement": "Drought has the highest average affected population per event.",
+      "metric": "Mean reported Total Affected per event with a reported value",
+      "grain": "One consolidated event",
+      "dataset": "natural_disaster_events.csv",
+      "dataset_path": "data/processed/natural_disaster_events.csv",
+      "independently_verified": true,
+      "evidence": {
+        "top": {
+          "type": "Drought",
+          "average_affected": 6349540.46,
+          "reported_events": 477,
+          "coverage_pct": 73.72,
+          "median_affected": 900000.0
+        },
+        "runner_up": {
+          "type": "Flood",
+          "average_affected": 805689.88
+        }
+      },
+      "caveat": "Same heavy-tail caveat as F2: the drought median affected (900,000) is two orders of magnitude below the mean. Affected counts may also double-count people across successive events."
+    },
+    {
+      "id": "F4",
+      "statement": "Earthquake has the highest average adjusted economic damage per event.",
+      "metric": "Mean reported adjusted damage in million US$ per event with a reported value",
+      "grain": "One consolidated event",
+      "dataset": "natural_disaster_events.csv",
+      "dataset_path": "data/processed/natural_disaster_events.csv",
+      "independently_verified": true,
+      "evidence": {
+        "top": {
+          "type": "Earthquake",
+          "average_damage_musd": 2881.02,
+          "reported_events": 626,
+          "coverage_pct": 39.8
+        },
+        "runner_up": {
+          "type": "Extreme temperature",
+          "average_damage_musd": 2391.1
+        },
+        "reported_damage_events_all_types": 5251
+      },
+      "caveat": "Damage is reported for only 626 of 1573 earthquake events, and only 5251 of 15727 events overall. Damage underreporting is documented by EM-DAT, so this ranks reported damage."
+    },
+    {
+      "id": "F5",
+      "statement": "2000 is the year with the highest number of disaster events.",
+      "metric": "Unique events (distinct Event ID) grouped by Start Year",
+      "grain": "One consolidated event",
+      "dataset": "natural_disaster_events.csv",
+      "dataset_path": "data/processed/natural_disaster_events.csv",
+      "independently_verified": true,
+      "evidence": {
+        "top": {
+          "year": 2000,
+          "events": 489
+        },
+        "runner_up": {
+          "year": 2001,
+          "events": 413
+        },
+        "top5_years": [
+          {
+            "year": 2000,
+            "events": 489
+          },
+          {
+            "year": 2002,
+            "events": 478
+          },
+          {
+            "year": 2001,
+            "events": 413
+          },
+          {
+            "year": 2006,
+            "events": 388
+          },
+          {
+            "year": 1999,
+            "events": 382
+          }
+        ]
+      },
+      "caveat": "Yearly counts rise with reporting capacity, so the 2000 peak partly reflects reporting rather than hazard activity. Compare decades, and split Historic vs 2000-onward."
+    },
+    {
+      "id": "F6",
+      "statement": "Event-level impact coverage is 74.1% deaths, 78.6% affected, 33.4% damage.",
+      "metric": "Share of consolidated events with a reported value",
+      "grain": "One consolidated event",
+      "dataset": "natural_disaster_events.csv",
+      "dataset_path": "data/processed/natural_disaster_events.csv",
+      "independently_verified": true,
+      "evidence": {
+        "deaths": {
+          "reported_events": 11655,
+          "missing_events": 4072,
+          "coverage_pct": 74.11
+        },
+        "affected": {
+          "reported_events": 12366,
+          "missing_events": 3361,
+          "coverage_pct": 78.63
+        },
+        "damage": {
+          "reported_events": 5251,
+          "missing_events": 10476,
+          "coverage_pct": 33.39
+        }
+      },
+      "caveat": "Coverage describes reporting, not absence of impact. Missing values must stay blank."
+    }
+  ],
+  "type_summary_recomputed": {
+    "Flood": {
+      "unique_events": 5814,
+      "deaths": {
+        "reported_events": 4343,
+        "coverage_pct": 74.7,
+        "total": 7030614.0,
+        "average": 1618.83813,
+        "median": 17.0
+      },
+      "affected": {
+        "reported_events": 5103,
+        "coverage_pct": 87.77,
+        "total": 4111435452.0,
+        "average": 805689.878895,
+        "median": 12000.0
+      },
+      "damage": {
+        "reported_events": 1927,
+        "coverage_pct": 33.14,
+        "total": 1906588.84,
+        "average": 989.407805,
+        "median": 100.375
+      }
+    },
+    "Storm": {
+      "unique_events": 4026,
+      "deaths": {
+        "reported_events": 3219,
+        "coverage_pct": 79.96,
+        "total": 1435952.0,
+        "average": 446.086362,
+        "median": 17.0
+      },
+      "affected": {
+        "reported_events": 2891,
+        "coverage_pct": 71.81,
+        "total": 1425982029.0,
+        "average": 493248.712902,
+        "median": 6631.0
+      },
+      "damage": {
+        "reported_events": 2096,
+        "coverage_pct": 52.06,
+        "total": 3494871.819,
+        "average": 1667.400677,
+        "median": 224.35
+      }
+    },
+    "Earthquake": {
+      "unique_events": 1573,
+      "deaths": {
+        "reported_events": 1190,
+        "coverage_pct": 75.65,
+        "total": 2440922.0,
+        "average": 2051.194958,
+        "median": 19.0
+      },
+      "affected": {
+        "reported_events": 1325,
+        "coverage_pct": 84.23,
+        "total": 254858379.0,
+        "average": 192345.946415,
+        "median": 4500.0
+      },
+      "damage": {
+        "reported_events": 626,
+        "coverage_pct": 39.8,
+        "total": 1803517.195,
+        "average": 2881.017883,
+        "median": 121.488
+      }
+    },
+    "Epidemic": {
+      "unique_events": 1447,
+      "deaths": {
+        "reported_events": 1243,
+        "coverage_pct": 85.9,
+        "total": 9629942.0,
+        "average": 7747.338697,
+        "median": 46.0
+      },
+      "affected": {
+        "reported_events": 1257,
+        "coverage_pct": 86.87,
+        "total": 50864087.0,
+        "average": 40464.667462,
+        "median": 1000.0
+      },
+      "damage": {
+        "reported_events": 1,
+        "coverage_pct": 0.07,
+        "total": 0.061,
+        "average": 0.061,
+        "median": 0.061
+      }
+    },
+    "Wildfire": {
+      "unique_events": 508,
+      "deaths": {
+        "reported_events": 250,
+        "coverage_pct": 49.21,
+        "total": 5256.0,
+        "average": 21.024,
+        "median": 5.0
+      },
+      "affected": {
+        "reported_events": 362,
+        "coverage_pct": 71.26,
+        "total": 19036905.0,
+        "average": 52588.135359,
+        "median": 1082.0
+      },
+      "damage": {
+        "reported_events": 189,
+        "coverage_pct": 37.2,
+        "total": 272305.311,
+        "average": 1440.768841,
+        "median": 219.047
+      }
+    },
+    "Drought": {
+      "unique_events": 647,
+      "deaths": {
+        "reported_events": 67,
+        "coverage_pct": 10.36,
+        "total": 11734353.0,
+        "average": 175139.597015,
+        "median": 200.0
+      },
+      "affected": {
+        "reported_events": 477,
+        "coverage_pct": 73.72,
+        "total": 3028730798.0,
+        "average": 6349540.457023,
+        "median": 900000.0
+      },
+      "damage": {
+        "reported_events": 205,
+        "coverage_pct": 31.68,
+        "total": 456883.972,
+        "average": 2228.702302,
+        "median": 630.401
+      }
+    },
+    "Volcanic activity": {
+      "unique_events": 277,
+      "deaths": {
+        "reported_events": 96,
+        "coverage_pct": 34.66,
+        "total": 86945.0,
+        "average": 905.677083,
+        "median": 37.0
+      },
+      "affected": {
+        "reported_events": 232,
+        "coverage_pct": 83.75,
+        "total": 10764025.0,
+        "average": 46396.659483,
+        "median": 7000.0
+      },
+      "damage": {
+        "reported_events": 46,
+        "coverage_pct": 16.61,
+        "total": 15732.127,
+        "average": 342.002761,
+        "median": 102.177
+      }
+    },
+    "Mass movement (wet)": {
+      "unique_events": 867,
+      "deaths": {
+        "reported_events": 830,
+        "coverage_pct": 95.73,
+        "total": 71714.0,
+        "average": 86.40241,
+        "median": 26.0
+      },
+      "affected": {
+        "reported_events": 507,
+        "coverage_pct": 58.48,
+        "total": 18296691.0,
+        "average": 36088.147929,
+        "median": 400.0
+      },
+      "damage": {
+        "reported_events": 91,
+        "coverage_pct": 10.5,
+        "total": 23776.071,
+        "average": 261.275505,
+        "median": 43.119
+      }
+    },
+    "Mass movement (dry)": {
+      "unique_events": 47,
+      "deaths": {
+        "reported_events": 45,
+        "coverage_pct": 95.74,
+        "total": 4563.0,
+        "average": 101.4,
+        "median": 40.0
+      },
+      "affected": {
+        "reported_events": 20,
+        "coverage_pct": 42.55,
+        "total": 23137.0,
+        "average": 1156.85,
+        "median": 353.0
+      },
+      "damage": {
+        "reported_events": 3,
+        "coverage_pct": 6.38,
+        "total": 2142.437,
+        "average": 714.145667,
+        "median": 11.056
+      }
+    },
+    "Extreme temperature": {
+      "unique_events": 433,
+      "deaths": {
+        "reported_events": 364,
+        "coverage_pct": 84.06,
+        "total": 397964.0,
+        "average": 1093.307692,
+        "median": 62.0
+      },
+      "affected": {
+        "reported_events": 181,
+        "coverage_pct": 41.8,
+        "total": 141416754.0,
+        "average": 781308.033149,
+        "median": 5460.0
+      },
+      "damage": {
+        "reported_events": 60,
+        "coverage_pct": 13.86,
+        "total": 143465.781,
+        "average": 2391.09635,
+        "median": 590.571
+      }
+    },
+    "Infestation": {
+      "unique_events": 78,
+      "deaths": {
+        "reported_events": 0,
+        "coverage_pct": 0.0,
+        "total": null,
+        "average": null,
+        "median": null
+      },
+      "affected": {
+        "reported_events": 5,
+        "coverage_pct": 6.41,
+        "total": 3202200.0,
+        "average": 640440.0,
+        "median": 400000.0
+      },
+      "damage": {
+        "reported_events": 4,
+        "coverage_pct": 5.13,
+        "total": 454.451,
+        "average": 113.61275,
+        "median": 219.723
+      }
+    },
+    "Glacial lake outburst flood": {
+      "unique_events": 7,
+      "deaths": {
+        "reported_events": 6,
+        "coverage_pct": 85.71,
+        "total": 478.0,
+        "average": 79.666667,
+        "median": 38.0
+      },
+      "affected": {
+        "reported_events": 4,
+        "coverage_pct": 57.14,
+        "total": 94144.0,
+        "average": 23536.0,
+        "median": 5585.0
+      },
+      "damage": {
+        "reported_events": 2,
+        "coverage_pct": 28.57,
+        "total": 749.504,
+        "average": 374.752,
+        "median": 500.0
+      }
+    },
+    "Impact": {
+      "unique_events": 1,
+      "deaths": {
+        "reported_events": 0,
+        "coverage_pct": 0.0,
+        "total": null,
+        "average": null,
+        "median": null
+      },
+      "affected": {
+        "reported_events": 1,
+        "coverage_pct": 100.0,
+        "total": 301491.0,
+        "average": 301491.0,
+        "median": 301491.0
+      },
+      "damage": {
+        "reported_events": 1,
+        "coverage_pct": 100.0,
+        "total": 45.605,
+        "average": 45.605,
+        "median": 45.605
+      }
+    },
+    "Fog": {
+      "unique_events": 1,
+      "deaths": {
+        "reported_events": 1,
+        "coverage_pct": 100.0,
+        "total": 4000.0,
+        "average": 4000.0,
+        "median": 4000.0
+      },
+      "affected": {
+        "reported_events": 0,
+        "coverage_pct": 0.0,
+        "total": null,
+        "average": null,
+        "median": null
+      },
+      "damage": {
+        "reported_events": 0,
+        "coverage_pct": 0.0,
+        "total": null,
+        "average": null,
+        "median": null
+      }
+    },
+    "Animal incident": {
+      "unique_events": 1,
+      "deaths": {
+        "reported_events": 1,
+        "coverage_pct": 100.0,
+        "total": 12.0,
+        "average": 12.0,
+        "median": 12.0
+      },
+      "affected": {
+        "reported_events": 1,
+        "coverage_pct": 100.0,
+        "total": 5.0,
+        "average": 5.0,
+        "median": 5.0
+      },
+      "damage": {
+        "reported_events": 0,
+        "coverage_pct": 0.0,
+        "total": null,
+        "average": null,
+        "median": null
+      }
+    }
+  },
+  "totals_vs_averages_top3": {
+    "totals": {
+      "deaths": [
+        [
+          "Drought",
+          11734353.0
+        ],
+        [
+          "Epidemic",
+          9629942.0
+        ],
+        [
+          "Flood",
+          7030614.0
+        ]
+      ],
+      "affected": [
+        [
+          "Flood",
+          4111435452.0
+        ],
+        [
+          "Drought",
+          3028730798.0
+        ],
+        [
+          "Storm",
+          1425982029.0
+        ]
+      ],
+      "damage": [
+        [
+          "Storm",
+          3494871.819
+        ],
+        [
+          "Flood",
+          1906588.84
+        ],
+        [
+          "Earthquake",
+          1803517.195
+        ]
+      ]
+    },
+    "averages": {
+      "deaths": [
+        [
+          "Drought",
+          175139.597015
+        ],
+        [
+          "Epidemic",
+          7747.338697
+        ],
+        [
+          "Fog",
+          4000.0
+        ]
+      ],
+      "affected": [
+        [
+          "Drought",
+          6349540.457023
+        ],
+        [
+          "Flood",
+          805689.878895
+        ],
+        [
+          "Extreme temperature",
+          781308.033149
+        ]
+      ],
+      "damage": [
+        [
+          "Earthquake",
+          2881.017883
+        ],
+        [
+          "Extreme temperature",
+          2391.09635
+        ],
+        [
+          "Drought",
+          2228.702302
+        ]
+      ]
+    }
+  },
+  "spearman_correlations": {
+    "Total Deaths vs Total Deaths": 1.0,
+    "Total Deaths vs Total Affected": 0.3496088651350323,
+    "Total Deaths vs Total Damage, Adjusted (million US$)": 0.2445076897609186,
+    "Total Affected vs Total Deaths": 0.3496088651350323,
+    "Total Affected vs Total Affected": 1.0,
+    "Total Affected vs Total Damage, Adjusted (million US$)": 0.23265030389693386,
+    "Total Damage, Adjusted (million US$) vs Total Deaths": 0.2445076897609186,
+    "Total Damage, Adjusted (million US$) vs Total Affected": 0.23265030389693386,
+    "Total Damage, Adjusted (million US$) vs Total Damage, Adjusted (million US$)": 1.0
+  },
+  "committed_artifact_comparisons": [
+    {
+      "artifact_value": "final_disaster_frequency.csv:Flood",
+      "committed": 5814,
+      "recomputed": 5814,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Storm",
+      "committed": 4026,
+      "recomputed": 4026,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Earthquake",
+      "committed": 1573,
+      "recomputed": 1573,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Epidemic",
+      "committed": 1447,
+      "recomputed": 1447,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Mass movement (wet)",
+      "committed": 867,
+      "recomputed": 867,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Drought",
+      "committed": 647,
+      "recomputed": 647,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Wildfire",
+      "committed": 508,
+      "recomputed": 508,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Extreme temperature",
+      "committed": 433,
+      "recomputed": 433,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Volcanic activity",
+      "committed": 277,
+      "recomputed": 277,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Infestation",
+      "committed": 78,
+      "recomputed": 78,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Mass movement (dry)",
+      "committed": 47,
+      "recomputed": 47,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Glacial lake outburst flood",
+      "committed": 7,
+      "recomputed": 7,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Animal incident",
+      "committed": 1,
+      "recomputed": 1,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Fog",
+      "committed": 1,
+      "recomputed": 1,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_disaster_frequency.csv:Impact",
+      "committed": 1,
+      "recomputed": 1,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Flood:total_deaths",
+      "committed": 7030614.0,
+      "recomputed": 7030614.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Flood:average_deaths",
+      "committed": 1618.8381303246604,
+      "recomputed": 1618.83813,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Flood:average_affected",
+      "committed": 805689.8788947678,
+      "recomputed": 805689.878895,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Flood:average_damage",
+      "committed": 989.4078048780489,
+      "recomputed": 989.407805,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Storm:total_deaths",
+      "committed": 1435952.0,
+      "recomputed": 1435952.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Storm:average_deaths",
+      "committed": 446.0863622242933,
+      "recomputed": 446.086362,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Storm:average_affected",
+      "committed": 493248.71290211,
+      "recomputed": 493248.712902,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Storm:average_damage",
+      "committed": 1667.4006770038168,
+      "recomputed": 1667.400677,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Earthquake:total_deaths",
+      "committed": 2440922.0,
+      "recomputed": 2440922.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Earthquake:average_deaths",
+      "committed": 2051.1949579831935,
+      "recomputed": 2051.194958,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Earthquake:average_affected",
+      "committed": 192345.94641509434,
+      "recomputed": 192345.946415,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Earthquake:average_damage",
+      "committed": 2881.0178833865816,
+      "recomputed": 2881.017883,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Epidemic:total_deaths",
+      "committed": 9629942.0,
+      "recomputed": 9629942.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Epidemic:average_deaths",
+      "committed": 7747.3386967015285,
+      "recomputed": 7747.338697,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Epidemic:average_affected",
+      "committed": 40464.66746221161,
+      "recomputed": 40464.667462,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Epidemic:average_damage",
+      "committed": 0.061,
+      "recomputed": 0.061,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Wildfire:total_deaths",
+      "committed": 5256.0,
+      "recomputed": 5256.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Wildfire:average_deaths",
+      "committed": 21.024,
+      "recomputed": 21.024,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Wildfire:average_affected",
+      "committed": 52588.13535911602,
+      "recomputed": 52588.135359,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Wildfire:average_damage",
+      "committed": 1440.7688412698412,
+      "recomputed": 1440.768841,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Drought:total_deaths",
+      "committed": 11734353.0,
+      "recomputed": 11734353.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Drought:average_deaths",
+      "committed": 175139.59701492538,
+      "recomputed": 175139.597015,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Drought:average_affected",
+      "committed": 6349540.457023061,
+      "recomputed": 6349540.457023,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Drought:average_damage",
+      "committed": 2228.7023024390246,
+      "recomputed": 2228.702302,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Volcanic activity:total_deaths",
+      "committed": 86945.0,
+      "recomputed": 86945.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Volcanic activity:average_deaths",
+      "committed": 905.6770833333334,
+      "recomputed": 905.677083,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Volcanic activity:average_affected",
+      "committed": 46396.65948275862,
+      "recomputed": 46396.659483,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Volcanic activity:average_damage",
+      "committed": 342.00276086956524,
+      "recomputed": 342.002761,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (wet):total_deaths",
+      "committed": 71714.0,
+      "recomputed": 71714.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (wet):average_deaths",
+      "committed": 86.40240963855422,
+      "recomputed": 86.40241,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (wet):average_affected",
+      "committed": 36088.14792899408,
+      "recomputed": 36088.147929,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (wet):average_damage",
+      "committed": 261.27550549450547,
+      "recomputed": 261.275505,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (dry):total_deaths",
+      "committed": 4563.0,
+      "recomputed": 4563.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (dry):average_deaths",
+      "committed": 101.4,
+      "recomputed": 101.4,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (dry):average_affected",
+      "committed": 1156.85,
+      "recomputed": 1156.85,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Mass movement (dry):average_damage",
+      "committed": 714.1456666666667,
+      "recomputed": 714.145667,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Extreme temperature:total_deaths",
+      "committed": 397964.0,
+      "recomputed": 397964.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Extreme temperature:average_deaths",
+      "committed": 1093.3076923076924,
+      "recomputed": 1093.307692,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Extreme temperature:average_affected",
+      "committed": 781308.0331491713,
+      "recomputed": 781308.033149,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Extreme temperature:average_damage",
+      "committed": 2391.09635,
+      "recomputed": 2391.09635,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Infestation:total_deaths",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Infestation:average_deaths",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Infestation:average_affected",
+      "committed": 640440.0,
+      "recomputed": 640440.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Infestation:average_damage",
+      "committed": 113.61275,
+      "recomputed": 113.61275,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Glacial lake outburst flood:total_deaths",
+      "committed": 478.0,
+      "recomputed": 478.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Glacial lake outburst flood:average_deaths",
+      "committed": 79.66666666666667,
+      "recomputed": 79.666667,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Glacial lake outburst flood:average_affected",
+      "committed": 23536.0,
+      "recomputed": 23536.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Glacial lake outburst flood:average_damage",
+      "committed": 374.752,
+      "recomputed": 374.752,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Impact:total_deaths",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Impact:average_deaths",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Impact:average_affected",
+      "committed": 301491.0,
+      "recomputed": 301491.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Impact:average_damage",
+      "committed": 45.605,
+      "recomputed": 45.605,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Fog:total_deaths",
+      "committed": 4000.0,
+      "recomputed": 4000.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Fog:average_deaths",
+      "committed": 4000.0,
+      "recomputed": 4000.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Fog:average_affected",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Fog:average_damage",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Animal incident:total_deaths",
+      "committed": 12.0,
+      "recomputed": 12.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Animal incident:average_deaths",
+      "committed": 12.0,
+      "recomputed": 12.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Animal incident:average_affected",
+      "committed": 5.0,
+      "recomputed": 5.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "disaster_pattern_summary.csv:Animal incident:average_damage",
+      "committed": null,
+      "recomputed": null,
+      "match": true,
+      "note": "both blank (no reported values)"
+    },
+    {
+      "artifact_value": "final_reporting_coverage.csv:Deaths",
+      "committed": 11655,
+      "recomputed": 11655,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_reporting_coverage.csv:Affected Population",
+      "committed": 12366,
+      "recomputed": 12366,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_reporting_coverage.csv:Economic Damage",
+      "committed": 5251,
+      "recomputed": 5251,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_yearly_frequency.csv:2000",
+      "committed": 489,
+      "recomputed": 489,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_yearly_frequency.csv:count_of_years",
+      "committed": 127,
+      "recomputed": 127,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Deaths vs Total Deaths",
+      "committed": 1.0,
+      "recomputed": 1.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Deaths vs Total Affected",
+      "committed": 0.3496088651350323,
+      "recomputed": 0.3496088651350323,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Deaths vs Total Damage, Adjusted (million US$)",
+      "committed": 0.24450762981150817,
+      "recomputed": 0.2445076897609186,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Affected vs Total Deaths",
+      "committed": 0.3496088651350323,
+      "recomputed": 0.3496088651350323,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Affected vs Total Affected",
+      "committed": 1.0,
+      "recomputed": 1.0,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Affected vs Total Damage, Adjusted (million US$)",
+      "committed": 0.23265025771578576,
+      "recomputed": 0.23265030389693386,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Damage, Adjusted (million US$) vs Total Deaths",
+      "committed": 0.24450762981150817,
+      "recomputed": 0.2445076897609186,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Damage, Adjusted (million US$) vs Total Affected",
+      "committed": 0.23265025771578576,
+      "recomputed": 0.23265030389693386,
+      "match": true,
+      "note": "values agree"
+    },
+    {
+      "artifact_value": "final_impact_correlation.csv:Total Damage, Adjusted (million US$) vs Total Damage, Adjusted (million US$)",
+      "committed": 1.0,
+      "recomputed": 1.0,
+      "match": true,
+      "note": "values agree"
+    }
+  ],
+  "committed_artifacts_all_match": true,
+  "committed_artifacts_compared": 89,
+  "historic_flag_conflicts": {
+    "events": [
+      "1988-0424",
+      "1995-0275",
+      "1999-9388"
+    ],
+    "count": 3,
+    "note": "These events have country impacts carrying different Historic flags, so a per-event Historic dimension must be derived from Start Year, not from any single country row."
+  },
+  "type_summary_csv_matches_events": true
+}
