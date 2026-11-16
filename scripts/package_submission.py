@@ -1,4 +1,4 @@
-"""Package the clean committed tree and verify an independent extraction."""
+"""Check tracked release paths or package the committed tree and verify extraction."""
 import argparse
 import hashlib
 from io import BytesIO
@@ -12,7 +12,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "WHEN_NATURE_STRIKES_COMPLETE_SUBMISSION"
 REQUIRED = (
-    "README.md", "WINDOWS_HANDOVER/START_HERE.md", "submission/COMPLETION_MATRIX.csv",
+    "README.md", "NEXT_SESSION.md", "WINDOWS_HANDOVER/START_HERE.md", "submission/COMPLETION_MATRIX.csv",
     "submission/DELIVERABLES_MANIFEST.md", "submission/evidence/powerbi_author_cli.json",
     "submission/evidence/streamlit/01-overview.png", "submission/evidence/streamlit/05-story.png",
     "submission/evidence/streamlit/07-global-xai.png", "submission/evidence/streamlit/10-pca-3d.png",
@@ -27,13 +27,22 @@ FORBIDDEN_SEGMENTS = {".git", ".pbi", ".venv", "__pycache__", "node_modules", ".
 
 
 def permitted(name):
-    path = PurePosixPath(name)
+    path = PurePosixPath(name.casefold())
+    if path.parts[:2] in {("data", "source"), ("data", "processed")}:
+        return path.as_posix() in {"data/source/readme.md", "data/processed/readme.md"}
     return (not path.is_absolute() and ".." not in path.parts
             and not FORBIDDEN_SEGMENTS.intersection(path.parts)
             and path.name not in SENSITIVE
-            and path.suffix.lower() not in {".xlsx", ".joblib", ".pbix", ".zip", ".pyc"}
-            and not name.startswith(("data/processed/cleaned_", "data/processed/natural_",
-                         "submission/powerbi/local/")))
+            and path.suffix not in {".xls", ".xlsx", ".xlsb", ".xlsm", ".joblib", ".pbix", ".zip", ".pyc"}
+            and path.parts[:3] != ("submission", "powerbi", "local"))
+
+
+def check_tracked():
+    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\0")
+    restricted = [name for name in tracked if name and not permitted(name)]
+    if restricted:
+        raise SystemExit("Restricted tracked paths:\n" + "\n".join(restricted))
+    print("Tracked paths passed the public data and release file check.")
 
 
 def sha(path):
@@ -98,5 +107,11 @@ def build(destination):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, required=True)
-    build(parser.parse_args().output.resolve())
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument("--output", type=Path)
+    action.add_argument("--check-tracked", action="store_true")
+    options = parser.parse_args()
+    if options.check_tracked:
+        check_tracked()
+    else:
+        build(options.output.resolve())

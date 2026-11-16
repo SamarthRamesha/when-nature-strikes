@@ -1,6 +1,5 @@
 """Build a native PBIP/PBIR report with either invented or authorized local data."""
 import argparse
-from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
@@ -59,7 +58,7 @@ def selector(table_name, column_name, values):
 
 def measures():
     records = []
-    for line in (SOURCE / "Measures.dax").read_text().splitlines():
+    for line in (SOURCE / "Measures.dax").read_text(encoding="utf-8").splitlines():
         if not line or line.startswith("//"):
             continue
         name, expression = line.split(" = ", 1)
@@ -275,22 +274,26 @@ def build(destination, data_folder=None):
                 raise FileNotFoundError(f"Run preparation first. Missing {data_folder / name}")
     if (destination / f"{NAME}.pbip").exists():
         raise FileExistsError(f"Choose a new output folder to preserve the existing Power BI project: {destination}")
-    shutil.copytree(SOURCE / "template", destination, dirs_exist_ok=True)
-    report = destination / f"{NAME}.Report"
-    defn = report / "definition"
-    visuals(defn / "pages", "SYNTHETIC DEMONSTRATION · Invented rows · Research results are in the academic report."
+    report = f"{NAME}.Report"
+    # The checked-in PBIP is the source for shared report metadata. Copy only
+    # these files so a local Desktop cache or generated model cannot carry over.
+    for relative in (
+        f"{NAME}.pbip",
+        f"{report}/.platform",
+        f"{report}/definition.pbir",
+        f"{report}/definition/report.json",
+        f"{report}/definition/version.json",
+        f"{report}/StaticResources/SharedResources/BaseThemes/Fluent2-CY26SU10.json",
+    ):
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(DEMO / relative, target)
+    report = destination / report
+    visuals(report / "definition/pages", "SYNTHETIC DEMONSTRATION · Invented rows · Research results are in the academic report."
             if not data_folder else "EM-DAT data, 2026 · CRED / UCLouvain · www.emdat.be · Partial 2026 and uneven historical reporting.")
-    report_def = read(defn / "report.json")
-    report_def["themeCollection"]["customTheme"] = {"name": "WhenNatureStrikes.json",
-        "reportVersionAtImport": deepcopy(report_def["themeCollection"]["baseTheme"]["reportVersionAtImport"]),
-        "type": "RegisteredResources"}
-    report_def["resourcePackages"].append({"name": "RegisteredResources", "type": "RegisteredResources",
-        "items": [{"name": "WhenNatureStrikes.json", "path": "WhenNatureStrikes.json", "type": "CustomTheme"}]})
-    report_def["settings"]["exportDataMode"] = "None"
     theme_path = report / "StaticResources/RegisteredResources/WhenNatureStrikes.json"
     theme = read(SOURCE / "theme.json")
     write(theme_path, {**theme, "name": theme_path.name})
-    write(defn / "report.json", report_def)
     model(destination, data_folder)
     return destination / f"{NAME}.pbip"
 

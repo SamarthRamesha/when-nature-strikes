@@ -57,3 +57,15 @@ sensitivity checks and a chronological event-level model. Use the same filtered
 metrics in the browser dashboard, report and classroom demonstration. Provide
 Power BI sources and a model specification for Windows authoring. Keep row-level
 and licensed inputs outside the public working tree.
+
+## Public handover cleanup
+
+The cleanup started from `7590255` on `project/complete-final-submission`,
+with passing Linux and Windows checks and draft PR #3 open against `main`.
+The review branch is the current handover. The originally circulated ZIP
+has its own verification record. [Validation](VALIDATION_REPORT.md)
+
+- The integration plans, agent prompts and duplicated status documents were retired from the current tree. The original assignments and completed work remain linked in the contribution record and recoverable through Git history. [Team contributions](TEAM_CONTRIBUTIONS.md)
+- The six notebooks and original visualizations remain available. Three byte-identical EDA CSV pairs were consolidated. The affected notebooks write the retained names used by the final notebook and verification script.
+- The ten-view browser suite retains the assertions shared with the older four-view test. The checked-in five-page PBIP remains the source for its shared metadata. The builder continues to produce fresh definitions from the measures, queries and visual code.
+- The mirrored EM-DAT reference PDF was replaced by the provider's documentation. The current-tree check excludes local data paths and caches. The default branch and preserved historical refs still contain the old export and prepared CSVs. [Data provenance and historical exposure](DATA_LICENSE.md)

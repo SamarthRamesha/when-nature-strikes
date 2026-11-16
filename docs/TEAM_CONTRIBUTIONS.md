@@ -1,16 +1,24 @@
 # Team contributions
 
-| Member | Original assignment | Repository evidence before this session | Codex work related to assignment | Review and acceptance |
-| --- | --- | --- | --- | --- |
-| Samarth Ramesha | Data preparation, documentation, reproducibility, integration | Author of `c851657`, `a0140c4`, `9613b1a`, `26405d0`; workbook, pipeline, validation and handover history | Audit, deterministic rebuild, release terms, CI and integrated packaging | Review provenance, restrictions and reproducibility. Acceptance pending. |
-| Shashank S K | EDA, analysis, charts, validation | `5809b49` and PR #1 recorded under SSK1703. Six EDA notebooks and associated tables and figures. Confirm identity for institutional records. | Advanced statistics, model and SHAP, profile analysis, report and presentation draft | Review numerical interpretation and attribution. Acceptance pending. |
-| Shreya Patil | Power BI dashboard pages 1–3 | Assignment and specification in the historical handover. No authored PBIX found. | Integrated Streamlit app and Power BI source package | Review metric acceptance and decide whether to author a native PBIX. Acceptance pending. |
-| Shreya S Mattimadu | Geospatial analysis and dashboard integration | Assignment and handover specification. No completed map or geographic PBIX found. | ISO-keyed map, local geography analysis, exclusions, dashboard integration | Review map labels and geographic coverage. Acceptance pending. |
+| Member | Recorded assignment | Work evidenced in the original repository |
+| --- | --- | --- |
+| **Samarth Ramesha** | Data inspection and preparation, reproducibility and integration handover | Authored the EM-DAT preparation pipeline, documented the source and four table schemas, and prepared the data quality checks, EDA verification and dashboard integration specifications. [Preparation commit](https://github.com/SamarthRamesha/when-nature-strikes/commit/c851657) · [Handover PR #2](https://github.com/SamarthRamesha/when-nature-strikes/pull/2) |
+| **Shashank S K** | Data inspection, exploratory analysis and visualization | Git records the original six EDA notebooks, chart collection and aggregate outputs under the `SSK1703` account. The team should confirm the account attribution for institutional records. [EDA commit](https://github.com/SamarthRamesha/when-nature-strikes/commit/5809b49) · [EDA PR #1](https://github.com/SamarthRamesha/when-nature-strikes/pull/1) |
+| **Shreya Patil** | Power BI dashboard development, originally the overview, impact comparison and temporal pages | The historical handover records the assignment and proposed page responsibilities. Her authored dashboard files are unverified in the repository history. [Historical integration handover](https://github.com/SamarthRamesha/when-nature-strikes/blob/26405d0/docs/INTEGRATION_HANDOVER.md) |
+| **Shreya S Mattimadu** | Geospatial analysis and dashboard integration | The historical handover records the mapping assignment and proposed integration responsibilities. Her authored geographic artifacts are unverified in the repository history. [Historical integration handover](https://github.com/SamarthRamesha/when-nature-strikes/blob/26405d0/docs/INTEGRATION_HANDOVER.md) |
 
-The historical approval summary and Git history document recorded work and
-assignments. Codex generated the technical additions and submission draft
-during this session under the repository’s configured Git identity. The team must validate the contribution statement and
-apply its institution's AI disclosure requirements before submission. The
-repository supplies no evidence of teammate or faculty sign-off.
+The original [data preparation handover](https://github.com/SamarthRamesha/when-nature-strikes/blob/26405d0/docs/DATA_HANDOVER.md)
+and [completion audit](https://github.com/SamarthRamesha/when-nature-strikes/blob/26405d0/docs/SAMARTH_FINAL_HANDOVER_CHECKLIST.md)
+preserve the scope, verification and handoff notes from that phase.
 
-The Windows handover added the native Power BI project, synthetic fixtures, Windows scripts, guided views, additional explanation methods, packaging and verification. Codex implemented these changes. Teammate and faculty acceptance remain human steps.
+Codex assisted with the later implementation on PR #3 under the repository's
+configured commit identity. This work includes the deterministic rebuild updates,
+extended statistics, ML and XAI, projections, clustering, the ten-view Streamlit
+application, five-page Power BI source, Windows checks and academic drafts.
+Git commit identity alone cannot establish who authored assisted changes. [Draft PR #3](https://github.com/SamarthRamesha/when-nature-strikes/pull/3)
+
+## Academic review
+
+- Confirm each member's contribution, including any external work they can substantiate, and apply the institution's AI disclosure requirements.
+- Check the approval deck's Unit 1 and Unit 3 scope against the task allocation's Unit 2 geospatial work. [Approval reference](PROJECT_APPROVAL_SUMMARY.md)
+- Review the report, presentation and demo as a team, record faculty acceptance, and review the licensing history and Desktop acceptance before approving the PR. [Submission materials](../submission/README.md) · [Validation record](VALIDATION_REPORT.md)

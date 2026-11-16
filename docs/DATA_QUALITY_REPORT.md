@@ -25,7 +25,7 @@ Source workbook: `data/source/EM-DAT Custom Request Oct 31 2026.xlsx` — presen
 `6767b6125b3ad35a5f6aa88d3f8522efab3bed7bb0c8fdb8cf0fa91143e9d422`. The workbook is never modified by this repository's scripts.
 
 Grains: one row per country impact (detailed), one row per consolidated event, one row per
-disaster type, and one row per country/year/type group. See `docs/DASHBOARD_DATA_HANDOVER.md`.
+disaster type, and one row per country/year/type group. See the [data dictionary](DATA_DICTIONARY.md).
 
 ## 2. Validation checks and outcomes
 

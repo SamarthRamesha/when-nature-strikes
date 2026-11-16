@@ -7,10 +7,11 @@
 | Presenter materials | [Presenter script](presenter_script.md) · [Dashboard demonstration](dashboard_demo_guide.md) · [Viva questions](viva_questions.md) |
 | Charts and evidence | [Final figures](../results/figures/) · [Validation](../docs/VALIDATION_REPORT.md) |
 | Interactive dashboard | [Local browser setup](../docs/DASHBOARD_GUIDE.md) · [Power BI handover](../dashboard/powerbi/README.md) |
-| Review | [Contributions](../docs/TEAM_CONTRIBUTIONS.md) · [Submission checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md) |
+| Review | [Contributions and academic review](../docs/TEAM_CONTRIBUTIONS.md) · [Completion matrix](COMPLETION_MATRIX.csv) |
 
 The report and deck are submission copies for team and faculty review.
-The browser app uses the locally rebuilt EM-DAT tables. The Windows handover contains a five-page native PBIP with synthetic fixtures and a generator that points it at local authorized CSVs. See the [Windows start guide](../WINDOWS_HANDOVER/START_HERE.md) and [completion matrix](COMPLETION_MATRIX.csv).
+Both dashboards support a synthetic demo and locally rebuilt authorized data.
+[Deliverables manifest](DELIVERABLES_MANIFEST.md)
 
 ## Rebuild editable and PDF artifacts
 

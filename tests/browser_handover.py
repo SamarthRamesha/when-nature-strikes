@@ -31,6 +31,7 @@ def run(url, evidence, synthetic=False):
             heading(title)
 
         heading("Recorded events by hazard")
+        expect(page.get_by_role("heading", name="When Nature Strikes", exact=True)).to_be_visible()
         expect(main.get_by_text("12" if synthetic else "15,727", exact=True).first).to_be_visible()
         if synthetic:
             expect(main.get_by_text("SYNTHETIC DEMONSTRATION", exact=False)).to_be_visible()
@@ -60,6 +61,7 @@ def run(url, evidence, synthetic=False):
         expect(main.get_by_text("6" if synthetic else "5,814", exact=True).first).to_be_visible()
 
         view("Frequency vs impact", "How does the ranking change with the impact measure?")
+        expect(main.get_by_text("Flood leads this reported total, based on", exact=False)).to_be_visible()
         main.get_by_text("Median", exact=True).first.click()
         expect(main.get_by_text("Flood leads this reported median", exact=False)).to_be_visible()
         snap("02-frequency")

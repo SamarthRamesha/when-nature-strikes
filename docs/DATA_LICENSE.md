@@ -1,32 +1,36 @@
-# EM-DAT provenance and publication
+# Data provenance and publication
 
-The GitHub repository is public. The analysis uses **EM-DAT, CRED / UCLouvain,
-Brussels, Belgium**, custom-request export version **2026-10-23**, file dated
-31 October 2026. The [EM-DAT citation policy](https://doc.emdat.be/docs/legal/citation-policy/)
-covers attribution for analyses, charts, and tables.
+The analysis uses **EM-DAT data, 2026, CRED / UCLouvain, Brussels, Belgium**,
+custom-request export version 23 October 2026, delivered 31 October 2026.
+The exact workbook fingerprint is recorded in the [project provenance](../results/provenance.json).
+Request the same export through the [EM-DAT public portal](https://public.emdat.be/).
 
-Qualifying academic and other eligible users may register for free access subject to
-[EM-DAT's Terms of Use](https://doc.emdat.be/docs/legal/terms-of-use/). The
-[provider's FAQ](https://doc.emdat.be/docs/additional-resources-and-tutorials/faq/)
-distinguishes EM-DAT Public Data from the separately released EM-DAT Archive. The
-Archive's CC BY-NC-ND 4.0 licence permits sharing its unchanged snapshots with
-attribution for noncommercial purposes. The workbook used here is labeled a
-custom request. This project has no evidence of separate redistribution permission
-or of an applicable Archive DOI for this export. The current branch keeps the source
-workbook, processed CSVs, event-level embeddings, and fitted model local. The
-public artifacts present analytical results with attribution.
+## What the release branch distributes
 
-The processed CSVs were committed on 31 October 2026 in
-[`a0140c4`](https://github.com/SamarthRamesha/when-nature-strikes/commit/a0140c4),
-and the source workbook in
-[`9613b1a`](https://github.com/SamarthRamesha/when-nature-strikes/commit/9613b1a).
-They were publicly visible in the original project history. Both historical branches
-and the original Git objects remain intact. This branch stops tracking those files
-in its current tree. The repository owner should coordinate with CRED if further
-action concerning historical exposure is required.
+| Asset | Basis for inclusion |
+| --- | --- |
+| Invented demonstration rows | The labeled CSVs under `dashboard/powerbi/` are project fixtures. The packaged PBIP embeds those fixtures. |
+| Aggregate results and academic artifacts | EM-DAT allows the publication of attributed analyses, aggregate figures, charts and findings. [EM-DAT FAQ](https://doc.emdat.be/docs/additional-resources-and-tutorials/faq/#can-i-redistribute-em-dat-data) · [Citation policy](https://doc.emdat.be/docs/legal/citation-policy/) |
+| Natural Earth boundaries | The country polygons are public-domain Natural Earth data. [Boundary provenance](../dashboard/BOUNDARIES.md) · [Natural Earth terms](https://www.naturalearthdata.com/about/terms-of-use/) |
+| Shared Power BI report scaffold assets | Microsoft Power BI report-authoring CLI supplies the scaffold and Fluent base theme. The bundled MIT notice covers those assets. [Microsoft license notice](../dashboard/powerbi/MICROSOFT_LICENSE.txt) |
 
-For independent access use the [EM-DAT public portal](https://public.emdat.be/).
-Ask CRED for the original export if an exact rerun is required. The checksum lets
-authorized users verify the file before rebuilding.
+The custom-request workbook and detailed derivatives remain local. This
+includes all four prepared tables, granular country and hazard exports,
+row-level predictions and ICE, exact event embeddings, fitted models and
+PBIX files with imported authorized data. This project has no separate
+redistribution permission or Archive DOI for this export. The separate
+EM-DAT Archive has its own CC BY-NC-ND terms for unchanged snapshots.
+[EM-DAT terms](https://doc.emdat.be/docs/legal/terms-of-use/) · [EM-DAT documentation](https://doc.emdat.be/)
 
-The Windows archive includes only invented demonstration rows, code, published academic figures and aggregate research evidence. The exact processed tables, per-event embeddings, held-out prediction rows, per-record ICE, detailed country exports, fine-grained type/year derivatives, cached model and authorized native PBIX stay local. Anyone reproducing the findings should independently obtain the matching workbook.
+The publication rules above cover the named assets. The team has yet to
+record a general reuse license for the repository's original code and materials.
+
+## Existing public exposure
+
+At the handover audit, GitHub's default branch `main` still tracked the
+custom workbook and all four prepared CSVs. Historical commits `9613b1a`
+(workbook) and `a0140c4` (prepared CSVs) also retain these assets. The current
+review branch drops the five paths, checks tracked paths in CI, and retains
+original history. The owner should coordinate with CRED about the exposure
+and decide how to publish the cleaned default branch after reviewing draft
+PR #3. [Release review](https://github.com/SamarthRamesha/when-nature-strikes/pull/3)

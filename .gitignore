@@ -58,8 +58,10 @@ secrets/
 *.key
 
 # Authorized local EM-DAT acquisition and row-level products
-/data/source/*.xlsx
-/data/processed/*.csv
+/data/source/*
+!/data/source/README.md
+/data/processed/*
+!/data/processed/README.md
 /results/country.csv
 /results/country_by_year.csv
 /results/map_unmatched.csv
@@ -76,6 +78,6 @@ secrets/
 /results/dimensionality_reduction/embeddings_local.csv
 /WINDOWS_HANDOVER/logs/
 /submission/powerbi/local/
-/submission/powerbi/**/*.pbix
+*.pbix
 **/.pbi/
 /results/type_by_year.csv
