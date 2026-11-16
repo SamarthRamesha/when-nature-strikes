@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-11T12:03:54Z",
+  "generated_at_utc": "2026-11-16T14:17:41Z",
   "generated_by": "scripts/validate_project_data.py",
   "datasets": {
     "impacts": {
@@ -13,22 +13,22 @@
       "path": "data/processed/natural_disaster_events.csv",
       "rows": 15727,
       "columns": 35,
-      "sha256": "550a6068a2d6c6c4862edcd95e39072b80c2a3b794e2251c74c35feb5ccc0643",
-      "bytes": 2762119
+      "sha256": "1ca24eef5a9aa224bff55dbd205f3e8c165981a67bf253588673f7a4d2c53341",
+      "bytes": 2762105
     },
     "type_summary": {
       "path": "data/processed/natural_disaster_type_summary.csv",
       "rows": 15,
       "columns": 19,
-      "sha256": "27d152f067559438cae17b26c9709c01421814d0e9ab958da125d0512bcd3562",
-      "bytes": 2128
+      "sha256": "6f5208550c64a956a7f14f93bc3c95d9ab35b655b22a855b80a398956ec26b66",
+      "bytes": 2122
     },
     "country_year_type": {
       "path": "data/processed/natural_country_year_type_summary.csv",
       "rows": 11157,
       "columns": 25,
-      "sha256": "3574284cba3175716cf6fdc216736b062994d0ecc1188800774e880a670bde0f",
-      "bytes": 1175402
+      "sha256": "9b2af18e4e516bd44324090b97c9823222a6f696925f6395033999fa6165f978",
+      "bytes": 1175388
     }
   },
   "source_workbook": {

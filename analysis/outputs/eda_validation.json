@@ -1,7 +1,7 @@
 {
   "generated_by": "scripts/verify_eda_findings.py",
   "max_spearman_abs_delta_vs_committed": 5.994941043585555e-08,
-  "generated_at_utc": "2026-11-11T12:03:55Z",
+  "generated_at_utc": "2026-11-16T14:17:42Z",
   "dataset": "data/processed/natural_disaster_events.csv",
   "events": 15727,
   "types": 15,

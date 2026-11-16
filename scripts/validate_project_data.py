@@ -737,7 +737,7 @@ next to a damage total.
 
 - `SRC-rows` / `SRC-natural` require `openpyxl` (declared in `requirements.txt`). When it is not
   installed the source workbook row count cannot be re-verified and the checks report SKIP.
-- The script does not re-run `scripts/prepare_emdat.py`, so it validates the committed outputs
+- The script does not re-run `scripts/prepare_emdat.py`, so it validates the generated local outputs
   rather than regenerating them. It does not verify EM-DAT's upstream data-quality claims, the
   accuracy of EM-DAT's CPI adjustment, or whether blanks mean "no impact" or "unreported".
 - No check evaluates the Power BI `.pbix` file, which is out of scope for this repository role.
