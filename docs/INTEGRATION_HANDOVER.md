@@ -1,5 +1,7 @@
 # Integration Handover — When Nature Strikes
 
+> Pre-takeover record. See [the current project overview](PROJECT_OVERVIEW.md) and [data terms](DATA_LICENSE.md).
+
 Written by Samarth Ramesha at the end of the data/preparation phase. This document is the
 coordination map for the **single integrated Power BI dashboard**; it does not replace
 `docs/DATA_HANDOVER.md` (derivations, caveats) or `docs/DASHBOARD_DATA_HANDOVER.md` (build

@@ -1,5 +1,7 @@
 # When Nature Strikes — Data Preparation Handover
 
+> Pre-takeover record. See [the current project overview](PROJECT_OVERVIEW.md) and [data terms](DATA_LICENSE.md).
+
 Prepared 31 October 2026 for the dashboard and geospatial team.
 
 ## Files in this handover

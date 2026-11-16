@@ -1,5 +1,7 @@
 # Samarth — Completion Summary
 
+> Pre-takeover record. See [the current project overview](PROJECT_OVERVIEW.md) and [data terms](DATA_LICENSE.md).
+
 Run date: 11 November 2026. Branch: `freebuff/c0fd9a071aa35e2beb882d6c` (from `main`, at merge
 commit `5d020a3`, PR #1 `eda-analysis`). Nothing was committed, pushed, merged or published.
 

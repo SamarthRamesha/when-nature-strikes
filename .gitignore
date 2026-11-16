@@ -67,3 +67,5 @@ secrets/
 /results/*.joblib
 /node_modules/
 /submission/.build/
+/node_modules
+/submission/*.inspect.ndjson

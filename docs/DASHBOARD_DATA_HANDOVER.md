@@ -1,5 +1,7 @@
 # Dashboard Data Handover — When Nature Strikes
 
+> Pre-takeover record. See [the current project overview](PROJECT_OVERVIEW.md) and [data terms](DATA_LICENSE.md).
+
 Practical guide for Shreya Patil (analytical dashboard) and Shreya S Mattimadu (geospatial
 component), written by Samarth Ramesha as part of the data/integration role.
 
