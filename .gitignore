@@ -56,3 +56,14 @@ tmp/
 secrets/
 *.pem
 *.key
+
+# Authorized local EM-DAT acquisition and row-level products
+/data/source/*.xlsx
+/data/processed/*.csv
+/results/country.csv
+/results/country_by_year.csv
+/results/map_unmatched.csv
+/results/event_profiles.csv
+/results/*.joblib
+/node_modules/
+/submission/.build/
