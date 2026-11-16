@@ -1,4 +1,5 @@
 """Four interactive views sharing one set of filters and impact definitions."""
+import os
 import sys
 from pathlib import Path
 
@@ -8,17 +9,26 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.geography import boundaries, map_coverage
-from src.metrics import ID, TYPE, YEAR, METRICS, SHORT, filtered_events, load_data, summarize
+from dashboard.analysis_views import clustering, dimensionality, ml, quality, story, xai
+from src.metrics import ROOT, ID, TYPE, YEAR, METRICS, SHORT, filtered_events, load_data, summarize
 
-NAVIGATION = ("Overview", "Frequency vs impact", "Trends", "Geography")
+NAVIGATION = ("Overview", "Frequency vs impact", "Trends", "Geography", "Guided findings",
+              "Machine learning", "Explainable AI", "Dimensionality reduction", "Clustering and anomalies",
+              "Data quality and methodology")
+SAVED_VIEWS = dict(zip(NAVIGATION[5:], (ml, xai, dimensionality, clustering, quality)))
 TEAL = "#087f80"
 STATS = {"Total": "total", "Mean": "mean", "Median": "median"}
 PICKABLE = {f"{SHORT[m]} ({unit})": m for m, unit in METRICS.items()}
 
 
 @st.cache_data
-def data():
-    events, impacts = load_data()
+def data(synthetic):
+    if synthetic:
+        root = ROOT / "dashboard/powerbi"
+        events = pd.read_csv(root / "synthetic_events.csv")
+        impacts = pd.read_csv(root / "synthetic_impacts.csv").merge(events[[ID, TYPE, YEAR]], on=ID, validate="many_to_one")
+    else:
+        events, impacts = load_data()
     impacts = impacts.drop(columns=YEAR).merge(events[[ID, YEAR]], on=ID, validate="many_to_one")
     return events, impacts, boundaries()
 
@@ -129,13 +139,20 @@ def geography(frame, world):
 def main():
     st.set_page_config(page_title="When Nature Strikes", layout="wide")
     st.title("When Nature Strikes")
-    st.caption("[EM-DAT data](https://www.emdat.be/) · CRED / UCLouvain · 23 October 2026 export")
-    try:
-        events, impacts, world = data()
-    except FileNotFoundError:
-        st.error("Build the local CSVs with python scripts/prepare_emdat.py before launching the dashboard.")
-        st.stop()
     selected = st.sidebar.radio("Page", NAVIGATION)
+    synthetic = os.environ.get("WNS_DATA_MODE") == "synthetic"
+    st.caption("[EM-DAT data](https://www.emdat.be/) · CRED / UCLouvain · 23 October 2026 export")
+    if synthetic and selected not in SAVED_VIEWS:
+        st.warning("SYNTHETIC DEMONSTRATION · Invented records for testing controls. Saved research cohorts are separate views.")
+    try:
+        events, impacts, world = data(synthetic)
+    except FileNotFoundError:
+        if selected in SAVED_VIEWS:
+            SAVED_VIEWS[selected]()
+        else:
+            st.error("Run python scripts/prepare_emdat.py, or launch with WNS_DATA_MODE=synthetic to use invented demonstration rows.")
+        return
+    st.sidebar.caption("Filters apply to overview, comparisons, trends, geography and guided findings.")
     lo, hi = int(events[YEAR].min()), int(events[YEAR].max())
     years = st.sidebar.slider("Event start years", lo, hi, (lo, hi))
     hazards = st.sidebar.multiselect("Hazard types", sorted(events[TYPE].unique()))
@@ -151,8 +168,11 @@ def main():
         take &= impacts.Region.isin(regions)
     if countries:
         take &= impacts.ISO.isin(countries)
+    if selected in SAVED_VIEWS:
+        SAVED_VIEWS[selected]()
+        return
     scope = impacts.loc[take]
-    if years[1] == 2026:
+    if years[1] == 2026 and not synthetic:
         st.info("2026 is partial. Pre-2000 event counts reflect historical reporting limitations.")
     st.caption("Geographic filters restrict losses to the selected countries. Multi-country events count once in the selected scope.")
     if scope.empty:
@@ -160,6 +180,8 @@ def main():
         return
     if selected == "Geography":
         geography(scope, world)
+    elif selected == "Guided findings":
+        story(filtered_events(scope, events), scope, synthetic)
     else:
         {"Overview": overview, "Frequency vs impact": frequency, "Trends": trends}[selected](
             filtered_events(scope, events))

@@ -55,6 +55,28 @@
     ],
     "neighbors_scored": 15
   },
+  "reproduction": {
+    "features": [
+      "Total Deaths",
+      "Total Affected",
+      "Total Damage, Adjusted (million US$)"
+    ],
+    "transformation": "standardize log1p losses",
+    "t_sne_max_iterations": 850,
+    "t_sne_init": "pca",
+    "umap_metric": "euclidean",
+    "umap_legacy_compatibility": true,
+    "years": [
+      2000,
+      2025
+    ],
+    "complete_country_reporting_required": true,
+    "scales": {
+      "Total Deaths": 0.9999999999999999,
+      "Total Affected": 1.0,
+      "Total Damage, Adjusted (million US$)": 1.0
+    }
+  },
   "kmeans_reference_k": 2,
   "cluster_metrics": {
     "method": "K-means",

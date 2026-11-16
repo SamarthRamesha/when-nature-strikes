@@ -9,12 +9,13 @@
     "Disaster Type": 0.41527300984099824
   },
   "local_example": {
-    "probability": 0.499108792842654,
+    "input_type": "invented scenario",
+    "probability": 0.10823271275208675,
     "base_value": -2.439605681960528,
     "grouped_contributions": {
-      "Disaster Type": 1.6860044022892962,
+      "Disaster Type": -0.053505635538349014,
       "Region": 0.35271174082596596,
-      "Start Month": 0.3973247064407201
+      "Start Month": 0.03147802355510907
     }
   },
   "hazard_mean_signed_shap": {

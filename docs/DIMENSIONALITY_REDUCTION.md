@@ -22,3 +22,8 @@ seed together, so the difference does not isolate either effect. PCA uses a
 deterministic fit on this matrix. Nonlinear plot distances and gaps require
 careful interpretation. See the [three projections](../results/figures/impact_embeddings.png)
 and [diagnostics](../results/profile_summary.json).
+
+The dashboard exposes filterable 2D views for PCA, t-SNE and UMAP and a rotatable
+3D PCA view. Public projections use aggregate cells. The authorized pipeline
+creates exact event-level coordinates and hazard/cluster annotations locally.
+[Projection artifacts](../results/dimensionality_reduction/)

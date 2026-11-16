@@ -21,4 +21,4 @@ can reflect a real catastrophe or recording characteristics.
 
 [Evaluation](../results/cluster_evaluation.csv) and [plots](../results/figures/clusters_and_anomalies.png)
 are public aggregates. Local reproduction writes event assignments and
-anomaly scores to ignored `results/event_profiles.csv`.
+anomaly scores to ignored `results/dimensionality_reduction/embeddings_local.csv`.

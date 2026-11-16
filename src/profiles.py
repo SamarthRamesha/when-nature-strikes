@@ -18,6 +18,7 @@ from umap import UMAP
 
 from .metrics import ID, METRICS, OUT, SHORT, TYPE, YEAR, load_data
 from .statistics import INK, TEAL, save
+from .projection_output import DEST, publish
 
 SEED = 661
 METHODS = ["PCA", "t-SNE", "UMAP"]
@@ -82,7 +83,8 @@ def run():
     recent, full, x = impact_matrix(events)
     rng = np.random.default_rng(SEED)
     pca = PCA().fit(x)
-    coordinates = [pca.transform(x)[:, :2]]
+    pca_projection = pca.transform(x)
+    coordinates = [pca_projection[:, :2]]
     alternatives = [coordinates[0]]
     for perplexity, seed in [(30, SEED), (50, SEED + 1)]:
         target = coordinates if perplexity == 30 else alternatives
@@ -91,7 +93,7 @@ def run():
     for n_neighbors, min_dist, seed in [(25, .15, SEED), (45, .35, SEED + 1)]:
         target = coordinates if n_neighbors == 25 else alternatives
         target.append(UMAP(n_neighbors=n_neighbors, min_dist=min_dist, metric="euclidean",
-                           random_state=seed, n_jobs=1).fit_transform(x))
+                           random_state=seed, n_jobs=1, compatibility_layout=True).fit_transform(x))
     quality = {name: dict(trustworthiness_15=trustworthiness(x, xy, n_neighbors=15),
                           sensitivity_neighbor_overlap_15=overlap(neighbors(xy), neighbors(alt)))
                for name, xy, alt in zip(METHODS, coordinates, alternatives)}
@@ -103,9 +105,11 @@ def run():
     full["anomaly_flag"] = score >= np.quantile(score, .99)
     for name, xy in zip(METHODS, coordinates):
         full[f"{name} 1"], full[f"{name} 2"] = xy.T
+    full["PCA 3"] = pca_projection[:, 2]
+    publish(full)
     output_fields = [ID, TYPE, YEAR, *METRICS, "cluster", "anomaly_score", "anomaly_flag"]
-    full[output_fields + [f"{name} {dim}" for name in METHODS for dim in (1, 2)]].to_csv(
-        OUT / "event_profiles.csv", index=False)
+    full[output_fields + [f"{name} {dim}" for name in METHODS for dim in (1, 2)] + ["PCA 3"]].to_csv(
+        DEST / "embeddings_local.csv", index=False)
     profile = full.groupby("cluster")[list(METRICS)].median().join(full.groupby("cluster").size().rename("n"))
     profile.to_csv(OUT / "cluster_profiles.csv")
     eval_frame = pd.DataFrame(evaluation)
@@ -118,6 +122,11 @@ def run():
                "explained_variance_ratio": pca.explained_variance_ratio_.tolist(),
                "embedding_diagnostics": quality,
                "settings": {"t-SNE": [30, 50], "UMAP": [[25, .15], [45, .35]], "neighbors_scored": 15},
+               "reproduction": {"features": list(METRICS), "transformation": "standardize log1p losses",
+                                "t_sne_max_iterations": 850, "t_sne_init": "pca", "umap_metric": "euclidean",
+                                "umap_legacy_compatibility": True, "years": [2000, 2025],
+                                "complete_country_reporting_required": True,
+                                "scales": dict(zip(METRICS, x.std(axis=0).tolist()))},
                "kmeans_reference_k": k, "cluster_metrics": evaluation[k-2],
                "anomaly_flags": int(full.anomaly_flag.sum())}
     (OUT / "profile_summary.json").write_text(json.dumps(payload, indent=2) + "\n")

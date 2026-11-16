@@ -82,12 +82,14 @@ def explain(name, model, train, test):
     background = encoder.transform(train.sample(n=min(256, len(train)), random_state=SEED)[FEATURES])
     design = encoder.transform(sample[FEATURES])
     if name == "Random forest":
-        raw = shap.TreeExplainer(estimator, background, feature_perturbation="interventional",
-                                 model_output="probability")(design)[:, :, 1]
+        explainer = shap.TreeExplainer(estimator, background, feature_perturbation="interventional",
+                                       model_output="probability")
+        raw = explainer(design)[:, :, 1]
         expected = model.predict_proba(sample[FEATURES])[:, 1]
         units = "probability"
     else:
-        raw = shap.LinearExplainer(estimator, shap.maskers.Independent(background, max_samples=256))(design)
+        explainer = shap.LinearExplainer(estimator, shap.maskers.Independent(background, max_samples=256))
+        raw = explainer(design)
         expected = estimator.decision_function(design)
         units = "log-odds"
     np.testing.assert_allclose(raw.base_values + raw.values.sum(axis=1), expected, atol=1e-6, rtol=0)
@@ -104,9 +106,15 @@ def explain(name, model, train, test):
     ax.set(title=f"Global SHAP importance ({len(sample)} held-out events)",
            xlabel=f"Mean absolute grouped contribution ({units})")
     save(fig, "shap_global")
-    scores = model.predict_proba(sample[FEATURES])[:, 1]
-    idx = int(np.argmax(scores))
-    shap.plots.waterfall(explained[idx], max_display=9, show=False)
+    illustrative = pd.DataFrame([["Flood", "Asia", "7"]], columns=FEATURES)
+    profile = encoder.transform(illustrative)
+    local = explainer(profile)[:, :, 1] if name == "Random forest" else explainer(profile)
+    local_grouped = [local.values[0, [i for i, n in enumerate(names) if n.startswith(f"{feature}_")]].sum()
+                     for feature in FEATURES]
+    case = shap.Explanation(values=np.asarray(local_grouped), base_values=local.base_values[0],
+                            feature_names=FEATURES)
+    shap.plots.waterfall(case, show=False)
+    plt.gcf().suptitle("Illustrative flood scenario with invented inputs")
     save(plt.gcf(), "shap_local")
     per_hazard = pd.DataFrame(grouped, columns=FEATURES).assign(hazard=sample[TYPE].to_numpy())
     counts = per_hazard.groupby("hazard").size()
@@ -120,9 +128,10 @@ def explain(name, model, train, test):
     return {"model": name, "events": len(sample), "output_units": units,
             "max_additivity_error": float(np.max(abs(raw.base_values + raw.values.sum(axis=1) - expected))),
             "mean_absolute_group_shap": global_importance.to_dict(),
-            "local_example": {"probability": float(scores[idx]),
-                              "base_value": float(raw.base_values[idx]),
-                              "grouped_contributions": dict(zip(FEATURES, grouped[idx].tolist()))},
+            "local_example": {"input_type": "invented scenario",
+                              "probability": float(model.predict_proba(illustrative)[0, 1]),
+                              "base_value": float(local.base_values[0]),
+                              "grouped_contributions": dict(zip(FEATURES, map(float, local_grouped)))},
             "hazard_mean_signed_shap": per_hazard.groupby("hazard")[FEATURES].mean().loc[keep].to_dict("index")}
 
 

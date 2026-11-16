@@ -1,0 +1,133 @@
+{
+  "model": "Logistic regression",
+  "seed": 661,
+  "train_events": 4131,
+  "held_out_events": 834,
+  "held_out_average_precision": 0.28821593069023466,
+  "permutation_repeats": 40,
+  "lime_samples": 5000,
+  "shap_units": "log odds",
+  "shap_global": {
+    "Start Month": 0.18169683645370605,
+    "Region": 0.34586606253177876,
+    "Disaster Type": 0.41527300984099824
+  },
+  "scenarios": {
+    "Flood in Southern Asia scenario": {
+      "inputs": {
+        "Disaster Type": "Flood",
+        "Region": "Asia",
+        "Start Month": "7"
+      },
+      "prediction": 0.10823271275208675,
+      "lime": {
+        "conditions": [
+          [
+            "Region=Asia",
+            0.04928124898013563
+          ],
+          [
+            "Disaster Type=Flood",
+            -0.0417732042475974
+          ],
+          [
+            "Start Month=7",
+            0.00024096567373637642
+          ]
+        ],
+        "weighted_r2": 0.17408358950653802,
+        "surrogate_prediction": 0.10778224778598473,
+        "surrogate_intercept": 0.10003323737971012
+      },
+      "shap": {
+        "baseline": -2.439605681960528,
+        "explanation_total": -2.108921553117802,
+        "grouped": {
+          "Disaster Type": -0.05350563553834907,
+          "Region": 0.35271174082596596,
+          "Start Month": 0.03147802355510907
+        }
+      },
+      "shap_image": "shap_scenario_1.png"
+    },
+    "Earthquake in the Americas scenario": {
+      "inputs": {
+        "Disaster Type": "Earthquake",
+        "Region": "Americas",
+        "Start Month": "2"
+      },
+      "prediction": 0.09416597239985373,
+      "lime": {
+        "conditions": [
+          [
+            "Region=Americas",
+            -0.04866658418014674
+          ],
+          [
+            "Disaster Type=Earthquake",
+            0.038051696283351616
+          ],
+          [
+            "Start Month=2",
+            0.017920506459833164
+          ]
+        ],
+        "weighted_r2": 0.0935022837807753,
+        "surrogate_prediction": 0.11767071006321672,
+        "surrogate_intercept": 0.11036509150017867
+      },
+      "shap": {
+        "baseline": -2.439605681960528,
+        "explanation_total": -2.263797207620574,
+        "grouped": {
+          "Disaster Type": 0.5418562684582958,
+          "Region": -0.5186016832830792,
+          "Start Month": 0.15255388916473764
+        }
+      },
+      "shap_image": "shap_scenario_2.png"
+    },
+    "Storm in Oceania scenario": {
+      "inputs": {
+        "Disaster Type": "Storm",
+        "Region": "Oceania",
+        "Start Month": "12"
+      },
+      "prediction": 0.02305639307144604,
+      "lime": {
+        "conditions": [
+          [
+            "Disaster Type=Storm",
+            -0.08046778453680224
+          ],
+          [
+            "Region=Oceania",
+            -0.03872046125633945
+          ],
+          [
+            "Start Month=12",
+            -0.0020226030228805785
+          ]
+        ],
+        "weighted_r2": 0.19664508365736144,
+        "surrogate_prediction": -0.0006462564999193815,
+        "surrogate_intercept": 0.12056459231610289
+      },
+      "shap": {
+        "baseline": -2.439605681960528,
+        "explanation_total": -3.7464858420653795,
+        "grouped": {
+          "Disaster Type": -0.8727022494300908,
+          "Region": -0.39449546642523836,
+          "Start Month": -0.03968244424952243
+        }
+      },
+      "shap_image": "shap_scenario_3.png"
+    }
+  },
+  "versions": {
+    "lime": "0.2.0.1",
+    "shap": "0.51.0",
+    "scikit-learn": "1.9.1"
+  }
+}
