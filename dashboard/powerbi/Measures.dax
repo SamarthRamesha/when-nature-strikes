@@ -1,0 +1,47 @@
+// Install each block as a separate Power BI measure.
+
+Distinct events = DISTINCTCOUNT(FactImpacts[Event ID])
+
+Country impact records = COUNTROWS(FactImpacts)
+
+Deaths = SUM(FactImpacts[Total Deaths])
+
+Deaths reporting records = COUNT(FactImpacts[Total Deaths])
+
+Deaths record coverage = DIVIDE([Deaths reporting records], [Country impact records])
+
+Deaths reporting events = COUNTROWS(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Deaths])))
+
+Deaths event coverage = DIVIDE([Deaths reporting events], [Distinct events])
+
+Deaths per reporting event = DIVIDE([Deaths], [Deaths reporting events])
+
+Deaths median per reporting event = MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Deaths])), [Deaths])
+
+Affected = SUM(FactImpacts[Total Affected])
+
+Affected reporting records = COUNT(FactImpacts[Total Affected])
+
+Affected record coverage = DIVIDE([Affected reporting records], [Country impact records])
+
+Affected reporting events = COUNTROWS(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Affected])))
+
+Affected event coverage = DIVIDE([Affected reporting events], [Distinct events])
+
+Affected per reporting event = DIVIDE([Affected], [Affected reporting events])
+
+Affected median per reporting event = MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Affected])), [Affected])
+
+Adjusted damage USD million = SUM(FactImpacts[Total Damage, Adjusted (million US$)])
+
+Adjusted damage USD million reporting records = COUNT(FactImpacts[Total Damage, Adjusted (million US$)])
+
+Adjusted damage USD million record coverage = DIVIDE([Adjusted damage USD million reporting records], [Country impact records])
+
+Adjusted damage USD million reporting events = COUNTROWS(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Adjusted damage USD million])))
+
+Adjusted damage USD million event coverage = DIVIDE([Adjusted damage USD million reporting events], [Distinct events])
+
+Adjusted damage USD million per reporting event = DIVIDE([Adjusted damage USD million], [Adjusted damage USD million reporting events])
+
+Adjusted damage USD million median per reporting event = MEDIANX(FILTER(VALUES(FactImpacts[Event ID]), NOT ISBLANK([Adjusted damage USD million])), [Adjusted damage USD million])
