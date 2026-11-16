@@ -16,7 +16,9 @@ Follow [Start here on Windows](WINDOWS_HANDOVER/START_HERE.md). The package
 contains a ten-view Streamlit dashboard and a five-page native Power BI PBIP.
 Run either dashboard with the included synthetic data to exercise controls
 before obtaining the authorized workbook. The completion matrix records the
-native PBIX and Desktop verification status.
+native PBIX and Desktop verification status. The [deliverables manifest](submission/DELIVERABLES_MANIFEST.md)
+indexes the package, and [Desktop acceptance steps](NEXT_SESSION.md) give the
+commands to resume the native check.
 
 ![Actual Streamlit guided findings view](submission/evidence/streamlit/05-story.png)
 
@@ -113,5 +115,4 @@ Use `requirements-ci.txt` for tests that can run without the workbook.
 | [WINDOWS_HANDOVER](WINDOWS_HANDOVER/) | PowerShell install, rebuild, tests, browser launch and Power BI save instructions |
 | [tests](tests/) | Core regression and full-browser acceptance |
 
-The [team handover](docs/TEAM_HANDOVER.md) lists institutional approval and
-optional Power BI Desktop follow-up.
+The [team handover](docs/TEAM_HANDOVER.md) lists the institutional review steps.
