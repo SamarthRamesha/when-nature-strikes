@@ -55,8 +55,8 @@ def correlation_table(summary, rng, draws=2000):
                                  coefficient=result.statistic, p_raw=p, ci_low=lo, ci_high=hi))
     result = pd.DataFrame(rows)
     result["p_holm"] = None
-    confirmatory_family = result["method"].eq("Spearman") & result["statistic"].ne("winsor_mean")
-    result.loc[confirmatory_family, "p_holm"] = holm(result.loc[confirmatory_family, "p_raw"])
+    primary_family = result["method"].eq("Spearman") & result["statistic"].ne("winsor_mean")
+    result.loc[primary_family, "p_holm"] = holm(result.loc[primary_family, "p_raw"])
     return result
 
 
@@ -76,6 +76,7 @@ def distribution_tests(events):
 
 
 def save(fig, name):
+    fig.text(.99, -.035, "EM-DAT data, 2026 · www.emdat.be", ha="right", fontsize=8, color=INK)
     fig.savefig(OUT / "figures" / f"{name}.png", dpi=165, bbox_inches="tight",
                 facecolor="white")
     plt.close(fig)
@@ -94,10 +95,13 @@ def figures(events, summary, correlations):
             leader = eligible.loc[eligible[stat].idxmax()]
             frequent = eligible.loc[eligible.events.idxmax()]
             for label, point in {point[TYPE]: point for point in (leader, frequent)}.items():
+                at_left = point.events < 3
                 ax.annotate(label, (point.events, point[stat]),
-                            xytext=(-3, -13), textcoords="offset points", ha="right", fontsize=8)
+                            xytext=(4 if at_left else -3, -13), textcoords="offset points",
+                            ha="left" if at_left else "right", fontsize=8)
             ax.set(xscale="log", yscale="symlog", title=f"{SHORT[metric]} · {stat}",
-                   xlabel="Recorded events" if row == 2 else "", ylabel=METRICS[metric])
+                   xlabel="Recorded events" if row == 2 else "", ylabel=METRICS[metric],
+                   ylim=(-.03, 1.8 * eligible[stat].max()))
     fig.suptitle("Frequency and reported impact, 1900–2026", fontsize=17, x=.01, ha="left")
     fig.supxlabel("One point per hazard type. Point size scales with reporting coverage. EM-DAT, 2026 partial.", fontsize=9)
     save(fig, "frequency_vs_impact")

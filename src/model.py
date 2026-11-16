@@ -157,13 +157,14 @@ def run():
         ax.legend(frameon=False, fontsize=8)
     fig.supxlabel(f"2022–2025 | n = {len(test):,} | {int(y.sum())} events with at least {THRESHOLD} reported deaths", fontsize=9)
     save(fig, "model_evaluation")
+    with (PROCESSED / "natural_disaster_events.csv").open("rb") as event_csv:
+        event_digest = hashlib.file_digest(event_csv, "sha256").hexdigest()
     payload = {
         "seed": SEED, "threshold_deaths": THRESHOLD, "features": FEATURES, "selected": selected,
         "splits": {name: dict(years=years, events=len(frame), positives=int(frame.high_mortality.sum()))
                    for (name, years), frame in zip(SPLITS.items(), (train, val, test))},
         "validation": valid, "test": performance, "selected_test_ci": heldout_intervals(y, test_scores[selected]),
-        "source_event_csv_sha256": hashlib.file_digest(
-            (PROCESSED / "natural_disaster_events.csv").open("rb"), "sha256").hexdigest(),
+        "source_event_csv_sha256": event_digest,
         "versions": {package: version(package) for package in ["scikit-learn", "numpy", "pandas", "shap"]},
     }
     joblib.dump(models[selected], OUT / "mortality_model.joblib")

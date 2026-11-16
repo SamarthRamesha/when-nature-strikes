@@ -111,7 +111,7 @@ def geography(frame, world):
     fig = px.choropleth_map(table.dropna(subset=[value]), geojson=world, locations="ISO", color=value,
                             hover_name="Country", hover_data=["reported", "records", "Reporting coverage"],
                             labels={value: choice}, color_continuous_scale="Teal", map_style="white-bg",
-                            zoom=0.55, center={"lat": 19, "lon": 10}, height=480)
+                            zoom=1.0, center={"lat": 17, "lon": 0}, height=480)
     draw(fig, "country_map")
     tabs = st.tabs(["Country rankings", "Regional comparison", "Unmapped records"])
     with tabs[0]:
@@ -129,7 +129,7 @@ def geography(frame, world):
 def main():
     st.set_page_config(page_title="When Nature Strikes", layout="wide")
     st.title("When Nature Strikes")
-    st.caption("EM-DAT · CRED / UCLouvain · 23 October 2026 export")
+    st.caption("[EM-DAT data](https://www.emdat.be/) · CRED / UCLouvain · 23 October 2026 export")
     try:
         events, impacts, world = data()
     except FileNotFoundError:

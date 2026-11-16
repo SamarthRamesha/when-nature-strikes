@@ -36,3 +36,9 @@ total mortality leaders in 2000–2025. Capping extreme losses changes the
 full-window mean adjusted damage leader from earthquake to extreme temperature,
 and the recent leader from earthquake to drought. Compare these sensitivity
 checks before interpreting any ranking as stable.
+
+At the exploratory 0.05 familywise threshold, the full-window total
+associations meet the cutoff for deaths (adjusted p = 0.0104) and affected
+population (0.0009). Adjusted damage total has p = 0.0749 in the full record
+and p = 0.0018 in 2000–2025. No mean or median comparison meets that threshold
+in either window. See the [coefficient and interval table](../results/correlations.csv).
