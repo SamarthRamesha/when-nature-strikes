@@ -1,0 +1,70 @@
+{
+  "seed": 661,
+  "recent_events": 8864,
+  "complete_events": 1821,
+  "eligible_hazards": 9,
+  "hazard_coverage": {
+    "Animal incident": 0.0,
+    "Drought": 0.008241758241758242,
+    "Earthquake": 0.3152,
+    "Epidemic": 0.0,
+    "Extreme temperature": 0.037037037037037035,
+    "Flood": 0.22979602375419572,
+    "Glacial lake outburst flood": 0.0,
+    "Impact": 0.0,
+    "Infestation": 0.0,
+    "Mass movement (dry)": 0.07142857142857142,
+    "Mass movement (wet)": 0.09465020576131687,
+    "Storm": 0.2997416020671835,
+    "Volcanic activity": 0.06299212598425197,
+    "Wildfire": 0.26461538461538464
+  },
+  "explained_variance_ratio": [
+    0.5531403139111891,
+    0.2946742610603604,
+    0.15218542502845045
+  ],
+  "embedding_diagnostics": {
+    "PCA": {
+      "trustworthiness_15": 0.9278910791721108,
+      "sensitivity_neighbor_overlap_15": 1.0
+    },
+    "t-SNE": {
+      "trustworthiness_15": 0.9946689194595985,
+      "sensitivity_neighbor_overlap_15": 0.7969613765330406
+    },
+    "UMAP": {
+      "trustworthiness_15": 0.9779091499758614,
+      "sensitivity_neighbor_overlap_15": 0.60962840929892
+    }
+  },
+  "settings": {
+    "t-SNE": [
+      30,
+      50
+    ],
+    "UMAP": [
+      [
+        25,
+        0.15
+      ],
+      [
+        45,
+        0.35
+      ]
+    ],
+    "neighbors_scored": 15
+  },
+  "kmeans_reference_k": 2,
+  "cluster_metrics": {
+    "method": "K-means",
+    "k": 2,
+    "silhouette": 0.32725914245404925,
+    "davies_bouldin": 1.1711833923731938,
+    "calinski_harabasz": 1039.3220764884495,
+    "median_subsample_ari": 0.9911918802991552,
+    "smallest_cluster": 681,
+    "noise": 0
+  },
+  "anomaly_flags": 19
+}
