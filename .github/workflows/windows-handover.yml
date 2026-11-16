@@ -24,21 +24,27 @@ jobs:
           .\WINDOWS_HANDOVER\RUN_TESTS.ps1 -Browser
       - name: Confirm the PowerShell Streamlit launcher
         shell: powershell
+        timeout-minutes: 3
         run: |
-          $server = Start-Job -ArgumentList (Get-Location).Path -ScriptBlock {
-            param($root)
-            Set-Location -LiteralPath $root
-            .\WINDOWS_HANDOVER\RUN_STREAMLIT.ps1 -Synthetic -Port 8769
-          }
+          $stdout = Join-Path $env:RUNNER_TEMP 'wns-streamlit.stdout.log'
+          $stderr = Join-Path $env:RUNNER_TEMP 'wns-streamlit.stderr.log'
+          $server = Start-Process -FilePath powershell.exe -ArgumentList @(
+            '-NoProfile', '-NonInteractive', '-File', '.\WINDOWS_HANDOVER\RUN_STREAMLIT.ps1',
+            '-Synthetic', '-Port', '8769'
+          ) -WorkingDirectory (Get-Location).Path -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
           try {
-            $ready = $false
-            for ($i = 0; $i -lt 25; $i++) {
-              try {
-                $response = Invoke-WebRequest http://127.0.0.1:8769/_stcore/health -UseBasicParsing -TimeoutSec 2
-                if ($response.StatusCode -eq 200) { $ready = $true; break }
-              } catch { Start-Sleep -Seconds 1 }
+            $deadline = [DateTime]::UtcNow.AddSeconds(45)
+            while ([DateTime]::UtcNow -lt $deadline -and -not $server.HasExited) {
+              $health = curl.exe --silent --fail --noproxy '*' --max-time 2 http://127.0.0.1:8769/_stcore/health
+              if ($LASTEXITCODE -eq 0 -and $health -eq 'ok') {
+                Write-Host 'PowerShell Streamlit launcher answered its health endpoint.'
+                return
+              }
+              Start-Sleep -Seconds 1
             }
-            if (-not $ready) { throw 'PowerShell Streamlit launcher did not start.' }
-            Write-Host 'PowerShell Streamlit launcher answered its health endpoint.'
+            throw 'PowerShell Streamlit launcher did not answer its local health endpoint.'
           }
-          finally { Stop-Job $server; Receive-Job $server; Remove-Job $server }
+          finally {
+            if (-not $server.HasExited) { taskkill.exe /PID $server.Id /T /F | Out-Host }
+            Get-Content -LiteralPath $stdout, $stderr
+          }

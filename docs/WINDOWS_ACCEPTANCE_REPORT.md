@@ -27,3 +27,10 @@ failed while reading the UTF-8 GeoJSON with Windows code page 1252. The
 rerun used explicit UTF-8 for that file and the packaged Markdown checks.
 The [Linux project checks](https://github.com/SamarthRamesha/when-nature-strikes/actions/runs/43898486888)
 also passed on the fix.
+
+The [draft PR's Windows run](https://github.com/SamarthRamesha/when-nature-strikes/actions/runs/43899271292)
+passed after the evidence update. A duplicate push run logged a successful
+Uvicorn start but its HTTP probe timed out and its PowerShell job treated the
+native stderr log as an error. The launcher check now makes a direct loopback
+request with curl and captures stdout and stderr separately. Current results
+are listed in the [Windows handover workflow](https://github.com/SamarthRamesha/when-nature-strikes/actions/workflows/windows-handover.yml).
