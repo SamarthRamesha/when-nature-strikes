@@ -28,3 +28,5 @@ action concerning historical exposure is required.
 For independent access use the [EM-DAT public portal](https://public.emdat.be/).
 Ask CRED for the original export if an exact rerun is required. The checksum lets
 authorized users verify the file before rebuilding.
+
+The Windows archive includes only invented demonstration rows, code, published academic figures and aggregate research evidence. The exact processed tables, per-event embeddings, held-out prediction rows, per-record ICE, detailed country exports, fine-grained type/year derivatives, cached model and authorized native PBIX stay local. Anyone reproducing the findings should independently obtain the matching workbook.

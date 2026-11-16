@@ -17,7 +17,8 @@ investigates structure in observed human and economic impacts.
 
 - [Methodology](METHODOLOGY.md) and [statistical analysis](STATISTICAL_ANALYSIS.md)
 - [Model design](ML_METHODOLOGY.md), [SHAP](SHAP_EXPLAINABILITY.md) and [profiles](DIMENSIONALITY_REDUCTION.md)
-- [Dashboard and geographic methods](DASHBOARD_GUIDE.md)
+- [Ten-view dashboard and geographic methods](DASHBOARD_GUIDE.md)
+- [Windows handover and native Power BI project](../WINDOWS_HANDOVER/START_HERE.md)
 - [Submission files and presenter materials](../submission/README.md)
 - [Recorded contributions and review status](TEAM_CONTRIBUTIONS.md)
 

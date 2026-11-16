@@ -53,8 +53,8 @@ function body(page, items, x = 60, width = 1160, top = 149) {
   }
 }
 
-async function graphic(page, name, x = 60, y = 125, w = 1160, h = 505) {
-  const data = await fs.readFile(path.join(pictures, name + '.png'));
+async function graphic(page, name, x = 60, y = 125, w = 1160, h = 505, folder = pictures) {
+  const data = await fs.readFile(path.join(folder, name + '.png'));
   const width = data.readUInt32BE(16);
   const height = data.readUInt32BE(20);
   const scale = Math.min(w / width, h / height);
@@ -128,8 +128,17 @@ const explanation = slide('Hazard type contributed most to fitted scores',
   'EM-DAT data, 2026 · www.emdat.be · Lundberg and Lee (2017)');
 await graphic(explanation, 'shap_global', 55, 130, 575, 410);
 await graphic(explanation, 'shap_local', 657, 130, 575, 410);
-text(explanation, 'context', fmt(shap.events) + ' held-out cases  ·  Grouped global importance and one local log-odds explanation',
+text(explanation, 'context', fmt(shap.events) + ' held-out cases  ·  Grouped importance and one invented scenario',
   60, 571, 1155, 54, { size: 24, color: teal, bold: true });
+
+const otherExplanations = slide('Hazard dominates the held-out ranking',
+  'Raw-column permutation reduced average precision by 0.158 for hazard. The region and month estimates were small relative to repeat variability. LIME scenario fits had low local fidelity. Compare the partial dependence mean and scenario-level ICE at the month categories. None of these methods estimates causal effects.',
+  'EM-DAT data, 2026 · www.emdat.be · Ribeiro et al. (2016) · Goldstein et al. (2015)');
+const xaiPictures = path.join(root, 'results', 'xai');
+await graphic(otherExplanations, 'permutation_importance', 55, 139, 563, 375, xaiPictures);
+await graphic(otherExplanations, 'pdp_ice', 650, 139, 570, 375, xaiPictures);
+text(otherExplanations, 'takeaway', 'LIME fidelity was low across the three invented scenarios.',
+  60, 557, 1145, 64, { size: 25, color: teal, bold: true });
 
 const projections = slide('Impact profiles show local structure',
   'All three projections use the same complete-case sample and standardized log1p features. t-SNE and UMAP prioritize neighbors at the expense of global distances. The split between common points can depend on parameters. The model target is deliberately not displayed as a predictive label.',
@@ -142,18 +151,28 @@ text(projections, 'context', fmt(profile.complete_events) + ' fully reporting ev
 await graphic(slide('Clustering found a modest severity gradient',
   'The k-means k=2 solution had the highest silhouette among k=2–8 (0.327) and a subsample median ARI of 0.991. DBSCAN yielded one group plus noise. Isolation Forest flagged 19 profiles for review. The clusters summarize patterns within complete cases.'), 'clusters_and_anomalies');
 
-const dashboard = slide('Four views share the same filters', 'Open the live local dashboard after this slide. Start at Overview. Toggle total, mean and median on Frequency vs impact. Keep one hazard filter selected as you switch pages. The screenshot was captured from the running app.');
-await graphic(dashboard, 'dashboard_overview', 59, 130, 794, 511);
+const dashboard = slide('Ten views connect findings and methods', 'Open the live local dashboard after this slide. Start at Overview. Toggle total, mean and median on Frequency vs impact. Keep one hazard filter selected as you switch pages. The screenshot was captured from the running app.');
+const screenshots = path.join(output, 'evidence', 'streamlit');
+await graphic(dashboard, '01-overview', 59, 130, 794, 511, screenshots);
 body(dashboard, [
   ['Overview and comparisons', 'Counts, losses and reporting coverage'],
-  ['Trends and geography', 'Annual composition and ISO-based country comparisons'],
-  ['Shared scope', 'Year, hazard, region and country'],
+  ['Story and geography', 'Guided questions and an ISO-based country map'],
+  ['Research views', 'ML, XAI, profiles, clusters and data quality'],
 ], 874, 340, 150);
 
 const geography = slide('Country rankings retain unmapped territories', 'The map joins ISO codes to Natural Earth boundaries. Explain why historical territories or small islands may lack polygons. Counts are distinct within country and cannot be added to obtain a global event total.', 'EM-DAT data, 2026 · www.emdat.be · Natural Earth 1:110m Admin 0 countries');
 await graphic(geography, 'geography', 55, 129, 1168, 462);
 text(geography, 'coverage', fmt(geo.matched_records) + ' of ' + fmt(geo.total_records) + ' country-impact records mapped by ISO',
   60, 585, 1155, 48, { size: 25, color: teal, bold: true });
+
+const handover = slide('The guided story leads into the Windows demo',
+  'Use the story control to move from frequency and total loss to typical severity, time, geography, limitations and a conclusion. For Windows evaluation open the included native Power BI project with its invented fixture. Use the Windows guide to refresh the authorized project and save a PBIX.');
+await graphic(handover, '05-story', 62, 129, 780, 495, screenshots);
+body(handover, [
+  ['Follow the story', 'Change the impact measure while discussing reporting coverage.'],
+  ['Open the native project', 'Refresh the five Power BI pages on Windows.'],
+  ['Verify the handover', 'Check slicers, markers, totals and Save As PBIX.'],
+], 870, 348, 148);
 
 body(slide('Frequency answers only part of the question', 'Recap that the choice between totals and per-event summaries depends on the decision. Discuss uneven reporting, the partial year, and the complete-case profile selection. Invite the panel to check the live dashboard and the reproducible evidence.'), [
   ['Floods lead frequency and total affected population', 'Storms lead total adjusted damage. Earthquakes lead mean adjusted damage.'],

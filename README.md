@@ -10,12 +10,22 @@ droughts lead total and mean reported mortality, while earthquakes lead
 both in 2000–2025. The result depends on the impact measure, aggregation,
 reporting coverage and time window.
 
+## Windows quick start
+
+Follow [Start here on Windows](WINDOWS_HANDOVER/START_HERE.md). The package
+contains a ten-view Streamlit dashboard and a five-page native Power BI PBIP.
+Run either dashboard with the included synthetic data to exercise controls
+before obtaining the authorized workbook. The completion matrix records the
+native PBIX and Desktop verification status.
+
+![Actual Streamlit guided findings view](submission/evidence/streamlit/05-story.png)
+
 ## Explore the project
 
 - [Research report](submission/final_report.pdf) and [editable Word file](submission/final_report.docx)
 - [Presentation](submission/final_presentation.pdf) and [editable slides](submission/final_presentation.pptx)
 - [Demonstration and viva material](submission/README.md)
-- [Dashboard guide](docs/DASHBOARD_GUIDE.md) and [Power BI authoring sources](dashboard/powerbi/README.md)
+- [Dashboard guide](docs/DASHBOARD_GUIDE.md) and [native Power BI project and build instructions](dashboard/powerbi/README.md)
 - [Validation evidence](docs/VALIDATION_REPORT.md), [project audit](docs/PROJECT_AUDIT.md) and [task ledger](docs/PROJECT_TASK_LEDGER.md)
 
 ## Data and attribution
@@ -49,6 +59,7 @@ python scripts/validate_project_data.py
 python scripts/verify_eda_findings.py
 python -m src.statistics
 python -m src.model
+python -m src.xai
 python -m src.profiles
 python -m src.geography
 python -m unittest discover -s tests -v
@@ -57,7 +68,7 @@ python -m streamlit run dashboard/app.py --server.port 8765
 ```
 
 Open [the dashboard at localhost](http://127.0.0.1:8765). Event year, hazard,
-region and country filters persist across the four views. The app uses local
+region and country filters persist across the four descriptive views and guided findings. The app uses local
 files and binds to loopback by default. The browser test and screenshot
 commands are in the [dashboard guide](docs/DASHBOARD_GUIDE.md).
 The [submission guide](submission/README.md) documents Office and PDF rebuilds.
@@ -77,10 +88,10 @@ Use `requirements-ci.txt` for tests that can run without the workbook.
 - **Classification and SHAP.** A chronological holdout measures retrospective
   high-mortality ranking for single-country events with known deaths.
   Logistic regression reached test AP 0.288 versus 0.116 for the prior baseline.
-  SHAP explains held-out log-odds contributions from hazard, region and month.
+  The explanation view compares grouped SHAP, held-out permutation, local LIME and categorical month PDP/ICE.
 - **Impact profiles.** PCA, t-SNE and UMAP visualize the same 1,821 fully reporting
   recent events. K-means, DBSCAN and Isolation Forest probe local structure.
-  Complete-case selection limits what can be generalized.
+  The dashboard includes 2D and 3D PCA, t-SNE, UMAP, cluster diagnostics and anomaly summaries. Exact event coordinates are rebuilt locally.
 - **Geography.** Country and region aggregates use records in that geographic
   scope. Contemporary ISO-mapped boundaries matched 17,269 of 18,060 records.
   Unmatched historical codes and small territories remain in the rankings.
@@ -98,7 +109,8 @@ Use `requirements-ci.txt` for tests that can run without the workbook.
 | [results](results/) | New aggregate results and figures. Row-level products stay local. |
 | [dashboard](dashboard/) | Streamlit application and Power BI authoring package |
 | [docs](docs/) | Methodology, [literature matrix](docs/LITERATURE_REVIEW.md), [data dictionary](docs/DATA_DICTIONARY.md) and [contributions](docs/TEAM_CONTRIBUTIONS.md) |
-| [submission](submission/) | Academic artifacts and demonstration materials |
+| [submission](submission/) | Academic artifacts, native Power BI project, screenshots and [completion matrix](submission/COMPLETION_MATRIX.csv) |
+| [WINDOWS_HANDOVER](WINDOWS_HANDOVER/) | PowerShell install, rebuild, tests, browser launch and Power BI save instructions |
 | [tests](tests/) | Core regression and full-browser acceptance |
 
 The [team handover](docs/TEAM_HANDOVER.md) lists institutional approval and

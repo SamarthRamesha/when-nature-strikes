@@ -4,5 +4,23 @@
   "result": "succeeded",
   "errors": 0,
   "warnings": 0,
-  "scope": "PBIR definitions, Microsoft schemas, layout, visual roles and bindings; no Desktop rendering or M/DAX execution."
+  "scope": "PBIR definitions, Microsoft schemas, layout, visual roles and bindings; no Desktop rendering or M/DAX execution.",
+  "power_query_syntax": {
+    "validator": "Microsoft @microsoft/powerquery-parser",
+    "checked": [
+      "synthetic/MapCountries",
+      "synthetic/FactImpacts",
+      "synthetic/DimEvent",
+      "synthetic/ImpactMetric",
+      "synthetic/ImpactSummary",
+      "synthetic/MapMetric",
+      "authorized/MapCountries",
+      "authorized/DataFolder",
+      "authorized/FactImpacts",
+      "authorized/DimEvent",
+      "authorized/ImpactMetric",
+      "authorized/ImpactSummary",
+      "authorized/MapMetric"
+    ]
+  }
 }

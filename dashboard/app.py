@@ -157,8 +157,7 @@ def main():
     years = st.sidebar.slider("Event start years", lo, hi, (lo, hi))
     hazards = st.sidebar.multiselect("Hazard types", sorted(events[TYPE].unique()))
     regions = st.sidebar.multiselect("Affected regions", sorted(impacts.Region.dropna().unique()))
-    options = impacts if not regions else impacts[impacts.Region.isin(regions)]
-    country_names = (options[["ISO", "Country"]].drop_duplicates().dropna().set_index("ISO").Country.to_dict())
+    country_names = (impacts[["ISO", "Country"]].drop_duplicates().dropna().set_index("ISO").Country.to_dict())
     countries = st.sidebar.multiselect("Affected countries", sorted(country_names),
                                        format_func=lambda iso: f"{country_names[iso]} ({iso})")
     take = impacts[YEAR].between(*years)

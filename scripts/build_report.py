@@ -66,11 +66,11 @@ def paragraph(*items):
         document.add_paragraph(item)
 
 
-def figure(name, caption, width=6.35):
+def figure(name, caption, width=6.35, folder=None):
     p = document.add_paragraph()
     p.paragraph_format.keep_with_next = True
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p.add_run().add_picture(str(RESULTS / "figures" / f"{name}.png"), width=Inches(width))
+    p.add_run().add_picture(str((folder or RESULTS / "figures") / f"{name}.png"), width=Inches(width))
     document.add_paragraph(caption, "Caption")
 
 
@@ -107,6 +107,8 @@ def sub(title):
 f = artifact("findings.json")
 m = artifact("model_metrics.json")
 shap = artifact("shap_summary.json")
+xai = artifact("xai/summary.json")
+pfi = records("xai/permutation_importance.csv")
 profiles = artifact("profile_summary.json")
 geo = artifact("map_summary.json")
 provenance = artifact("provenance.json")
@@ -122,7 +124,7 @@ title = document.add_paragraph("When Nature Strikes", "Title")
 title.paragraph_format.space_before = Pt(46)
 document.add_paragraph("A Visualization Approach to Determine the Impact of Natural Disasters", "Subtitle")
 paragraph("Undergraduate Computer Science Engineering project", "Samarth Ramesha, Shashank S K, Shreya Patil and Shreya S Mattimadu",
-          "Technical submission draft for team and faculty review · 16 November 2026")
+          "Academic submission for team and faculty review · 16 November 2026")
 sub("Abstract")
 paragraph(
     f"Are the most frequent natural disasters also the most destructive? We consolidated {f['impacts']:,} EM-DAT "
@@ -133,7 +135,7 @@ paragraph(
     f"In a retrospective, chronological test of {m['splits']['test']['events']:,} single-country events with reported mortality, "
     f"{m['selected'].lower()} achieved {model['average_precision']:.3f} average precision. An analysis of "
     f"{profiles['complete_events']:,} events with all three impacts reported compared PCA, t-SNE, UMAP and cluster diagnostics. "
-    "A four-view dashboard makes the reporting denominators and geographic coverage available alongside the findings.")
+    "The ten-view dashboard makes coverage, fitted explanations and projection diagnostics available alongside the descriptive findings.")
 sub("Report guide")
 paragraph("Study scope and literature · Data and reproducibility · Frequency and impact · Statistical evidence · "
           "Mortality classification and SHAP · Impact profiles · Dashboard and geography · Discussion · References")
@@ -221,13 +223,25 @@ paragraph(f"SHAP used {shap['events']} randomly sampled held-out events with a t
           f"The maximum reconstruction error was {shap['max_additivity_error']:.2g}.")
 figure("shap_global", "Figure 4. Mean absolute SHAP contribution after summing dummy-column effects by input group.", 6.1)
 figure("shap_hazard", "Figure 5. Signed hazard contribution by held-out type where at least 12 sampled events were available.", 6.1)
-paragraph("Hazard has the largest grouped mean absolute contribution, followed by region and month. Epidemic and earthquake show positive mean hazard-group contributions in this sample. The saved beeswarm shows encoded-category effects, and the local waterfall shows how contributions move a selected case from baseline log-odds to the fitted score. Correlated input groups and one-hot encoding affect how attributions are allocated. These values describe the fitted model.")
+paragraph("Hazard has the largest grouped mean absolute contribution, followed by region and month. Epidemic and earthquake show positive mean hazard-group contributions in this sample. The saved beeswarm shows encoded-category effects, and the local waterfall shows how contributions move an invented example from baseline log-odds to the fitted score. Correlated input groups and one-hot encoding affect how attributions are allocated. These values describe the fitted model.")
+
+page("Permutation LIME and response curves")
+paragraph(f"Permutation importance shuffled an entire original input {xai['permutation_repeats']} times in the "
+          f"{xai['held_out_events']}-event held-out cohort. The mean average-precision drops were "
+          + ", ".join(f"{row['feature']} {float(row['mean_ap_drop']):+.3f}" for row in pfi)
+          + ". Hazard led both this ranking-loss measure and grouped SHAP. Month contributed to fitted scores while its permutation showed little loss in held-out ranking accuracy.")
+figure("permutation_importance", "Figure 6. Average precision drop and repeat standard deviation after each single-field shuffle.", 6.3, RESULTS / "xai")
+paragraph("LIME fits a probability-scale surrogate around an invented scenario [17]. Weighted R² ranged from "
+          f"{min(v['lime']['weighted_r2'] for v in xai['scenarios'].values()):.3f} to "
+          f"{max(v['lime']['weighted_r2'] for v in xai['scenarios'].values()):.3f}. This low fidelity limits interpretation of local weights. "
+          "The month response curves replace the month category while holding other fields fixed [18]. The PDP averages the held-out cohort; the labeled ICE curves use invented input combinations. Correlated inputs and uncommon replacements limit interpretation.")
+figure("pdp_ice", "Figure 7. Held-out mean and 10th–90th percentile across month categories. Dashed lines represent three invented independent scenarios.", 6.25, RESULTS / "xai")
 
 page("Impact profiles and anomaly review")
 paragraph(f"We retained {profiles['complete_events']:,} of {profiles['recent_events']:,} events in 2000–2025 with all three losses "
           "reported by every contributing country. Log transformation and standardization give each impact comparable numeric scale. "
           "The representation uses the observed outcome measures directly, so these plots are descriptive. Hazard colors were added after fitting.")
-figure("impact_embeddings", "Figure 6. PCA, t-SNE and UMAP of standardized log impacts. T15 measures preservation of local neighbors.")
+figure("impact_embeddings", "Figure 8. PCA, t-SNE and UMAP of standardized log impacts. T15 measures preservation of local neighbors.")
 ratio = profiles["explained_variance_ratio"]
 paragraph(f"PC1 and PC2 explain {sum(ratio[:2]):.1%} of variance. PC1 loads positively on all three losses, with strongest loading on "
           "deaths. PC2 emphasizes damage relative to human impacts. At 15 neighbors, trustworthiness is 0.928 for PCA, 0.995 "
@@ -239,14 +253,13 @@ paragraph("K-means tested k from 2 to 8 in standardized impact space. The best s
           "The plots and diagnostics support an exploratory impact gradient. Isolation Forest flagged 19 events in the top score percentile for inspection.")
 
 page("Integrated dashboard and geography")
-figure("dashboard_overview", "Figure 7. Actual Chromium capture of the dashboard overview. The reporting counts are displayed underneath the loss metrics.", 6.35)
-paragraph("The dashboard shares year, hazard, region and country filters across its four views. Overview shows the filtered event count and reported loss totals. Frequency vs impact exposes total, mean and median for each loss measure. Trends shows composition, losses and reporting periods. Geography joins country records to Natural Earth boundaries by ISO code.")
+figure("05-story", "Figure 9. Chromium capture of the running guided story with the full recorded scope.", 6.35, SUBMISSION / "evidence/streamlit")
+paragraph("Shared years, hazard, region and country filters govern the four descriptive views and the seven-step guided story. Overview, comparison, trends and geography address the research question at different grains. The model, XAI, projection, cluster and quality views explore fixed cohorts using their own controls. Three-dimensional PCA uses aggregate bins for the distributable preview. Authorized reproduction saves exact event coordinates.")
 paragraph(f"The map matches {geo['matched_records']:,} of {geo['total_records']:,} country-impact rows to {geo['matched_country_codes']} codes. "
           f"The other {geo['unmatched_country_codes']} codes remain in tables. Contemporary 1:110m boundaries omit some small territories "
           "and historical entities. No synthetic point coordinates are assigned. The countries with the highest recorded counts in this "
           "snapshot are the USA, China and India. Those counts are conditional on recording and are unadjusted for exposure.")
-paragraph("The browser dashboard was tested at localhost. The Power BI handover supplies M queries, DAX, a theme and model guidance. "
-          "Native PBIX assembly and refresh require a Windows Power BI authoring environment.")
+paragraph("The browser dashboard was tested at localhost. The native Power BI project defines five prebuilt pages with synchronized filters, a native ISO map and an interactive guided sequence. A packaged synthetic example embeds invented rows for control testing. The authorized generator binds the local prepared CSVs. The handover documents Desktop refresh and Save As PBIX.")
 
 page("Discussion limitations and conclusion")
 sub("What the question resolves")
@@ -266,9 +279,9 @@ paragraph("Use Python 3.11 and the pinned requirements. The repository README wa
           "validation, analytics, dashboard and tests. Code, figures and metric evidence live in src and results. The literature matrix "
           "and contribution record live in docs. See the submission checklist for review items and the QA record for actual checks.")
 
-for offset in (0, 8):
+for offset in (0, 9):
     page("References" if offset == 0 else "References continued")
-    for number, citation in reference_rows[offset:offset+8]:
+    for number, citation in reference_rows[offset:offset+9]:
         citation = re.sub(r'\[([^]]+)\]\(([^)]+)\)', r'\2', citation).replace('*', '')
         document.add_paragraph(f"{number} {citation}")
     if offset:

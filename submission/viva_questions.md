@@ -67,4 +67,9 @@ needs an exposure denominator and a definition of the population at risk.
 
 **What remains for institutional acceptance?** Confirm individual contributions,
 AI disclosure, report format and evaluator acceptance of the Streamlit format.
-A native PBIX requires Windows Power BI authoring if the institution requests it.
+Use the supplied native PBIP and the Desktop checklist to refresh, Save As PBIX, and reopen.
+
+
+**Why did you compare SHAP, permutation importance and LIME?** They ask different questions about fitted scores, held-out ranking quality and approximate local behavior. Hazard led both global views. LIME R² was low, so the scenario weights warrant caution.
+
+**How can the handoff demo run without an EM-DAT workbook?** The first five browser views and the packaged native PBIP provide invented test records. Real research findings stay labeled and use the independently authorized export.

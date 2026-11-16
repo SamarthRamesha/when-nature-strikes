@@ -9,9 +9,8 @@
 | Interactive dashboard | [Local browser setup](../docs/DASHBOARD_GUIDE.md) · [Power BI handover](../dashboard/powerbi/README.md) |
 | Review | [Contributions](../docs/TEAM_CONTRIBUTIONS.md) · [Submission checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md) |
 
-The report and deck are technical submission drafts for team and faculty review.
-The browser app uses the locally rebuilt EM-DAT tables. The Power BI handover
-contains authoring sources for a Windows build.
+The report and deck are submission copies for team and faculty review.
+The browser app uses the locally rebuilt EM-DAT tables. The Windows handover contains a five-page native PBIP with synthetic fixtures and a generator that points it at local authorized CSVs. See the [Windows start guide](../WINDOWS_HANDOVER/START_HERE.md) and [completion matrix](COMPLETION_MATRIX.csv).
 
 ## Rebuild editable and PDF artifacts
 

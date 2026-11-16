@@ -12,3 +12,5 @@ assignments. Codex generated the technical additions and submission draft
 during this session under the repository’s configured Git identity. The team must validate the contribution statement and
 apply its institution's AI disclosure requirements before submission. The
 repository supplies no evidence of teammate or faculty sign-off.
+
+The Windows handover added the native Power BI project, synthetic fixtures, Windows scripts, guided views, additional explanation methods, packaging and verification. Codex implemented these changes. Teammate and faculty acceptance remain human steps.

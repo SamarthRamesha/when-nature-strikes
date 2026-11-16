@@ -1,29 +1,26 @@
 # Dashboard demonstration
 
-## Setup
+Follow the [Windows start guide](../WINDOWS_HANDOVER/START_HERE.md).
+Start with all filters cleared. Synthetic mode is available for demonstrating
+controls before acquiring the authorized workbook.
 
-Place an authorized workbook in `data/source`, install the pinned dependencies,
-and run `python scripts/prepare_emdat.py`. Launch
-`python -m streamlit run dashboard/app.py --server.port 8765` from the root and
-open `http://127.0.0.1:8765`. Leave filters clear at the start.
+1. **Overview and impact comparison.** On the authorized snapshot confirm
+   15,727 events and 5,814 floods. Choose adjusted damage, then switch between
+   total, mean and median. The full-scope leaders are storm, earthquake and
+   drought. Show their reporting counts.
+2. **Guided findings.** Advance through the seven steps. Use the same metric
+   to compare total with typical severity, then inspect time, geography and
+   missingness before reading the conclusion.
+3. **Trends and geography.** Select complete years 2000–2025. Restore all
+   years to show the partial 2026 warning. On Geography select adjusted
+   damage, inspect a country marker and open the unmapped records tab.
+4. **Research views.** Compare logistic regression and random forest. View
+   grouped SHAP and held-out permutation, choose a local LIME/SHAP scenario
+   and inspect month PDP/ICE. Rotate 3D PCA and switch to t-SNE or UMAP.
+   Show cluster diagnostics and the quality counts.
+5. **Native report on Windows.** Open the packaged PBIP and refresh. Use
+   [the Desktop checklist](../WINDOWS_HANDOVER/POWERBI_ACCEPTANCE_CHECKLIST.md)
+   to test synchronized slicers, the geographic visual and Save As PBIX.
 
-## Two minute tour
-
-1. **Overview.** Confirm 15,727 distinct events and show 74.1%, 78.6% and 33.4%
-   reporting for deaths, affected population and adjusted damage. Hover on the
-   flood bar and show 5,814 events.
-2. **Frequency vs impact.** Choose adjusted damage. Toggle **Total** to
-   **Mean** and then **Median**. Full-snapshot leaders are storm, earthquake and
-   drought respectively. Point to the reporting count and units for each.
-3. **Trends.** Narrow the year range to 2000–2025. Compare year and decade
-   counts and show the impact reporting denominator. Return to the full range
-   and point out the partial-2026 message.
-4. **Geography.** Choose adjusted damage or event frequency and hover over a
-   country. Show the ranking and unmapped tabs. Choose India and Flood in the
-   sidebar, then return to Overview and confirm that the filters persist and
-   the displayed totals change.
-
-If the live demo cannot run, use the real screenshots in the presentation
-and the [static country map](../results/figures/geography.png). Present the
-browser application and [Power BI sources](../dashboard/powerbi/README.md)
-by their actual formats.
+If setup is limited, use the [actual browser captures](evidence/streamlit/)
+or the [static map](../results/figures/geography.png) to discuss the findings.

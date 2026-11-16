@@ -1,0 +1,44 @@
+name: Windows handover
+on:
+  pull_request:
+  push:
+    branches: ['project/**']
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    env:
+      MPLBACKEND: Agg
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install and exercise the package without licensed inputs
+        shell: powershell
+        run: |
+          .\WINDOWS_HANDOVER\INSTALL_WINDOWS.ps1 -Browser
+          .\WINDOWS_HANDOVER\OPEN_POWERBI.ps1 -NoOpen
+          .\WINDOWS_HANDOVER\RUN_TESTS.ps1 -Browser
+      - name: Confirm the PowerShell Streamlit launcher
+        shell: powershell
+        run: |
+          $server = Start-Job -ArgumentList (Get-Location).Path -ScriptBlock {
+            param($root)
+            Set-Location -LiteralPath $root
+            .\WINDOWS_HANDOVER\RUN_STREAMLIT.ps1 -Synthetic -Port 8769
+          }
+          try {
+            $ready = $false
+            for ($i = 0; $i -lt 25; $i++) {
+              try {
+                $response = Invoke-WebRequest http://127.0.0.1:8769/_stcore/health -UseBasicParsing -TimeoutSec 2
+                if ($response.StatusCode -eq 200) { $ready = $true; break }
+              } catch { Start-Sleep -Seconds 1 }
+            }
+            if (-not $ready) { throw 'PowerShell Streamlit launcher did not start.' }
+            Write-Host 'PowerShell Streamlit launcher answered its health endpoint.'
+          }
+          finally { Stop-Job $server; Receive-Job $server; Remove-Job $server }
