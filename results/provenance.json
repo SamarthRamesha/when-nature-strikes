@@ -1,0 +1,26 @@
+{
+  "source_sha256": "6767b6125b3ad35a5f6aa88d3f8522efab3bed7bb0c8fdb8cf0fa91143e9d422",
+  "output_sha256": {
+    "cleaned_natural_disaster_impacts.csv": "fe994363ccd9883a6c7d081129650235063cbe17fc5b6631f63592d6de0f6263",
+    "natural_country_year_type_summary.csv": "9b2af18e4e516bd44324090b97c9823222a6f696925f6395033999fa6165f978",
+    "natural_disaster_events.csv": "1ca24eef5a9aa224bff55dbd205f3e8c165981a67bf253588673f7a4d2c53341",
+    "natural_disaster_type_summary.csv": "6f5208550c64a956a7f14f93bc3c95d9ab35b655b22a855b80a398956ec26b66"
+  },
+  "source_rows": 27962,
+  "natural_impacts": 18060,
+  "natural_events": 15727,
+  "types": 15,
+  "country_year_type_groups": 11157,
+  "multi_country_events": 1067,
+  "coords": 2847,
+  "missing": {
+    "Total Deaths": 5029,
+    "Total Affected": 4655,
+    "Total Damage, Adjusted ('000 US$)": 12210,
+    "Magnitude": 12422
+  },
+  "incomplete_start_dates": 3612,
+  "invalid_complete_start_dates": 0,
+  "min_year": 1900,
+  "max_year": 2026
+}

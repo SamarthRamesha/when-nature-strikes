@@ -1,0 +1,105 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "bb6336c9020ae4a073c8",
+  "displayName": "Geographic Analysis",
+  "displayOption": "FitToPage",
+  "height": 1124,
+  "width": 1440,
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "291L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "3477b47821a0eb1e8d0d",
+      "target": "aa650244ae4c99249998",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3477b47821a0eb1e8d0d",
+      "target": "3861bc63e7a894b55dbe",
+      "type": "DataFilter"
+    },
+    {
+      "source": "aa650244ae4c99249998",
+      "target": "ce17bae6cadc2ee0ee1d",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3477b47821a0eb1e8d0d",
+      "target": "5540586200eb90326aa4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "5540586200eb90326aa4",
+      "target": "3861bc63e7a894b55dbe",
+      "type": "DataFilter"
+    },
+    {
+      "source": "5540586200eb90326aa4",
+      "target": "38fad0a20bd3e020b5c4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3477b47821a0eb1e8d0d",
+      "target": "38fad0a20bd3e020b5c4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3477b47821a0eb1e8d0d",
+      "target": "4be409d3686d46c90ad0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "ddadb0af689445aa685b",
+      "target": "ce17bae6cadc2ee0ee1d",
+      "type": "DataFilter"
+    },
+    {
+      "source": "ce17bae6cadc2ee0ee1d",
+      "target": "6e122e0be96860760d20",
+      "type": "DataFilter"
+    },
+    {
+      "source": "38fad0a20bd3e020b5c4",
+      "target": "2a77265447a136330b71",
+      "type": "DataFilter"
+    },
+    {
+      "source": "38fad0a20bd3e020b5c4",
+      "target": "4be409d3686d46c90ad0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "38fad0a20bd3e020b5c4",
+      "target": "ddadb0af689445aa685b",
+      "type": "DataFilter"
+    },
+    {
+      "source": "4618535f5a4d546b0659",
+      "target": "2a77265447a136330b71",
+      "type": "DataFilter"
+    },
+    {
+      "source": "4618535f5a4d546b0659",
+      "target": "4be409d3686d46c90ad0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "4618535f5a4d546b0659",
+      "target": "ddadb0af689445aa685b",
+      "type": "DataFilter"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "ca0c1ee64102bbb85c7a",
+  "position": {
+    "x": 12,
+    "y": 816,
+    "width": 622,
+    "height": 288,
+    "z": 100005,
+    "tabOrder": 100005
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Annual population reported affected'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimEvent"
+                    }
+                  },
+                  "Property": "Start Year"
+                }
+              },
+              "queryRef": "DimEvent.Start Year",
+              "nativeQueryRef": "Start Year",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected"
+                }
+              },
+              "queryRef": "FactImpacts.Affected",
+              "nativeQueryRef": "Affected",
+              "active": true
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected reporting events"
+                }
+              },
+              "queryRef": "FactImpacts.Affected reporting events",
+              "nativeQueryRef": "Affected reporting events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected event coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Affected event coverage",
+              "nativeQueryRef": "Affected event coverage",
+              "active": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

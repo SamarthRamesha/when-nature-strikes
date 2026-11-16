@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "dfb1c9a9d79c5d9f69c1",
+  "position": {
+    "x": 1111,
+    "y": 224,
+    "width": 305,
+    "height": 71,
+    "z": 100008,
+    "tabOrder": 100008
+  },
+  "visual": {
+    "visualType": "card",
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Map record coverage'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Mapped record coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Mapped record coverage",
+              "nativeQueryRef": "Mapped record coverage",
+              "active": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

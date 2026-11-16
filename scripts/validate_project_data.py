@@ -2,8 +2,8 @@
 
 Checks file presence, schemas, row counts, identifier uniqueness, missingness,
 coordinate completeness, unit consistency, cross-dataset aggregation
-consistency, blank-versus-zero handling, and every statistic quoted in
-docs/DATA_HANDOVER.md and README.md.
+consistency, blank-versus-zero handling, and the published snapshot counts in
+the data dictionary and README.
 
 Outputs:
   analysis/outputs/data_quality_report.json
@@ -47,7 +47,7 @@ DAMAGE_KUSD = "Total Damage, Adjusted ('000 US$)"
 DAMAGE_MUSD = "Total Damage, Adjusted (million US$)"
 MAGNITUDE = "Magnitude"
 
-# Statistics documented in docs/DATA_HANDOVER.md before validation existed.
+# Reference statistics for the authorized snapshot.
 DOCUMENTED = {
     "source_rows": 27962,
     "impact_rows": 18060,
@@ -674,7 +674,7 @@ Source workbook: `{source_info['path']}` — present: {source_info['present']}; 
 `{source_info.get('sha256', 'n/a')}`. The workbook is never modified by this repository's scripts.
 
 Grains: one row per country impact (detailed), one row per consolidated event, one row per
-disaster type, and one row per country/year/type group. See `docs/DASHBOARD_DATA_HANDOVER.md`.
+disaster type, and one row per country/year/type group. See the [data dictionary](DATA_DICTIONARY.md).
 
 ## 2. Validation checks and outcomes
 
@@ -737,7 +737,7 @@ next to a damage total.
 
 - `SRC-rows` / `SRC-natural` require `openpyxl` (declared in `requirements.txt`). When it is not
   installed the source workbook row count cannot be re-verified and the checks report SKIP.
-- The script does not re-run `scripts/prepare_emdat.py`, so it validates the committed outputs
+- The script does not re-run `scripts/prepare_emdat.py`, so it validates the generated local outputs
   rather than regenerating them. It does not verify EM-DAT's upstream data-quality claims, the
   accuracy of EM-DAT's CPI adjustment, or whether blanks mean "no impact" or "unreported".
 - No check evaluates the Power BI `.pbix` file, which is out of scope for this repository role.

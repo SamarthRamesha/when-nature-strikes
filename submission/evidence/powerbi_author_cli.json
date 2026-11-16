@@ -1,0 +1,31 @@
+{
+  "validator": "Microsoft powerbi-report-author 0.5.0",
+  "scope": "PBIR file structure, schemas, visual roles and bindings. Windows Desktop acceptance requires a separate run.",
+  "modes": {
+    "synthetic": {
+      "result": "succeededWithWarnings",
+      "errors": 0,
+      "warnings": 2,
+      "warning_code": "PBIR_VISUAL_TYPE_DEPRECATED",
+      "warning_visual_types": [
+        "map",
+        "filledMap"
+      ]
+    },
+    "authorized": {
+      "result": "succeededWithWarnings",
+      "errors": 0,
+      "warnings": 2,
+      "warning_code": "PBIR_VISUAL_TYPE_DEPRECATED",
+      "warning_visual_types": [
+        "map",
+        "filledMap"
+      ]
+    }
+  },
+  "power_query_syntax": {
+    "validator": "Microsoft @microsoft/powerquery-parser",
+    "synthetic_expressions": 6,
+    "authorized_expressions": 7
+  }
+}

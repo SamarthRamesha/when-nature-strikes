@@ -1,0 +1,14 @@
+Event ID,ISO,Country,Region,Total Deaths,Total Affected,"Total Damage, Adjusted (million US$)"
+SYN-001,IND,India,Asia,2,1200,12
+SYN-001,BGD,Bangladesh,Asia,,800,5
+SYN-002,BGD,Bangladesh,Asia,1,550,7
+SYN-003,PHL,Philippines,Asia,0,300,
+SYN-004,USA,United States,Americas,11,120,700
+SYN-005,JPN,Japan,Asia,22,680,650
+SYN-006,IDN,Indonesia,Asia,250,80,280
+SYN-007,IND,India,Asia,,900,14
+SYN-008,AUS,Australia,Oceania,0,140,80
+SYN-009,IND,India,Asia,3,,1
+SYN-010,USA,United States,Americas,7,120,5
+SYN-011,ZZZ,Illustrative unmatched territory,Unmatched,0,55,
+SYN-012,KOR,South Korea,Asia,1,80,8

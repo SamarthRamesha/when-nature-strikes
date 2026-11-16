@@ -5,15 +5,15 @@ Ramesha to close the "data dictionary" part of the data/preparation role.
 
 Every column below is listed once, with its **position in the CSV**, its **origin** (EM-DAT export or
 derived by `scripts/prepare_emdat.py`), type, unit/domain, and the observed nonblank count and rate in
-the committed file. Counts were computed from the CSVs themselves on 11 November 2026 and are
+the authorized rebuild. Counts were computed from the CSVs on 11 November 2026 and are
 re-checked by `scripts/validate_project_data.py`. If the workbook changes, the counts change; the
 definitions do not.
 
 Read this together with:
 
-- `docs/DATA_HANDOVER.md` — why the derivations exist, caveats, recommended use.
-- `docs/DASHBOARD_DATA_HANDOVER.md` — which file for which visual, measures, DAX.
-- `docs/DATA_QUALITY_REPORT.md` — the checks that hold these definitions true.
+- [Methodology](METHODOLOGY.md) describes the transformations and analysis.
+- [Data quality report](DATA_QUALITY_REPORT.md) records checks on the four tables.
+- [Power BI measures](../dashboard/powerbi/Measures.dax) define denominators in the native report.
 
 **Missing values.** A blank cell means *not reported* or *not known*. It is never a zero and must never
 be filled with zero. Check `M-no-zero-fill` proves that the three main impact measures contain no zeros
@@ -220,7 +220,7 @@ Averages are `measure ÷ <measure> Events with Reported Values`, never `÷ Uniqu
 **`Unique Events` here is NOT additive.** It sums to 18,060 because an event repeats for every
 country-year-type group it touches (warning `Y-double-count`). Never place it in a project-total card;
 only the type-summary `Unique Events` column is additive. Country-grain coverage uses
-`Reported Records ÷ Country Impact Records` — see `DASHBOARD_DATA_HANDOVER.md` §G.3.
+`Reported Records ÷ Country Impact Records`. [Power BI measures](../dashboard/powerbi/Measures.dax)
 
 ---
 

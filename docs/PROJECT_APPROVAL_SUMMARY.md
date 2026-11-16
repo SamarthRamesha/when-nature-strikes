@@ -10,4 +10,6 @@ Source reviewed: supplied `When_Nature_Strikes.pptx` approval presentation.
 - **Visualization direction:** Exploratory analysis and comparison of disaster frequency against destructiveness, with an interactive dashboard.
 - **Unit coverage written in the deck:** Unit 1 and Unit 3.
 
-The task prompt separately assigns the dashboard and Unit 2/geospatial component to the dashboard team. That difference is recorded in `DATA_HANDOVER.md` for confirmation. No teacher feedback document was supplied, so this summary does not add teacher instructions. Team names and student identifiers from the original slide deck are intentionally omitted from this summary.
+The task allocation separately assigns the dashboard and Unit 2 geospatial
+component to the dashboard team. Confirmation of the expected unit coverage
+remains part of academic review. [Team contributions](TEAM_CONTRIBUTIONS.md)

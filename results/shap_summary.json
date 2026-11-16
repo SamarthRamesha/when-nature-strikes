@@ -1,0 +1,53 @@
+{
+  "model": "Logistic regression",
+  "events": 450,
+  "output_units": "log-odds",
+  "max_additivity_error": 8.881784197001252e-16,
+  "mean_absolute_group_shap": {
+    "Start Month": 0.18169683645370605,
+    "Region": 0.34586606253177876,
+    "Disaster Type": 0.41527300984099824
+  },
+  "local_example": {
+    "input_type": "invented scenario",
+    "probability": 0.10823271275208675,
+    "base_value": -2.439605681960528,
+    "grouped_contributions": {
+      "Disaster Type": -0.053505635538349014,
+      "Region": 0.35271174082596596,
+      "Start Month": 0.03147802355510907
+    }
+  },
+  "hazard_mean_signed_shap": {
+    "Earthquake": {
+      "Disaster Type": 0.5418562684582958,
+      "Region": 0.11418212817243462,
+      "Start Month": -0.0648516336495639
+    },
+    "Epidemic": {
+      "Disaster Type": 1.0957418971237785,
+      "Region": 0.030799001284889306,
+      "Start Month": -0.031299671574088625
+    },
+    "Flood": {
+      "Disaster Type": -0.05350563553834907,
+      "Region": -0.032063772157280616,
+      "Start Month": -0.0013677958985418438
+    },
+    "Mass movement (wet)": {
+      "Disaster Type": -0.0817375517928121,
+      "Region": 0.06179985381127021,
+      "Start Month": -0.05391886857477043
+    },
+    "Storm": {
+      "Disaster Type": -0.8727022494300908,
+      "Region": -0.10464634989041385,
+      "Start Month": -0.018991207823601915
+    },
+    "Wildfire": {
+      "Disaster Type": -0.9333313529454682,
+      "Region": -0.33766574356049217,
+      "Start Month": 0.015105102942869127
+    }
+  }
+}

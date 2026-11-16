@@ -1,0 +1,306 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "38fad0a20bd3e020b5c4",
+  "position": {
+    "x": 24,
+    "y": 302,
+    "z": 0,
+    "height": 294,
+    "width": 688,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "map",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Map ISO"
+                }
+              },
+              "queryRef": "FactImpacts.Map ISO",
+              "nativeQueryRef": "Map ISO",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimEvent"
+                    }
+                  },
+                  "Property": "Disaster Type"
+                }
+              },
+              "queryRef": "DimEvent.Disaster Type",
+              "nativeQueryRef": "Disaster Type"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Adjusted damage USD million"
+                }
+              },
+              "queryRef": "FactImpacts.Adjusted damage USD million",
+              "nativeQueryRef": "Adjusted damage USD million"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Distinct events"
+                }
+              },
+              "queryRef": "FactImpacts.Distinct events",
+              "nativeQueryRef": "Distinct events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Deaths"
+                }
+              },
+              "queryRef": "FactImpacts.Deaths",
+              "nativeQueryRef": "Deaths",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected"
+                }
+              },
+              "queryRef": "FactImpacts.Affected",
+              "nativeQueryRef": "Affected",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Adjusted damage USD million"
+                }
+              },
+              "queryRef": "FactImpacts.Adjusted damage USD million",
+              "nativeQueryRef": "Adjusted damage USD million",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Deaths record coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Deaths record coverage",
+              "nativeQueryRef": "Deaths record coverage",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected record coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Affected record coverage",
+              "nativeQueryRef": "Affected record coverage",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Adjusted damage USD million record coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Adjusted damage USD million record coverage",
+              "nativeQueryRef": "Adjusted damage USD million record coverage",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Country damage by hazard (USD millions)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "99cd861d4b4c3e98c873",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactImpacts"
+              }
+            },
+            "Property": "Country"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "aa86faf9a58331618a31",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimEvent"
+              }
+            },
+            "Property": "Disaster Type"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "82dca08f962035dca1e7",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactImpacts"
+              }
+            },
+            "Property": "Adjusted damage USD million"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "Filterc9d3296e3ab43a1bcb7b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactImpacts"
+              }
+            },
+            "Property": "Map coverage"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "f",
+              "Entity": "FactImpacts",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "f"
+                          }
+                        },
+                        "Property": "Map coverage"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Mapped'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

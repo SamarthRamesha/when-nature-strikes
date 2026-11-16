@@ -1,0 +1,166 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "153512e999afaa74fc11",
+  "position": {
+    "x": 24,
+    "y": 845,
+    "width": 688,
+    "height": 228,
+    "z": 100009,
+    "tabOrder": 100009
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Country rankings and unmatched ISO codes'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Country"
+                }
+              },
+              "queryRef": "FactImpacts.Country",
+              "nativeQueryRef": "Country",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "ISO"
+                }
+              },
+              "queryRef": "FactImpacts.ISO",
+              "nativeQueryRef": "ISO",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Map coverage"
+                }
+              },
+              "queryRef": "FactImpacts.Map coverage",
+              "nativeQueryRef": "Map coverage",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Selected map value"
+                }
+              },
+              "queryRef": "FactImpacts.Selected map value",
+              "nativeQueryRef": "Selected map value",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Distinct events"
+                }
+              },
+              "queryRef": "FactImpacts.Distinct events",
+              "nativeQueryRef": "Distinct events",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Deaths"
+                }
+              },
+              "queryRef": "FactImpacts.Deaths",
+              "nativeQueryRef": "Deaths",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Affected"
+                }
+              },
+              "queryRef": "FactImpacts.Affected",
+              "nativeQueryRef": "Affected",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactImpacts"
+                    }
+                  },
+                  "Property": "Adjusted damage USD million"
+                }
+              },
+              "queryRef": "FactImpacts.Adjusted damage USD million",
+              "nativeQueryRef": "Adjusted damage USD million",
+              "active": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

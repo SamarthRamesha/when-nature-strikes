@@ -1,0 +1,47 @@
+{
+  "events": 15727,
+  "impacts": 18060,
+  "type_counts": {
+    "Flood": 5814,
+    "Storm": 4026,
+    "Earthquake": 1573,
+    "Epidemic": 1447,
+    "Mass movement (wet)": 867,
+    "Drought": 647,
+    "Wildfire": 508,
+    "Extreme temperature": 433,
+    "Volcanic activity": 277,
+    "Infestation": 78,
+    "Mass movement (dry)": 47,
+    "Glacial lake outburst flood": 7,
+    "Impact": 1,
+    "Fog": 1,
+    "Animal incident": 1
+  },
+  "busiest_year": 2000,
+  "coverage": {
+    "Total Deaths": 0.7410822152985312,
+    "Total Affected": 0.7862910917530361,
+    "Total Damage, Adjusted (million US$)": 0.3338844026196986
+  },
+  "impact_leaders": {
+    "Total Affected": {
+      "total": "Flood",
+      "mean": "Drought",
+      "median": "Drought",
+      "winsor_mean": "Drought"
+    },
+    "Total Damage, Adjusted (million US$)": {
+      "total": "Storm",
+      "mean": "Earthquake",
+      "median": "Drought",
+      "winsor_mean": "Extreme temperature"
+    },
+    "Total Deaths": {
+      "total": "Drought",
+      "mean": "Drought",
+      "median": "Fog",
+      "winsor_mean": "Drought"
+    }
+  }
+}

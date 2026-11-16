@@ -56,3 +56,29 @@ tmp/
 secrets/
 *.pem
 *.key
+
+# Authorized local EM-DAT acquisition and row-level products
+/data/source/*
+!/data/source/README.md
+/data/processed/*
+!/data/processed/README.md
+/results/country.csv
+/results/country_by_year.csv
+/results/map_unmatched.csv
+/results/event_profiles.csv
+/results/*.joblib
+/node_modules/
+/submission/.build/
+/node_modules
+/submission/*.inspect.ndjson
+
+# Local authorized analysis and Power BI caches
+/results/xai/predictions_local.csv
+/results/xai/ice_local.csv
+/results/dimensionality_reduction/embeddings_local.csv
+/WINDOWS_HANDOVER/logs/
+/submission/powerbi/local/
+*.pbix
+*.pbit
+**/.pbi/
+/results/type_by_year.csv

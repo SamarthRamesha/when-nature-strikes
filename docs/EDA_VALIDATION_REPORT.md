@@ -1,5 +1,7 @@
 # EDA Validation Report — When Nature Strikes
 
+> Original EDA verification. See the [final validation record](VALIDATION_REPORT.md) and [data terms](DATA_LICENSE.md).
+
 Written by Samarth Ramesha (data/integration role) to verify the findings produced by Shashank
 S K's analysis notebooks before they are used in the integrated dashboard.
 

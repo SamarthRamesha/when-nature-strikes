@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "6e122e0be96860760d20",
+  "position": {
+    "x": 515,
+    "y": 120,
+    "z": 2,
+    "height": 97,
+    "width": 205,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "listSlicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimEvent"
+                    }
+                  },
+                  "Property": "Disaster Subgroup"
+                }
+              },
+              "queryRef": "DimEvent.Disaster Subgroup",
+              "nativeQueryRef": "Disaster Subgroup",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimEvent"
+                  }
+                },
+                "Property": "Disaster Subgroup"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "syncGroup": {
+      "groupName": "Subgroup",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Subgroup'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "776ba3c618a76240638e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimEvent"
+              }
+            },
+            "Property": "Disaster Subgroup"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

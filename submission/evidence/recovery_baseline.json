@@ -1,0 +1,109 @@
+{
+  "baseline": "9b48a5043cda4238ad53c4d66e18cc0c19d1c870",
+  "integration_base": "66179d90199e3e396453e0c3cffb52f43cc335b9",
+  "baseline_local_copy": "Full tracked tree of the baseline commit; includes licensed contents.",
+  "exactly_restored_public_files": [
+    "analysis/outputs/decadal_disaster_frequency.csv",
+    "analysis/outputs/impact_correlation_matrix.csv",
+    "analysis/outputs/yearly_disaster_frequency.csv",
+    "docs/DATA_HANDOVER.md"
+  ],
+  "active_notebooks": [
+    "analysis/00_data_overview.ipynb",
+    "analysis/01_disaster_frequency.ipynb",
+    "analysis/02_disaster_impact.ipynb",
+    "analysis/03_temporal_trends.ipynb",
+    "analysis/04_pattern_analysis.ipynb",
+    "analysis/05_visualizations_and_findings.ipynb"
+  ],
+  "original_eda_outputs": [
+    "analysis/outputs/data_quality_report.json",
+    "analysis/outputs/decadal_disaster_frequency.csv",
+    "analysis/outputs/decadal_disaster_impact.csv",
+    "analysis/outputs/disaster_impact_summary.csv",
+    "analysis/outputs/disaster_pattern_summary.csv",
+    "analysis/outputs/eda_validation.json",
+    "analysis/outputs/final_decadal_frequency.csv",
+    "analysis/outputs/final_disaster_frequency.csv",
+    "analysis/outputs/final_disaster_impact_summary.csv",
+    "analysis/outputs/final_impact_correlation.csv",
+    "analysis/outputs/final_reporting_coverage.csv",
+    "analysis/outputs/final_yearly_frequency.csv",
+    "analysis/outputs/frequency_vs_destructiveness.csv",
+    "analysis/outputs/historical_recent_comparison.csv",
+    "analysis/outputs/impact_correlation_matrix.csv",
+    "analysis/outputs/impact_reporting_coverage.csv",
+    "analysis/outputs/yearly_disaster_frequency.csv"
+  ],
+  "original_eda_charts": [
+    "visualizations/final/01_final_disaster_frequency.png",
+    "visualizations/final/02_final_average_deaths.png",
+    "visualizations/final/03_final_average_affected.png",
+    "visualizations/final/04_final_yearly_trend.png",
+    "visualizations/final/05_final_decadal_frequency.png",
+    "visualizations/final/06_final_impact_correlation.png",
+    "visualizations/final/07_final_average_damage.png",
+    "visualizations/final/08_final_reporting_coverage.png",
+    "visualizations/frequency/01_disaster_frequency.png",
+    "visualizations/frequency/02_cumulative_frequency.png",
+    "visualizations/impacts/01_impact_reporting_coverage.png",
+    "visualizations/impacts/02_deaths_by_disaster_type.png",
+    "visualizations/impacts/03_average_deaths_per_event.png",
+    "visualizations/impacts/04_total_affected_population.png",
+    "visualizations/impacts/05_average_affected_per_event.png",
+    "visualizations/impacts/06_total_economic_damage.png",
+    "visualizations/impacts/07_average_economic_damage.png",
+    "visualizations/impacts/08_frequency_vs_average_deaths.png",
+    "visualizations/impacts/09_frequency_vs_average_affected.png",
+    "visualizations/impacts/10_frequency_vs_average_damage.png",
+    "visualizations/patterns/01_average_deaths_by_type.png",
+    "visualizations/patterns/02_average_affected_by_type.png",
+    "visualizations/patterns/03_average_damage_by_type.png",
+    "visualizations/patterns/04_impact_correlation_heatmap.png",
+    "visualizations/patterns/05_frequency_vs_average_deaths.png",
+    "visualizations/trends/01_yearly_disaster_frequency.png",
+    "visualizations/trends/02_decadal_disaster_frequency.png",
+    "visualizations/trends/03_decadal_deaths.png",
+    "visualizations/trends/04_decadal_affected_population.png",
+    "visualizations/trends/05_decadal_economic_damage.png",
+    "visualizations/trends/06_decadal_reporting_coverage.png",
+    "visualizations/trends/07_historical_vs_recent.png"
+  ],
+  "original_preparation_and_validation": [
+    "scripts/prepare_emdat.py",
+    "scripts/validate_project_data.py",
+    "scripts/verify_eda_findings.py"
+  ],
+  "data_documentation": [
+    "docs/DATA_DICTIONARY.md",
+    "docs/DATA_HANDOVER.md",
+    "docs/DATA_QUALITY_REPORT.md",
+    "docs/EDA_VALIDATION_REPORT.md"
+  ],
+  "private_baseline_data_sha256": {
+    "data/processed/cleaned_natural_disaster_impacts.csv": "fe994363ccd9883a6c7d081129650235063cbe17fc5b6631f63592d6de0f6263",
+    "data/processed/natural_country_year_type_summary.csv": "3574284cba3175716cf6fdc216736b062994d0ecc1188800774e880a670bde0f",
+    "data/processed/natural_disaster_events.csv": "550a6068a2d6c6c4862edcd95e39072b80c2a3b794e2251c74c35feb5ccc0643",
+    "data/processed/natural_disaster_type_summary.csv": "27d152f067559438cae17b26c9709c01421814d0e9ab958da125d0512bcd3562",
+    "data/source/EM-DAT Custom Request Oct 31 2026.xlsx": "6767b6125b3ad35a5f6aa88d3f8522efab3bed7bb0c8fdb8cf0fa91143e9d422"
+  },
+  "private_powerbi_sources_sha256": {
+    "When_Nature_Strikes_dashboard.pbit": "8dcf62ee64c8d4314098a71ab428aadfee62412a12a250f46f1bc826cf7d22b2",
+    "When_Nature_Strikes_dashboard.pbix": "566e4b294b94716f337d68d157ab1c51628407cd32b1334271f6220193f2e835",
+    "nature_strike_geospatial.pbip": "4befc924b20ff92233ab040c5e78bbeee62f50adbf6ca9b2dbc779dc40ff41b3",
+    "nature_strike_geospatial.pbix": "7a16ca9b71d469d1eb0e75c5e598f50732b290a8dd772124993a9ba3dd445514"
+  },
+  "original_visual_counts": {
+    "Disaster Overview": 15,
+    "Frequency vs Destructiveness": 13,
+    "Temporal Analysis": 15,
+    "Geographic Analysis": 11
+  },
+  "integrated_visual_counts": {
+    "Disaster Overview": 20,
+    "Frequency vs Destructiveness": 20,
+    "Temporal Analysis": 21,
+    "Geographic Analysis": 21,
+    "Guided Findings": 16
+  }
+}
