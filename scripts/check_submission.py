@@ -34,7 +34,7 @@ def check():
             if filename.endswith("pptx"):
                 assert "ppt/notesSlides/notesSlide18.xml" in package.namelist()
     for name in ("presenter_script.md", "dashboard_demo_guide.md", "viva_questions.md"):
-        assert len((SUBMISSION / name).read_text()) > 1000
+        assert len((SUBMISSION / name).read_text(encoding="utf-8")) > 1000
     print("Submission verification passed for Word, PowerPoint, both PDFs, notes, and headline results.")
 
 

@@ -7,7 +7,7 @@ from .metrics import ID, ROOT
 
 
 def boundaries():
-    raw = json.loads((ROOT / "dashboard" / "world.geojson").read_text())
+    raw = json.loads((ROOT / "dashboard" / "world.geojson").read_text(encoding="utf-8"))
     features = []
     for item in raw["features"]:
         props = item["properties"]
